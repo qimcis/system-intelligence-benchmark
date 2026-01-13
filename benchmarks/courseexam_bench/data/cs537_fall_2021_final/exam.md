@@ -8,7 +8,7 @@
   "institution": "University of Wisconsin-Madison",
   "year": 2021,
   "score_total": 56,
-  "num_questions": 56
+  "num_questions": 55
 }
 ```
 
