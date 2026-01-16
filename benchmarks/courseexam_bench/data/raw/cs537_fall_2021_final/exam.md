@@ -1,32 +1,34 @@
-# CS 537 Fall 2021 Final
+# Sibling Rivalry
 
 ```json
 {
   "exam_id": "cs537_fall_2021_final",
-  "test_paper_name": "CS 537 Fall 2021 Final",
-  "course": "Operating Systems",
-  "institution": "University of Wisconsin-Madison",
+  "test_paper_name": "Sibling Rivalry",
+  "course": "CS 537",
+  "institution": "Unknown Institution",
   "year": 2021,
-  "score_total": 56,
-  "num_questions": 55
+  "score_total": 32,
+  "num_questions": 32
 }
 ```
 
 ---
 
 
+
+
 ## Question 1 [1 point]
 
-The drive consists of a large number of sectors (512-byte blocks), each of which can be read or ______.
-A) deleted
-
-B) written
-
-C) read from
-
-D) erased
-
-E) truncated
+BeOS  keeps  track  of  a  small  amount  of  information  about  each  running  process  in  a  data  structure 
+called  the  “process  list”.  However,  to  keep  the amount  of  information  in  the  process  list  small,  Binus 
+reduced  the  number of  states  a  process  could  be  in.  Specifically,  in  BeOS,  there  are  only  two  states  a 
+process  can  be  in: RUNNING and BLOCKED.  What  process  state  found  in  most  OSes  was  removed 
+from BeOS? 
+- a STOPPED 
+- b READY 
+- c ACTIVE 
+- d WAITING 
+- e LOCKED
 
 Your answer should be one letter only (A, B, C, D, or E).
 
@@ -35,38 +37,27 @@ Your answer should be one letter only (A, B, C, D, or E).
   "problem_id": "1",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "disks",
-    "storage-hardware",
-    "disk-geometry"
-  ],
-  "choices": [
-    "deleted",
-    "written",
-    "read from",
-    "erased",
-    "truncated"
-  ],
+  "tags": ["operating-systems","process-management"],
+  "choices": ["STOPPED","READY","ACTIVE","WAITING","LOCKED"],
   "answer": "B"
 }
 ```
+
 ---
+
+
 
 
 ## Question 2 [1 point]
 
-We start with a _____, a circular hard surface on which data is stored persistently by inducing magnetic changes to it.
-A) platter
-
-B) surface
-
-C) track
-
-D) sector
-
-E) block
-
+To  keep  scheduling  simple  in  BeOS,  Binus  chose  the FIFO  policy  (first  in,  first  out)  to  decide  which 
+process to run.  Which one of the following statements about FIFO scheduling is true? 
+- a It reduces average turnaround time 
+- b It reduces average response time 
+- c It suffers from the “convoy” problem 
+- d It is a preemptive scheduling policy 
+- e It is different from the FCFS policy 
+ 
 Your answer should be one letter only (A, B, C, D, or E).
 
 ```json
@@ -74,38 +65,29 @@ Your answer should be one letter only (A, B, C, D, or E).
   "problem_id": "2",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "disks",
-    "storage-hardware",
-    "disk-geometry"
-  ],
-  "choices": [
-    "platter",
-    "surface",
-    "track",
-    "sector",
-    "block"
-  ],
-  "answer": "A"
+  "tags": ["operating-systems","cpu-scheduling"],
+  "choices": ["It reduces average turnaround time","It reduces average response time","It suffers from the “convoy” problem","It is a preemptive scheduling policy","It is different from the FCFS policy"],
+  "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 3 [1 point]
 
-Data is encoded on each surface in concentric circles of sectors; we call one such concentric circle a ______.
-A) platter
-
-B) surface
-
-C) track
-
-D) sector
-
-E) block
-
+Assuming  the  BeOS  FIFO  scheduling  approach,  calculate  the turnaround  time  for  job  B,  assuming 
+the following: job A arrives at time T=0, and needs to perform 10 seconds of compute; job B arrives at 
+time  T=5,  and  needs  to  perform  20  seconds  of  compute;  job  C  arrives  at the  time  T=10,  and  needs  to 
+perform 5 seconds of compute. The jobs perform no I/O. 
+- a 10 
+- b 20 
+- c 30 
+- d 25 
+- e None of the above 
+ 
 Your answer should be one letter only (A, B, C, D, or E).
 
 ```json
@@ -113,76 +95,174 @@ Your answer should be one letter only (A, B, C, D, or E).
   "problem_id": "3",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "disks",
-    "storage-hardware",
-    "disk-geometry"
-  ],
-  "choices": [
-    "platter",
-    "surface",
-    "track",
-    "sector",
-    "block"
-  ],
-  "answer": "C"
+  "tags": ["operating-systems","cpu-scheduling"],
+  "choices": ["10","20","30","25","None of the above"],
+  "answer": "D"
 }
 ```
+
 ---
+
+
 
 
 ## Question 4 [1 point]
 
-Another reality is that outer tracks tend to have more sectors than inner tracks, which is a result of geometry; there is simply more room out there. These disks are often referred to as ______ disk drives.
-A) wicked smart
-
-B) extended
-
-C) regular
-
-D) multi-zoned
-
-E) shingled
-  
-Your answer should be one letter only (A, B, C, D, or E).
+For simplicity, BeOS originally used a “base and bounds” approach to virtual memory. Which one of 
+the following is true about this approach? 
+- a It translates addresses more slowly than most other approaches 
+- b It prevents internal fragmentation 
+- c It enables sharing of code between processes 
+- d It provides protection between processes 
+- e None of the above (all are false) 
+Page  of 39
 
 ```json
 {
   "problem_id": "4",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "disks",
-    "storage-hardware",
-    "disk-geometry"
-  ],
-  "choices": [
-    "wicked smart",
-    "extended",
-    "regular",
-    "multi-zoned",
-    "shingled"
-  ],
+  "tags": ["operating-systems","memory-management","virtual-memory"],
+  "choices": ["It translates addresses more slowly than most other approaches","It prevents internal fragmentation","It enables sharing of code between processes","It provides protection between processes","None of the above (all are false)"],
   "answer": "D"
 }
 ```
+
 ---
+
+
+
+
+## Question 5 [1 point]
+
+Assume the following for the original version of BeOS: a 64-byte virtual address space, a system with 
+512 bytes of physical memory, a base register set to 10, and a bounds register set to 20. A process in 
+BeOS  wishes  to  access  the  following  virtual  memory  addresses:  15,  6,  30,  21,  50.  How  many  of  these 
+accesses are valid (legal) and thus will not trigger a fault? 
+- a 1 
+- b 2 
+- c 3 
+- d 4 
+- e 5 
+ 
+Your answer should be one letter only (A, B, C, D, or E).
+
+```json
+{
+  "problem_id": "5",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","memory-management","virtual-memory"],
+  "choices": ["1","2","3","4","5"],
+  "answer": "B"
+}
+```
+
+---
+
+
+
+
+## Question 6 [1 point]
+
+A  later  version  of  BeOS  was  developed  for  a  newer  machine  and  had  a  much  larger  virtual  address 
+space: 1  KB.  Assuming  it  is  running  on  a  system  with  16  KB  of  physical  memory,  what  is  the  largest 
+virtual address a BeOS process can generate? 
+- a 1000 
+- b 1023 
+- c 1024 
+- d It depends on the base register 
+- e It depends on the bounds register 
+ 
+Your answer should be one letter only (A, B, C, D, or E).
+
+```json
+{
+  "problem_id": "6",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","memory-management","virtual-memory"],
+  "choices": ["1000","1023","1024","It depends on the base register","It depends on the bounds register"],
+  "answer": "B"
+}
+```
+
+---
+
+
+
+
+## Question 7 [1 point]
+
+With a base and bounds registers in the MMU, BeOS must take care during process switching. In an 
+early  version  of  BeOS,  it  was  so  simple  that  the  bounds  register  was  never  updated  upon  a  process 
+switch, instead using the first value — essentially, a random value — that was placed there. What could 
+happen as a result? (choose one answer) 
+- a A process could access another process’s memory 
+- b A process could fault even though it is accessing what should be valid memory 
+- c A process could access physical memory that isn’t assigned to any process 
+- d A process could be prevented from accessing valid code 
+- e All of the above  
+ 
+Your answer should be one letter only (A, B, C, D, or E).
+
+```json
+{
+  "problem_id": "7",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","memory-management","virtual-memory"],
+  "choices": ["A process could access another process’s memory","A process could fault even though it is accessing what should be valid memory","A process could access physical memory that isn’t assigned to any process","A process could be prevented from accessing valid code","All of the above"],
+  "answer": "E"
+}
+```
+
+---
+
+
+
+
+## Question 8 [1 point]
+
+An earlier version of BeOS was so simple that it didn’t use the base and bounds registers provided in 
+hardware.  Instead,  when  a  process  was  loaded  into  memory,  each  of  its  address  references  was 
+statically rewritten to match its location in physical memory. For example, if the program contained the 
+instruction  “load  10  into  register  R1”,  and  the  address  space  was  loaded  at  physical  address  100,  the 
+instruction would be rewritten to “load 110 into register R1”. This approach (choose one answer): 
+- a Provides strong process isolation 
+- b Makes programs run slowly 
+- c Allows multiple processes to be active in the system 
+- d Affects the type of CPU scheduling policy you can implement 
+- e Helps realize a sparse virtual address space
+
+Page  of 39
+
+```json
+{
+  "problem_id": "8",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","memory-management","address-translation"],
+  "choices": ["Provides strong process isolation","Makes programs run slowly","Allows multiple processes to be active in the system","Affects the type of CPU scheduling policy you can implement","Helps realize a sparse virtual address space"],
+  "answer": "C"
+}
+```
+
+---
+
+
 
 
 ## Question 9 [1 point]
 
-The three basic components of disk I/O time are ______, _______, and ______.
-A) transition, position, constitution
-
-B) move head, wait for head to stop moving, transfer
-
-C) position, transfer, react
-
-D) shake, rattle, roll
-
-E) seek, rotate, transfer
+The  DOS  scheduler  is  based  on  a  random  policy.  Specifically,  every  10  milliseconds  (ms),  a  timer 
+interrupt  goes  off,  and  DOS  picks  a  random  process  to  run.  This  approach  is  most  similar  to  which 
+following policy? 
+- a First-in, First-out 
+- b Shortest Job First 
+- c Round Robin 
+- d Shortest Time To Completion First 
+- e Rank-order Scheduling
 
 Your answer should be one letter only (A, B, C, D, or E).
 
@@ -191,667 +271,502 @@ Your answer should be one letter only (A, B, C, D, or E).
   "problem_id": "9",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "disks",
-    "disk-scheduling",
-    "io"
-  ],
-  "choices": [
-    "transition, position, constitution",
-    "move head, wait for head to stop moving, transfer",
-    "position, transfer, react",
-    "shake, rattle, roll",
-    "seek, rotate, transfer"
-  ],
-  "answer": "E"
+  "tags": ["operating-systems","cpu-scheduling"],
+  "choices": ["First-in, First-out","Shortest Job First","Round Robin","Shortest Time To Completion First","Rank-order Scheduling"],
+  "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 10 [1 point]
 
-A disk scheduling algorithm that avoids starvation is called ______
-A) PASS
-
-B) CRANK
-
-C) SCAN
-
-D) CHECK
-
-E) FAIRPLAY
-
-Your answer should be one letter only (A, B, C, D, or E).
+With  the  DOS  random  scheduling  policy,  assume  you  have  two  jobs  enter  the  system  at  the  same 
+time, each of which needs to run for 30 milliseconds. Assume again a 10 ms timer interrupt. What is the 
+best case average response time for these two jobs? 
+- a 0 ms 
+- b 5 ms 
+- c 10 ms 
+- d 15 ms 
+- e None of the above
 
 ```json
 {
   "problem_id": "10",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "disks",
-    "disk-scheduling",
-    "io"
-  ],
-  "choices": [
-    "PASS",
-    "CRANK",
-    "SCAN",
-    "CHECK",
-    "FAIRPLAY"
-  ],
-  "answer": "C"
+  "tags": ["operating-systems","cpu-scheduling"],
+  "choices": ["0 ms","5 ms","10 ms","15 ms","None of the above"],
+  "answer": "B"
 }
 ```
+
 ---
+
+
 
 
 ## Question 11 [1 point]
 
-RAIDs offer a number of advantages over a single disk. One advantage is performance. Using multiple disks in parallel can greatly speed up I/O times. Another benefit is capacity. Large data sets demand large disks. Finally, RAIDs can improve ______
-A) size
-
-B) the odds
-
-C) reliability
-
-D) latency
-
-E) distribution
-
-Your answer should be one letter only (A, B, C, D, or E).
+With  the  DOS  random  scheduling  policy,  assume  you  have  two  jobs  enter  the  system  at  the  same 
+time, each of which needs to run for 30 milliseconds. Assume again a 10 ms timer interrupt. What is the 
+worst case average turnaround time for these two jobs? 
+- a 45 ms 
+- b 50 ms 
+- c 60 ms 
+- d 120 ms 
+- e None of the above
 
 ```json
 {
   "problem_id": "11",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "size",
-    "the odds",
-    "reliability",
-    "latency",
-    "distribution"
-  ],
-  "answer": "C"
+  "tags": ["operating-systems","cpu-scheduling"],
+  "choices": ["45 ms","50 ms","60 ms","120 ms","None of the above"],
+  "answer": "B"
 }
 ```
+
 ---
 
 
-## Question 12-13 [2 points]
 
-Part A: More generally, a mirrored system (with mirroring level of 2) can tolerate 1 disk failure for certain, and up to ______ failures depending on which disks fail. [Assume here there are N disks in the system]
-A) 2
 
-B) N/4
+## Question 12 [1 point]
 
-C) N/2
+DOS  uses  the  MLFQ  (multi-level  feedback  queue)  scheduler.  However,  it  changes  some  rules.  The 
+biggest  change:  new  processes  are  added  to  a random  queue  (not  the  topmost  one).  What  is  the 
+biggest effect this will have? (choose one) 
+- a Sometimes, short-running jobs won’t get serviced quickly, thus decreasing interactivity 
+- b Over a long period of time, it will be unfair to long-running jobs 
+- c Jobs will generally finish more quickly 
+- d Jobs will be able to game the scheduler 
+- e None of the above
 
-D) N/3
-
-E) N
-
-Part B: Thus, we can conclude that the maximum bandwidth obtained during sequential writing to a 2-way mirrored array is ______ [Assume here there are N disks, and that a single disk delivers S MB/s of disk bandwidth]
-A) S MB/s
-
-B) 2 x S MB/s
-
-C) N x S MB/s
-
-D) N x S / 2 MB/s
-
-E) N x S x S MB/s
-
-Your answer should be two letters separated by a comma, in order for Part A then Part B (for example: "A, B").
+ 
+Your answer should be one letter only (A, B, C, D, or E).
 
 ```json
 {
-  "problem_id": "12-13",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["operating-systems", "raid", "fault-tolerance", "performance"],
-  "answer": "C, D",
-  "llm_judge_instructions": "Award 2 points if the 2 answers are correct (C for Part A, D for Part B). Award 1 point if only one of the two answers is correct. Award 0 points if neither answer is correct."
+  "problem_id": "12",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","cpu-scheduling","mlfq"],
+  "choices": ["Sometimes, short-running jobs won’t get serviced quickly, thus decreasing interactivity","Over a long period of time, it will be unfair to long-running jobs","Jobs will generally finish more quickly","Jobs will be able to game the scheduler","None of the above"],
+  "answer": "A"
 }
 ```
+
 ---
+
+
+
+
+## Question 13 [1 point]
+
+DOS  uses paging.  Before  talking  about  how  randomness  was  used,  let’s  do  a  simple  questions  to 
+make sure we understand it. In this system, the virtual address space size was 128 bytes (tiny!), and the 
+page size was just 2 bytes. How many entries were in each page table? (assume a linear array) 
+- a 128 
+- b 64 
+- c 32 
+- d 16 
+- e None of the above
+
+```json
+{
+  "problem_id": "13",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","paging","virtual-memory"],
+  "choices": ["128","64","32","16","None of the above"],
+  "answer": "B"
+}
+```
+
+---
+
+
 
 
 ## Question 14 [1 point]
 
-For example, in RAID-4, if we had blocks of size 2 bits... they might look something like this:
-Block0: 00
-Block1: 10
-Block2: 11
-Block3: 10
-Parity: _____
-A) 00
-
-B) 01
-
-C) 10
-
-D) 11
-
-E) None of the above
-
-Your answer should be one letter only (A, B, C, D, or E).
+Now assume the address space size is still 128 bytes, but the page size is 32 bytes. Here is the page 
+table for a process, where the leftmost bit is the valid bit, and the rightmost 4 bits are the PFN.   
+  0x8000000c 
+  0x00000000 
+  0x00000000 
+  0x80000006 
+If 4 bits are needed for the PFN, how big is physical memory? 
+- a 128 bytes 
+- b 256 bytes 
+- c 512 bytes 
+- d 1024 bytes 
+- e None of the above
 
 ```json
 {
   "problem_id": "14",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "00",
-    "01",
-    "10",
-    "11",
-    "None of the above"
-  ],
-  "answer": "D"
+  "tags": ["operating-systems","paging","virtual-memory"],
+  "choices": ["128 bytes","256 bytes","512 bytes","1024 bytes","None of the above"],
+  "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 15 [1 point]
 
-RAID-4 uses a disk for parity information for every group of disks it is protecting. Thus, our useful capacity for a RAID group is ______ [Assume N disks, and B bytes of data per disk]
-A) N x B
-
-B) N
-
-C) B
-
-D) N x (B - 1)
-
-E) (N - 1) x B
-
-Your answer should be one letter only (A, B, C, D, or E).
+Assume  again  that  the  address  space  size  is  128  bytes,  and  the  page  size  is  32  bytes.  Using  the 
+page table above (Question 14), translate the virtual address 0x64. 
+- a 0x46 
+- b 0x04 
+- c 0xc4 
+- d 0x64 
+- e None of the above
 
 ```json
 {
   "problem_id": "15",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "N x B",
-    "N",
-    "B",
-    "N x (B - 1)",
-    "(N - 1) x B"
-  ],
-  "answer": "E"
+  "tags": ["operating-systems","paging","address-translation"],
+  "choices": ["0x46","0x04","0xc4","0x64","None of the above"],
+  "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 16 [1 point]
 
-Random read performance of RAID-5 (as compared to RAID-4) is ______
-A) a little better
-
-B) a little worse
-
-C) a lot better
-
-D) a lot worse
-
-E) about the same
-
-Your answer should be one letter only (A, B, C, D, or E).
+When allocating a physical page to a process, DOS selects a random free physical page (instead of, 
+for example, the first free one on a free list). This approach will: 
+- a Make the page table larger 
+- b Make physical memory more fragmented (externally) 
+- c Slow down address translation 
+- d Make heap allocation fail more often 
+- e None of the above
 
 ```json
 {
   "problem_id": "16",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "a little better",
-    "a little worse",
-    "a lot better",
-    "a lot worse",
-    "about the same"
-  ],
-  "answer": "A"
+  "tags": ["operating-systems","memory-management","allocation"],
+  "choices": ["Make the page table larger","Make physical memory more fragmented (externally)","Slow down address translation","Make heap allocation fail more often","None of the above"],
+  "answer": "B"
 }
 ```
+
 ---
+
+
 
 
 ## Question 17 [1 point]
 
-RAID Level(s) _____ encounter(s) the ‘small write’ problem.
-A) 0
-
-B) 1
-
-C) 4
-
-D) 5
-
-E) 4 and 5
-
-Your answer should be one letter only (A, B, C, D, or E).
+ Minux  uses  kernel  mode,  user  mode,  and  a  new  mode  called  “supervisor”  mode.  When  a  user 
+program runs in “supervisor” mode, it is still restricted (like user mode), but can do the following: change 
+the  length  of  the  timer  interrupt  interval,  including  turning  it  off.  Overall,  would  you  say  that  supervisor 
+mode (choose one): 
+- a Helps ensure streamlined round-robin scheduling 
+- b Ensures more efficient, application-aware timing interrupts 
+- c Better integrates scheduling and virtual memory mechanisms 
+- d Limits the OS’s ability to retain control of the machine if user code runs in supervisor mode 
+- e None of the above
 
 ```json
 {
   "problem_id": "17",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "0",
-    "1",
-    "4",
-    "5",
-    "4 and 5"
-  ],
-  "answer": "E"
+  "tags": ["operating-systems","privilege","simulation"],
+  "choices": ["Helps ensure streamlined round-robin scheduling","Ensures more efficient, application-aware timing interrupts","Better integrates scheduling and virtual memory mechanisms","Limits the OS’s ability to retain control of the machine if user code runs in supervisor mode","None of the above"],
+  "answer": "D"
 }
 ```
+
 ---
+
+
 
 
 ## Question 18 [1 point]
 
-A single write (to a RAID-4) requires _____ read(s) and then ______ write(s) to the underlying disks. [assuming subtractive parity]
-A) 2, 1
-
-B) 1, 2
-
-C) 2, 2
-
-D) 1, 1
-
-E) None of the above
-
-Your answer should be one letter only (A, B, C, D, or E).
+Minux employs a (two-level) multi-level page table. Assume a 32-bit virtual address space, and 4 KB 
+pages. Also assume each page table entry (PTE) is 4 bytes in size. How many PTEs fit onto one page? 
+- a 1  
+- b 32 
+- c 1024 
+- d 4096 
+- e None of the above
 
 ```json
 {
   "problem_id": "18",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "2, 1",
-    "1, 2",
-    "2, 2",
-    "1, 1",
-    "None of the above"
-  ],
+  "tags": ["operating-systems","paging"],
+  "choices": ["1","32","1024","4096","None of the above"],
   "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 19 [1 point]
 
-Assuming that each disk, under a random write workload, delivers R MB/s, a RAID-5 system with N disks will deliver ______ MB/s under a random write workload.
-A) N x R MB/s
-
-B) N x R / 2 MB/s
-
-C) N x R / 4 MB/s
-
-D) R / 2 MB/s
-
-E) R MB/s
-
-Your answer should be one letter only (A, B, C, D, or E).
+Assuming a two-level multi-level page table (32-bit virtual addresses, 4KB pages, 4-byte PTE size), 
+what  is  the  minimum  number  of  valid  virtual  pages  in  an  address  space  such  that  the  multi-level  page 
+table becomes its maximum size? 
+- a 512  
+- b 1024 
+- c 2048 
+- d 4096 
+- e None of the above
 
 ```json
 {
   "problem_id": "19",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "N x R MB/s",
-    "N x R / 2 MB/s",
-    "N x R / 4 MB/s",
-    "R / 2 MB/s",
-    "R MB/s"
-  ],
-  "answer": "C"
+  "tags": ["operating-systems","paging"],
+  "choices": ["512","1024","2048","4096","None of the above"],
+  "answer": "E"
 }
 ```
+
 ---
+
+
 
 
 ## Question 20 [1 point]
 
-To conclude, if you strictly want performance and do not care about reliability, ______ is obviously best.
-A) rebooting
-
-B) a parity-based approach
-
-C) mirroring
-
-D) thinking
-
-E) striping
-
-Your answer should be one letter only (A, B, C, D, or E).
+Assuming a two-level multi-level page table (32-bit virtual addresses, 4KB pages, 4-byte PTE size), 
+what  is  the  minimum  number  of  pages  needed  for  the  multi-level  page  table  (including  the  page 
+directory) when there are 1025 contiguous valid pages somewhere in the virtual address space? 
+- a 3 
+- b 4 
+- c 5 
+- d 1025 
+- e None of the above
 
 ```json
 {
   "problem_id": "20",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "raid",
-    "storage",
-    "fault-tolerance"
-  ],
-  "choices": [
-    "rebooting",
-    "a parity-based approach",
-    "mirroring",
-    "thinking",
-    "striping"
-  ],
-  "answer": "E"
+  "tags": ["operating-systems","paging"],
+  "choices": ["3","4","5","1025","None of the above"],
+  "answer": "A"
 }
 ```
+
 ---
+
+
 
 
 ## Question 21 [1 point]
 
-A Flash bank is organized into a large number of ______, each of which is further sub-divided into pages.
-A) mega pages
-
-B) blocks
-
-C) units
-
-D) chunks
-
-E) candy bars
-
-Your answer should be one letter only (A, B, C, D, or E).
+  TLBs  make  hardware  more  complex,  so  Minux  definitely  uses  one.  The  best  description  of  what  a 
+TLB is as follows (choose one): 
+- a A memory to store page table entries 
+- b A collection of base/bounds pairs to help segmentation work quickly 
+- c An OS component to speed up translation 
+- d A hardware feature that ensures fair use of memory 
+- e An address-translation cache
 
 ```json
 {
   "problem_id": "21",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "mega pages",
-    "blocks",
-    "units",
-    "chunks",
-    "candy bars"
-  ],
-  "answer": "B"
+  "tags": ["operating-systems","paging","tlb"],
+  "choices": ["A memory to store page table entries","A collection of base/bounds pairs to help segmentation work quickly","An OS component to speed up translation","A hardware feature that ensures fair use of memory","An address-translation cache"],
+  "answer": "E"
 }
 ```
+
 ---
+
+
 
 
 ## Question 22 [1 point]
 
-A typical size of a Flash page is ____.
-A) 4 KB
-
-B) 256 KB
-
-C) 256 MB
-
-D) 256 GB
-
-E) over 1 TB
-
-Your answer should be one letter only (A, B, C, D, or E).
+Assume the TLB, which has just four entries, has the following contents (numbers in the TLB are all 
+decimal, and entries are all valid): 
+  VPN 0 -> PFN 1 
+  VPN 1 -> PFN 100 
+  VPN 2 -> PFN 101 
+  VPN 3 -> PFN 102 
+Assume this system has a 14-bit virtual address, and 4-KB pages. What virtual address will access the 
+physical address 50 (decimal)? 
+- a 0x0032 
+- b 0x1023 
+- c 0x3012 
+- d 0x3132 
+- e None of the above
 
 ```json
 {
   "problem_id": "22",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "4 KB",
-    "256 KB",
-    "256 MB",
-    "256 GB",
-    "over 1 TB"
-  ],
-  "answer": "A"
+  "tags": ["operating-systems","paging","tlb"],
+  "choices": ["0x0032","0x1023","0x3012","0x3132","None of the above"],
+  "answer": "E"
 }
 ```
+
 ---
+
+
 
 
 ## Question 23 [1 point]
 
-Once a Flash page is programmed, it _____.
-A) can be re-programmed repeatedly (without intervening steps)
-
-B) is guaranteed to store bits within it, permanently
-
-C) can never be re-programmed
-
-D) can be re-programmed, but first must be read
-
-E) cannot be re-programmed until the entire block is erased
-
-Your answer should be one letter only (A, B, C, D, or E).
+When running on Minux, calculate the hit rate of the TLB assuming a process has 4-KB pages, and 
+accesses  every 128th  byte  on  a  series  of  pages.  Assume  the  TLB  begins  empty,  and  ignore  code 
+accesses and just focus on this “strided” data access pattern. 
+- a Just about 99% 
+- b Just about 88% 
+- c Just about 50% 
+- d Just about 17% 
+- e None of the above 
 
 ```json
 {
   "problem_id": "23",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "can be re-programmed repeatedly (without intervening steps)",
-    "is guaranteed to store bits within it, permanently",
-    "can never be re-programmed",
-    "can be re-programmed, but first must be read",
-    "cannot be re-programmed until the entire block is erased"
-  ],
-  "answer": "E"
+  "tags": ["operating-systems","tlb","address-translation"],
+  "choices": ["Just about 99%","Just about 88%","Just about 50%","Just about 17%","None of the above"],
+  "answer": "A"
 }
 ```
+
 ---
+
+
 
 
 ## Question 24 [1 point]
 
-The biggest reliability problem Flash chips have is ______.
-A) head crashes
-
-B) read/write disturbance
-
-C) cracking
-
-D) wear out
-
-E) burn out
-
-Your answer should be one letter only (A, B, C, D, or E).
+The  Minux  scheduler  uses  a  new  scheduler  called  “highest  process  ID  (PID)  first”  (i.e.,  the  job  with 
+the highest PID always runs, and to completion). Assume job PID=1 arrives at time T=0, with length 10; 
+PID=2 arrives at T=2, length=6; PID=3 arrives at T=4, with length 4. What is the average response time 
+of this approach in this example? 
+- a 1 
+- b 2 
+- c 3 
+- d 4 
+- e None of the above 
 
 ```json
 {
   "problem_id": "24",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "head crashes",
-    "read/write disturbance",
-    "cracking",
-    "wear out",
-    "burn out"
-  ],
-  "answer": "D"
+  "tags": ["operating-systems","cpu-scheduling"],
+  "choices": ["1","2","3","4","None of the above"],
+  "answer": "E"
 }
 ```
+
 ---
+
+
 
 
 ## Question 25 [1 point]
 
-The process of _______ ensures that dead pages can be reclaimed for subsequent writes.
-A) wear leveling
-
-B) read programming
-
-C) garbage collection
-
-D) input reduction
-
-E) write amplification
-
-Your answer should be one letter only (A, B, C, D, or E).
+To  reduce  the  size  of  page  tables,  ZOS  combines  the idea  of  base/bounds  and  paging.  A  virtual 
+address  space  is  still  chopped  into  pages.  The  page  table  is  pointed  to  by  the  base  register,  and  the 
+bounds  register  holds  the “size”  of  the  page  table  (really,  the  max  VPN  that  is  valid,  plus  one).  This 
+approach (choose one): 
+- a Enables fast translation with only two extra memory references to fetch a PTE 
+- b Enables a compact page table, if you use the virtual address space carefully 
+- c Is always smaller than a linear page table 
+- d Supports a sparse address space while still also minimizing page table memory usage 
+- e None of the above
 
 ```json
 {
   "problem_id": "25",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "wear leveling",
-    "read programming",
-    "garbage collection",
-    "input reduction",
-    "write amplification"
-  ],
-  "answer": "C"
+  "tags": ["operating-systems","paging","memory-management"],
+  "choices": ["Enables fast translation with only two extra memory references to fetch a PTE","Enables a compact page table, if you use the virtual address space carefully","Is always smaller than a linear page table","Supports a sparse address space while still also minimizing page table memory usage","None of the above"],
+  "answer": "A"
 }
 ```
+
 ---
+
+
 
 
 ## Question 26 [1 point]
 
-If erases take 1000 microseconds, and page programming takes 40 microseconds, how long did the entire sequence of five writes take to complete? (Block 0 was erased, then 5 pages written).
-A) 1000 microseconds
-
-B) 1100 microseconds
-
-C) 1200 microseconds
-
-D) 40000 microseconds
-
-E) 1 millisecond
-
-Your answer should be one letter only (A, B, C, D, or E).
+ZOS, as mentioned above (Question 25), combines base/bounds and paging. Assume the following: 
+a 32-bit address space with 1-KB pages. Assume each page table entry (PTE) is 4 bytes. Assume there 
+are  100  processes  in  the  system.  If  each  process  uses  only  one  virtual  page,  what  is  the  worst-case 
+total size of all of these page tables? 
+- a 16 MB 
+- b 160 MB 
+- c 1600 MB 
+- d 16 GB 
+- e None of the above
 
 ```json
 {
   "problem_id": "26",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "1000 microseconds",
-    "1100 microseconds",
-    "1200 microseconds",
-    "40000 microseconds",
-    "1 millisecond"
-  ],
+  "tags": ["operating-systems","paging","memory-management"],
+  "choices": ["16 MB","160 MB","1600 MB","16 GB","None of the above"],
   "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 27 [1 point]
 
-Given the state... how long will the next write take to complete? (Block 0 has 5 valid, 5 empty pages. Next write goes to an empty page).
-A) 10 microseconds
-
-B) 40 microseconds
-
-C) 1000 microseconds
-
-D) 1040 microseconds
-
-E) 2 milliseconds
-
+ZOS uses a new type of scheduler called a proportional-share scheduler. This scheduler makes sure 
+each  process  gets  a  certain  amount  of  CPU  time,  based  on  how  many  “tickets”  it  has.  For  example,  if 
+process A has 2 tickets, and process B has 1, A should get twice as much CPU time as B. Note that a 
+process  cannot  change  how  many  tickets  it  has,  and  all  jobs  only  use  the  CPU  (there  is  no  I/O  in  this 
+example).  Which  of  the  following  traces  (which  each  show  which  job  was  scheduled  at  each  quantum 
+over time) does not show the behavior of a proportional-share scheduler?  
+- a AABAABAABAABAA 
+- b ABABABABABAB 
+- c AAAAAAAAAABBBBB 
+- d ABBBABBBABBBABBB 
+- e None of the above (they all could be traces from a proportional share scheduler) 
+ 
 Your answer should be one letter only (A, B, C, D, or E).
 
 ```json
@@ -859,1308 +774,144 @@ Your answer should be one letter only (A, B, C, D, or E).
   "problem_id": "27",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "10 microseconds",
-    "40 microseconds",
-    "1000 microseconds",
-    "1040 microseconds",
-    "2 milliseconds"
-  ],
-  "answer": "B"
+  "tags": ["operating-systems","cpu-scheduling","proportional-share"],
+  "choices": ["AABAABAABAABAA","ABABABABABAB","AAAAAAAAAABBBBB","ABBBABBBABBBABBB","None of the above (they all could be traces from a proportional share scheduler)"],
+  "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 28 [1 point]
 
-After the five writes above took place, assume the FTL has the following contents: 12->4 14->3 29->2 37->0 39->1. What data value will be returned if the user issues a read to block 29?
-Data in Block 0: qiUKz
-(q at 0, i at 1, U at 2, K at 3, z at 4)
-A) q
-
-B) i
-
-C) U
-
-D) K
-
-E) z
-
-Your answer should be one letter only (A, B, C, D, or E).
+ZOS  uses  a  new  mechanism  instead  of  timer  interrupts.  Instead  of  interrupting  the  CPU  every  so 
+many  milliseconds,  the ZOS  hardware  is  programmed  to  interrupt  the  CPU  after  every  N  TLB  misses.  
+How creative! As compared to the timer, this approach (choose one):  
+- a Is equally effective 
+- b Is faster to program 
+- c Is risky 
+- d Requires less memory 
+- e Requires virtual memory support
 
 ```json
 {
   "problem_id": "28",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "q",
-    "i",
-    "U",
-    "K",
-    "z"
-  ],
+  "tags": ["operating-systems","memory-management","tlb"],
+  "choices": ["Is equally effective","Is faster to program","Is risky","Requires less memory","Requires virtual memory support"],
   "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 29 [1 point]
 
-After the first five writes... assume the next five writes are to blocks 12, 20, 30, 39, and 50. After these writes, how many pages in the SSD will be live?
-A) 7
-
-B) 8
-
-C) 9
-
-D) 10
-
-E) 11
-
-Your answer should be one letter only (A, B, C, D, or E).
+A later version of ZOS uses a different, clever approach to sharing the TLB among active processes. 
+Assume the hardware does not have an address space identifier (or process identifier) field in the TLB. 
+Instead  of  flushing  the  TLB  when  switching  between  processes,  ZOS  ensures  that  each  process  in  the 
+system uses different (unique) VPNs as compare to any other process. Which of the following is not true 
+about this approach: 
+- a Allows for fully flexible use of the virtual address space by each process 
+- b Allows for faster context switching (as compared to the TLB flushing approach) 
+- c Allows for fully flexible use of physical memory 
+- d Allows sharing of code pages between processes 
+- e None of the above (all are true) 
 
 ```json
 {
   "problem_id": "29",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "7",
-    "8",
-    "9",
-    "10",
-    "11"
-  ],
-  "answer": "B"
+  "tags": ["operating-systems","tlb","address-translation"],
+  "choices": ["Allows for fully flexible use of the virtual address space by each process","Allows for faster context switching (as compared to the TLB flushing approach)","Allows for fully flexible use of physical memory","Allows sharing of code pages between processes","None of the above (all are true)"],
+  "answer": "D"
 }
 ```
+
 ---
+
+
 
 
 ## Question 30 [1 point]
 
-Assuming the same times (erase 1000, program 40), what is the average cost per write for the first 10 writes? (First 5: 1200 us. Next 5: 200 us).
-A) 100 microseconds
-
-B) 120 microseconds
-
-C) 140 microseconds
-
-D) 200 microseconds
-
-E) 1040 microseconds
-
-Your answer should be one letter only (A, B, C, D, or E).
+ZOS  also  later  added  support  for  “large”  pages,  a  new  and  clever  idea.  Assume  that  in  a  given 
+system, regular page size is usually 1 KB, and large pages are 1 MB. When possible, the OS uses large 
+pages instead of a bunch of smaller ones (e.g., when there is a contiguous, aligned portion of the virtual 
+address space in use). Why is using large pages a good idea? 
+- a They reduce system complexity 
+- b They speed up trap handling 
+- c They can increase TLB hit rates 
+- d They make physical memory allocation easier 
+- e None of the above
 
 ```json
 {
   "problem_id": "30",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "flash",
-    "storage",
-    "ftl"
-  ],
-  "choices": [
-    "100 microseconds",
-    "120 microseconds",
-    "140 microseconds",
-    "200 microseconds",
-    "1040 microseconds"
-  ],
+  "tags": ["operating-systems","paging","memory-management"],
+  "choices": ["They reduce system complexity","They speed up trap handling","They can increase TLB hit rates","They make physical memory allocation easier","None of the above"],
   "answer": "C"
 }
 ```
+
 ---
+
+
 
 
 ## Question 31 [1 point]
 
-The ______ is the generic name that is used in many file systems to describe the structure that holds the metadata for a given file.
-A) superblock
-
-B) inode
-
-C) data block
-
-D) directory
-
-E) journal
-
-Your answer should be one letter only (A, B, C, D, or E).
+ZOS also added special hardware, in the form of general-purpose registers that only the kernel can 
+use.  Indeed,  all  kernel  code  has  been  written  to  only  use  these  registers,  not  the  regular  (user-level) 
+general purpose ones. Why might these registers for the kernel be a good idea? 
+- a Faster trapping into and returning from the kernel 
+- b Kernel code now easier to compile 
+- c Reduces need for context switching between processes 
+- d Now, no way to harm user-level register contents while in kernel code 
+- e None of the above
 
 ```json
 {
   "problem_id": "31",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "metadata",
-    "storage"
-  ],
-  "choices": [
-    "superblock",
-    "inode",
-    "data block",
-    "directory",
-    "journal"
-  ],
-  "answer": "B"
+  "tags": ["operating-systems","kernel","privilege"],
+  "choices": ["Faster trapping into and returning from the kernel","Kernel code now easier to compile","Reduces need to context switch between processes","Now, no way to harm user-level register contents while in kernel code","None of the above"],
+  "answer": "A"
 }
 ```
+
 ---
+
+
 
 
 ## Question 32 [1 point]
 
-Thus, an inode has a fixed number of direct pointers (12), and a single indirect pointer... Assuming each slot can point to a 4-KB block, and that disk addresses are 4 bytes, the file can grow to be ______.
-A) 4096 KB
-
-B) 4100 KB
-
-C) 4104 KB
-
-D) 4044 KB
-
-E) 4144 KB
-
-Your answer should be one letter only (A, B, C, D, or E).
+Zinus also had this last question for you: which is true about operating systems? 
+- a They always make systems run faster 
+- b They always make systems use less memory and CPU 
+- c They generally make systems easier to use 
+- d They never crash 
+- e None of the above (these are all false)
 
 ```json
 {
   "problem_id": "32",
   "points": 1,
   "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "inodes",
-    "metadata"
-  ],
-  "choices": [
-    "4096 KB",
-    "4100 KB",
-    "4104 KB",
-    "4044 KB",
-    "4144 KB"
-  ],
+  "tags": ["theoretical","operating-systems"],
+  "choices": ["They always make systems run faster","They always make systems use less memory and CPU","They generally make systems easier to use","They never crash","None of the above"],
   "answer": "E"
-}
-```
----
-
-
-## Question 33 [1 point]
-
-Let’s examine an example with twelve direct pointers, as well as both a single and a double indirect block. Assuming a block size of 4 KB... max file size of ______ (approximately).
-A) ~4 KB
-
-B) ~1 MB
-
-C) ~4 MB
-
-D) ~1 GB
-
-E) ~4 GB
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "33",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "inodes",
-    "metadata"
-  ],
-  "choices": [
-    "~4 KB",
-    "~1 MB",
-    "~4 MB",
-    "~1 GB",
-    "~4 GB"
-  ],
-  "answer": "E"
-}
-```
----
-
-
-## Question 34 [1 point]
-
-In VSFS... directories have a simple organization; a directory basically just contains a list of (______, ______) pairs.
-A) directory name, file attribute
-
-B) file name, inode number
-
-C) file name, parent location
-
-D) inode number, file type
-
-E) inode type, file directory
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "34",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "directories",
-    "metadata"
-  ],
-  "choices": [
-    "directory name, file attribute",
-    "file name, inode number",
-    "file name, parent location",
-    "inode number, file type",
-    "inode type, file directory"
-  ],
-  "answer": "B"
-}
-```
----
-
-
-## Question 35 [1 point]
-
-Free space management is important... In VSFS, we have two simple ______ for this task.
-A) free lists
-
-B) management teams
-
-C) hamburgers
-
-D) bitmaps
-
-E) inodes
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "35",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "free-space",
-    "allocation"
-  ],
-  "choices": [
-    "free lists",
-    "management teams",
-    "hamburgers",
-    "bitmaps",
-    "inodes"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 36 [1 point]
-
-In this example, let us first assume that you want to simply open a file /foo/bar, read it, and then close it. In doing so, the file system will read ______ inodes.
-A) 0
-
-B) 1
-
-C) 2
-
-D) 3
-
-E) 4
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "36",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "directories",
-    "path-lookup"
-  ],
-  "choices": [
-    "0",
-    "1",
-    "2",
-    "3",
-    "4"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 37 [1 point]
-
-Once /foo/bar is opened, assume a process appends a data block to it three times. The following blocks will be written to during each append: ______, ______, and ______.
-A) the file’s inode, data bitmap, and the data block itself
-
-B) the directory data block, the data block, and the superblock
-
-C) the inode bitmap, the directory data block, and the inode
-
-D) the journal, the data block itself, and the directory
-
-E) the department, the chair, the entire university
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "37",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "inodes",
-    "allocation"
-  ],
-  "choices": [
-    "the file\u2019s inode, data bitmap, and the data block itself",
-    "the directory data block, the data block, and the superblock",
-    "the inode bitmap, the directory data block, and the inode",
-    "the journal, the data block itself, and the directory",
-    "the department, the chair, the entire university"
-  ],
-  "answer": "A"
-}
-```
----
-
-
-## Question 38 [1 point]
-
-Write buffering... has a number of performance benefits. They are ______, ______, and ______.
-A) skipping, tricking, and faking out
-
-B) batching, scheduling, and avoiding writes altogether
-
-C) batching, scheduling, and smoothing writes out
-
-D) batching, avoiding writes, and spacing writes out over time
-
-E) anticipating, logging, and batch amortizing
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "38",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "buffering",
-    "performance"
-  ],
-  "choices": [
-    "skipping, tricking, and faking out",
-    "batching, scheduling, and avoiding writes altogether",
-    "batching, scheduling, and smoothing writes out",
-    "batching, avoiding writes, and spacing writes out over time",
-    "anticipating, logging, and batch amortizing"
-  ],
-  "answer": "B"
-}
-```
----
-
-
-## Question 39 [1 point]
-
-VSFS Simulator. Initial State: inodes [d a:0 r:2]... Final State: inodes [d a:0 r:2][f a:-1 r:1]... data [(.,0) (..,0) (m,1)]... What operation took place?
-A) creat("/m")
-
-B) mkdir("/m")
-
-C) unlink("/m")
-
-D) append a block to root directory
-
-E) append a block to root inode
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "39",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "vsfs",
-    "directories"
-  ],
-  "choices": [
-    "creat(\"/m\")",
-    "mkdir(\"/m\")",
-    "unlink(\"/m\")",
-    "append a block to root directory",
-    "append a block to root inode"
-  ],
-  "answer": "A"
-}
-```
----
-
-
-## Question 40 [1 point]
-
-Continuing from Q39... Final State: inodes [d a:0 r:2][f a:-1 r:2]... data [(.,0) (..,0) (m,1) (o,1)]... What operation was it?
-A) mkdir("/o")
-
-B) unlink("/m")
-
-C) read("/m")
-
-D) link("/m", "/o")
-
-E) creat("/o")
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "40",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "vsfs",
-    "directories"
-  ],
-  "choices": [
-    "mkdir(\"/o\")",
-    "unlink(\"/m\")",
-    "read(\"/m\")",
-    "link(\"/m\", \"/o\")",
-    "creat(\"/o\")"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 41 [1 point]
-
-Crash scenario: just the data block is written to disk. In this case, ______
-A) the data is on disk, but it can never be read
-
-B) the data is on disk, and can be read after recovery, but it is garbage
-
-C) the data is on disk, but the inode bitmap says it is free
-
-D) the data is on disk, and it can be easily read after recovery
-
-E) the data never reaches the disk
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "41",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "crash-consistency",
-    "fsck"
-  ],
-  "choices": [
-    "the data is on disk, but it can never be read",
-    "the data is on disk, and can be read after recovery, but it is garbage",
-    "the data is on disk, but the inode bitmap says it is free",
-    "the data is on disk, and it can be easily read after recovery",
-    "the data never reaches the disk"
-  ],
-  "answer": "A"
-}
-```
----
-
-
-## Question 42 [1 point]
-
-Crash scenario: just the updated inode is written to disk. In this case, ______
-A) the data is on disk, but it can never be read
-
-B) the data may seemingly be read after recovery, but it is garbage
-
-C) the data bitmap and inode bitmap don’t agree
-
-D) the data is on disk, and can be easily read after recovery
-
-E) the inode cannot be read
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "42",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "crash-consistency",
-    "fsck"
-  ],
-  "choices": [
-    "the data is on disk, but it can never be read",
-    "the data may seemingly be read after recovery, but it is garbage",
-    "the data bitmap and inode bitmap don\u2019t agree",
-    "the data is on disk, and can be easily read after recovery",
-    "the inode cannot be read"
-  ],
-  "answer": "B"
-}
-```
----
-
-
-## Question 43 [1 point]
-
-Just the updated inode is written to disk. Sometimes we refer to this as a ______
-A) file system inconsistency (the inode and data bitmap disagree)
-
-B) file system inconsistency (the data block and inode disagree)
-
-C) file system inconsistency (the directory and inode disagree)
-
-D) file system inconsistency (the data bitmap and inode bitmap disagree)
-
-E) file system confusion
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "43",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "crash-consistency",
-    "fsck"
-  ],
-  "choices": [
-    "file system inconsistency (the inode and data bitmap disagree)",
-    "file system inconsistency (the data block and inode disagree)",
-    "file system inconsistency (the directory and inode disagree)",
-    "file system inconsistency (the data bitmap and inode bitmap disagree)",
-    "file system confusion"
-  ],
-  "answer": "A"
-}
-```
----
-
-
-## Question 44 [1 point]
-
-What we’d like to do ideally is move the file system from one consistent state to another ______
-A) computationally
-
-B) passionately
-
-C) logically
-
-D) atomically
-
-E) sequentially
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "44",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "crash-consistency",
-    "fsck"
-  ],
-  "choices": [
-    "computationally",
-    "passionately",
-    "logically",
-    "atomically",
-    "sequentially"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 45 [1 point]
-
-fsck has a big and perhaps more fundamental problem: it is too ______
-A) slow
-
-B) complicated
-
-C) redundant
-
-D) incoherent
-
-E) fast
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "45",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "crash-consistency",
-    "fsck"
-  ],
-  "choices": [
-    "slow",
-    "complicated",
-    "redundant",
-    "incoherent",
-    "fast"
-  ],
-  "answer": "A"
-}
-```
----
-
-
-## Question 46 [1 point]
-
-The basic journaling protocol includes the following three phases: journal write, journal commit, and ______
-A) transaction
-
-B) full write
-
-C) journal delete
-
-D) checkpoint
-
-E) phase out
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "46",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "journaling",
-    "crash-consistency"
-  ],
-  "choices": [
-    "transaction",
-    "full write",
-    "journal delete",
-    "checkpoint",
-    "phase out"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 47 [1 point]
-
-A simpler (and more common) form of journaling is sometimes called ordered journaling... except that ______ is/are not written to the journal.
-A) inodes
-
-B) user data
-
-C) directory data
-
-D) bitmaps
-
-E) information
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "47",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "journaling",
-    "crash-consistency"
-  ],
-  "choices": [
-    "inodes",
-    "user data",
-    "directory data",
-    "bitmaps",
-    "information"
-  ],
-  "answer": "B"
-}
-```
----
-
-
-## Question 48 [1 point]
-
-In ordered (or metadata) journaling, data must be written to disk before _______ in order to ensure that a committed inode does not point to garbage data.
-A) the checkpoint
-
-B) freeing space in the journal
-
-C) the transaction commit block
-
-D) anything else
-
-E) sunrise
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "48",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "journaling",
-    "crash-consistency"
-  ],
-  "choices": [
-    "the checkpoint",
-    "freeing space in the journal",
-    "the transaction commit block",
-    "anything else",
-    "sunrise"
-  ],
-  "answer": "C"
-}
-```
----
-
-
-## Question 49 [1 point]
-
-If a crash happens during replay, _______
-A) all data is lost
-
-B) the system may not be able to reboot
-
-C) the recovery starts over after reboot, but might lose data committed to the journal
-
-D) the recovery starts over after reboot, and should work correctly
-
-E) you are out of luck.
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "49",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "journaling",
-    "crash-consistency"
-  ],
-  "choices": [
-    "all data is lost",
-    "the system may not be able to reboot",
-    "the recovery starts over after reboot, but might lose data committed to the journal",
-    "the recovery starts over after reboot, and should work correctly",
-    "you are out of luck."
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 50 [1 point]
-
-Data journaling reduces performance by (roughly) a factor of _______ during sequential writes as compared to ordered journaling.
-A) 1.5
-
-B) 2
-
-C) 3
-
-D) 4
-
-E) 5
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "50",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "file-systems",
-    "journaling",
-    "performance"
-  ],
-  "choices": [
-    "1.5",
-    "2",
-    "3",
-    "4",
-    "5"
-  ],
-  "answer": "B"
-}
-```
----
-
-
-## Question 51 [1 point]
-
-The largest benefit of using a distributed client/server file system such as NFS is ______
-A) performance
-
-B) sharing
-
-C) reliability
-
-D) code coverage
-
-E) ease of testing
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "51",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "performance",
-    "sharing",
-    "reliability",
-    "code coverage",
-    "ease of testing"
-  ],
-  "answer": "B"
-}
-```
----
-
-
-## Question 52 [1 point]
-
-Servers (seem to) crash (or become unavailable) primarily due to power outages, bugs, and _______
-A) application demands
-
-B) clients with little memory
-
-C) slow disks
-
-D) bears
-
-E) network partitions
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "52",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "application demands",
-    "clients with little memory",
-    "slow disks",
-    "bears",
-    "network partitions"
-  ],
-  "answer": "E"
-}
-```
----
-
-
-## Question 53 [1 point]
-
-NFS protocol requests, which contain all relevant information needed to complete the request, are sometimes called _______
-A) stateless
-
-B) harmless
-
-C) connectionless
-
-D) tasteless
-
-E) quirky
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "53",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "stateless",
-    "harmless",
-    "connectionless",
-    "tasteless",
-    "quirky"
-  ],
-  "answer": "A"
-}
-```
----
-
-
-## Question 54 [1 point]
-
-The NFS file handle consists of three parts: volume identifier, inode number, and ______
-A) file descriptor
-
-B) security token
-
-C) smoke screen indicator
-
-D) request identifier
-
-E) generation number
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "54",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "file descriptor",
-    "security token",
-    "smoke screen indicator",
-    "request identifier",
-    "generation number"
-  ],
-  "answer": "E"
-}
-```
----
-
-
-## Question 55 [1 point]
-
-During a file open, many ________ requests will likely be made to the server.
-A) NFSPROC_RMDIR
-
-B) NFSPROC_MKDIR
-
-C) NFSPROC_LOOKUP
-
-D) NFSPROC_REMOVE
-
-E) NFSPROC_FLUSH
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "55",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "NFSPROC_RMDIR",
-    "NFSPROC_MKDIR",
-    "NFSPROC_LOOKUP",
-    "NFSPROC_REMOVE",
-    "NFSPROC_FLUSH"
-  ],
-  "answer": "C"
-}
-```
----
-
-
-## Question 56 [1 point]
-
-An operation is called idempotent when the effect of performing the operation ______ is equivalent to the effect of performing the operation a single time.
-A) never
-
-B) once
-
-C) silently
-
-D) many times
-
-E) in reverse
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "56",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "never",
-    "once",
-    "silently",
-    "many times",
-    "in reverse"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 57 [1 point]
-
-NFS clients handle network packet losses and server crashes uniformly by using a _______ approach.
-A) caching
-
-B) oddly efficient
-
-C) redundancy-based
-
-D) timeout/retry
-
-E) handshake/fistbump
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "57",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "caching",
-    "oddly efficient",
-    "redundancy-based",
-    "timeout/retry",
-    "handshake/fistbump"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 58 [1 point]
-
-NFS clients use caches to improve performance... Two primary subproblems of cache consistency are _______.
-A) latency/staleness
-
-B) visibility/correctness
-
-C) choiceness/visibility
-
-D) correctness/staleness
-
-E) staleness/visibility
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "58",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "latency/staleness",
-    "visibility/correctness",
-    "choiceness/visibility",
-    "correctness/staleness",
-    "staleness/visibility"
-  ],
-  "answer": "E"
-}
-```
----
-
-
-## Question 59 [1 point]
-
-NFS clients buffer writes... ‘flush on close’ behavior addresses the _______ problem.
-A) latency
-
-B) staleness
-
-C) correctness
-
-D) visibility
-
-E) choiceness
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "59",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "latency",
-    "staleness",
-    "correctness",
-    "visibility",
-    "choiceness"
-  ],
-  "answer": "D"
-}
-```
----
-
-
-## Question 60 [1 point]
-
-NFS servers also have a cache, but must flush writes to disk immediately before returning success to clients. The reason for this is ________.
-A) performance; this approach is usually faster
-
-B) correctness; this ensures no writes are lost due to an untimely server crash
-
-C) choiceness; having more choice is critical in the modern world
-
-D) caching in both clients and servers adds too much complexity to the protocol
-
-E) lost to history
-
-Your answer should be one letter only (A, B, C, D, or E).
-
-```json
-{
-  "problem_id": "60",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": [
-    "operating-systems",
-    "nfs",
-    "distributed-systems",
-    "network-file-systems"
-  ],
-  "choices": [
-    "performance; this approach is usually faster",
-    "correctness; this ensures no writes are lost due to an untimely server crash",
-    "choiceness; having more choice is critical in the modern world",
-    "caching in both clients and servers adds too much complexity to the protocol",
-    "lost to history"
-  ],
-  "answer": "B"
 }
 ```
