@@ -7,53 +7,47 @@
   "course": "COMP 350",
   "institution": "University of Waterloo",
   "year": 2013,
-  "score_total": 35,
+  "score_total": 42,
   "num_questions": 5
 }
 ```
 
 ---
 
-## Question 1 [5 point(s)]
-
-CS350 Midterm Spring 2013 Page 2
-
-Question 1 [13 * 1 = 12 Marks]
+## Question 1 [12 Marks]
 
 (a) Explain why registers k0 & k1 cannot be used (even temporarily) by gcc in OS/161.
 
 (b) Explain why there are more registers stored in a trap frame than in a thread context.
 
-(c) True or false: If there are no global variables, then no locks are necessary. Briefly justify your answer.
+(c) True or false: If there are no global variables, then no locks are necessary. Briefly justify.
 
 (d) Give one advantage and one disadvantage of having a software design with high lock granularity (many locks).
 
 (e) Briefly explain what this line of code is doing and why:
 
-mips_syscall(struct trapframe *tf) {
-  ...
-  tf->tf_v0 = retval;       <---- explain this line
+mips_syscall(struct trapframe *tf) { 
+  ... 
+  tf->tf_v0 = retval;       <---- explain this line 
 }
 
 (f) Briefly describe why the C stdio library binary is not portable between different operating systems, even on the same hardware (machine architecture).
 
-(g) Explain the primary difference (as discussed in class) between Hoare semantics and the Mesa semantics used in OS/161.
+(g) Explain the primary difference between Hoare semantics and the Mesa semantics used in OS/161.
 
-A system uses a dynamic relocation virtual address scheme. The virtual addresses are 16 bits long, but the relocation register is 32 bits long. What is the maximum amount of physical memory that can be made available to each process? How much physical RAM can the entire system support?
+(h) A system uses a dynamic relocation virtual address scheme. The virtual addresses are 16 bits long, but the relocation register is 32 bits long. What is the maximum amount of physical memory that can be made available to each process? How much physical RAM can the entire system support?
 
-(h) What is the difference between internal and external memory fragmentation?
+(i) What is the difference between internal and external memory fragmentation?
 
-(i) Explain why dumbvm is more like dynamic relocation than paging.
+(j) Explain why dumbvm is more like dynamic relocation than paging.
 
-(j) Give one advantage and one disadvantage of having a small quantum.
+(k) Give one advantage and one disadvantage of having a small quantum.
 
-(k) Explain the significance of the return value of fork().
+(l) Explain the significance of the return value of fork().
 
 ---
 
-## Question 2 [6 point(s)]
-
-CS350 Midterm Spring 2013 Page 5
+## Question 2 [6 Marks]
 
 Given the following MIPS 64‐bit TLB entry specification (with 4k page sizes)
 
@@ -64,39 +58,37 @@ VALID  bit    9
 
 and the following TLB entries: (Most Significant Bit on the left)
 
-0x0000000000006600  
-0x0000100000002200  
-0x0012300045645600  
-0x0040000000400400  
-0x1000000010000600
+0x0000 0000 0000 6600  
+0x0000 1000 0000 2200  
+0x0012 3000 4564 5600  
+0x0040 0000 0040 0400  
+0x1000 0000 1000 0600
 
-a) For each virtual address below, give the corresponding physical address. If it cannot be determined or a fault would occur reading the address, write "FAULT".
+a) For each virtual address below, give the corresponding physical address. If it cannot be determined or a fault would occur reading the address, write “FAULT”.
 
-0x00000006  
-0x00006006  
-0x100000001  
-0x00123456  
-0x45645645  
-0x00001234  
-0x00000040  
-0x00400040  
-0x80123456
+0x0000 0006  
+0x0000 6006  
+0x1000 0001  
+0x1000 0001  
+0x0012 3456  
+0x4564 5456  
+0x4564 5645  
+0x0000 1234  
+0x0000 2234  
+0x0040 0040  
+0x8012 3456
 
-(Adjust formatting/spacing as needed for addresses in your answers.)
+b) For each physical address, provide the corresponding virtual address. If it cannot be determined, write “UNKNOWN”.
 
-b) For each physical address, provide the corresponding virtual address. If it cannot be determined, write "UNKNOWN".
-
-0x00000006  
-0x100000001  
-0x45645645  
-0x00400040  
-0x80123456
+0x0000 0006  
+0x1000 0001  
+0x4564 5645  
+0x0040 0040  
+0x8012 3456
 
 ---
 
-## Question 3 [8 point(s)]
-
-CS350 Midterm Spring 2013 Page 6
+## Question 3 [8 Marks]
 
 (a) [4 Marks] Give a proof as to why resource ordering can prevent deadlocks. It can be informal, but it should be sound. You are not required to reference the deadlock detection algorithm, but you may reference it if you choose.
 
@@ -112,7 +104,8 @@ while (flag[j] && turn == j) { }
 //critical section  
 flag[i] = false;
 
-Your friend has implemented Peterson’s algorithm for OS/161 as follows: (He used a thread id tid to identify each thread: tid has the value of either 0 or 1)
+Your friend has implemented Peterson’s algorithm for OS/161 as follows:  
+(He used a thread id tid to identify each thread: tid has the value of either 0 or 1)
 
 turn = 1 - tid;  
 flag[tid] = 1;  
@@ -124,147 +117,48 @@ Describe how the critical section is protected (or not protected) in this implem
 
 ---
 
-## Question 4 [7 point(s)]
+## Question 4 [7 Marks]
 
-CS350 Midterm Spring 2013 Page 8
+(a) [2 Marks] Concisely explain how in your A1 cat/mouse solution the decision was made to switch from allowing one animal to eat (ie: cats) to the other animal eating (ie: mice). If you did not complete assignment 1, describe the naïve solution discussed in class.
 
-(a) [2 Marks] Concisely explain how in your A1 cat/mouse solution the decision was made to switch from allowing one animal to eat (i.e., cats) to the other animal eating (i.e., mice). If you did not complete assignment 1, describe the naïve solution discussed in class.
-
-Consider where there are c cats, m mice, and b bowls, running on at least (c+m) processors so that all threads are executing concurrently. Animals never die, the eating time t for both animals is the same, and there is no "sleep time" between eating (animals can immediately eat again) (note: "sleeping" is different than blocking due to synchronization). Ignore any overhead required to execute code or switch contexts.
-
-We will measure efficiency as the average fraction of bowls in use over an extended period of time.
-
-(b) [1 Mark] Given the above specifications and that (c >> b) and (m >> b), describe any circumstances under which your solution described in (a) would achieve its maximum efficiency, and then calculate that efficiency as a formula using the variables c, m, b and t as necessary.
+(b) [1 Mark] Given the above specifications and that (c >> b) and (m >> b), describe any circumstances under which your solution described in a) would achieve its maximum efficiency, and then calculate that efficiency as a formula using the variables c, m, b and t as necessary.
 
 (c) [4 Marks] Given the above specifications, consider the following solution:
 
-"Allow k mice to eat, then allow k cats to eat, and then allow k mice to eat, and so on..."
+“Allow k mice to eat, then allow k cats to eat, and then allow k mice to eat, and so on...”
 
-Determine the efficiency for each scenario below.
+Determine the efficiency for each scenario below. For each scenario, give the maximum wait time for both cats and mice. The wait time is the amount of time that elapses from when cat X finishes eating, and then cat X starts to eat again. Assume fairness amongst the animals of the same type: once cat X eats, all other cats will eat exactly once before cat X eats again.
 
-For each scenario, give the maximum wait time for both cats and mice. The wait time is the amount of time that elapses from when cat X finishes eating, and then cat X starts to eat again. Assume fairness amongst the animals of the same type: once cat X eats, all other cats will eat exactly once before cat X eats again.
-
-(Provide your answers and show work in the table/format requested on the exam sheet.)
+[The prompt continues with a table of values in the original; omit the rest for question text.]
 
 ---
 
-## Question 5 [9 point(s)]
-
-CS350 Midterm Spring 2013 Page 10
+## Question 5 [9 Marks]
 
 For this problem, you are required to use semaphores to simulate a school cafeteria.
 
-- There are an arbitrary number of students. Each student is a separate thread.  
-- There are only student threads. There is no "coordinating" or "dispatching" thread.  
-- There are an arbitrary number of student threads.  
-- There are K stations in the cafeteria, numbered 0..K-1 (where K is a global constant)  
-- Only one student can occupy a station at a time.  
-- Students may not cut in line or skip a station. They must maintain their original ordering (sequence) and must start at station 0 and finish at station K-1.  
-- There may be more students than stations, so you must also maintain a queue of students waiting to get to the first station. The following unsynchronized list functions (similar to the linked lists shown in class) should be sufficient:  
-  int is_empty();  
-  struct student *list_peek_front();  
-  struct student *list_remove_front();  
-  void list_append(struct student *s);  
-- Each student may need more than one food "item" at a station. The number of items student s needs to acquire at station i is s->items[i], which could be zero.  
-- For each item at station i the student must call:  
-  get_item(struct student *s, int i);  
-  When the function returns, the student will have the item, but it may block during the function call to wait for the food.  
-- You must ensure that get_item is synchronized and is never called more than once at the same time for either the same student s or the same station i.  
+- There are an arbitrary number of students. Each student is a separate thread.
+- There is no coordinating or dispatching thread.
+- There is an arbitrary number of student threads.
+- There are K stations in the cafeteria, numbered 0..K-1 (where K is a global constant).
+- Only one student can occupy a station at a time.
+- Students may not cut in line or skip a station. They must maintain their original ordering (sequence) and must start at station 0 and finish at station K-1.
+- There may be more students than stations, so you must also maintain a queue of students waiting to get to the first station. The following unsynchronized list functions (similar to the linked lists shown in class) should be sufficient. These functions use a (hidden) global variable to store the list structure.
+  int is_empty();
+  struct student *list_peek_front();
+  struct student *list_remove_front();
+  void list_append(struct student *s);
+- Each student may need more than one food “item” at a station. The number of items student s needs to acquire at station i is s->items[i], which could be zero.
+- For each item at station i the student must call: get_item(struct student *s, int i); When the function returns, the student will have the item, but it may block during the function call to wait for the food.
+- You must ensure that get_item is synchronized and is never called more than once at the same time for either the same student s or the same station i.
 - You may use thread_sleep and thread_wakeup if you wish.
 
 List your global variables and semaphores here. Indicate the initial value of each variable & semaphore.
 
-(Provide your design and any necessary code snippets in the answer area on the exam sheet. Do not include solution prose here in the problem statement.)
+[Provide your list of global variables and semaphores, and their initial values.]
+
+(You may add fields to struct student if necessary. Provide any helper routines you use and the student thread procedure pseudocode.)
 
 ---
 
-Bonus Question [1 Mark]
-
-Please answer the following 3 questions honestly at the end of the exam:
-
-This exam was too long: (select one)  
-a) Strongly disagree  
-b) Disagree  
-c) Neutral  
-d) Agree  
-e) Strongly agree
-
-This exam was fair: (select one)  
-a) Strongly disagree  
-b) Disagree  
-c) Neutral  
-d) Agree  
-e) Strongly agree
-
-Draw a picture that illustrates a thread switching from user mode to privileged execution (kernel) mode. Humorous illustrations encouraged.
-
----
-
-*** END OF EXAM ***
-
-This page has been left (mostly) blank intentionally. Use this space if necessary to complete your answers. Make sure you note on the original page that more of your solution can be found here. Do NOT remove this page from your exam.
-
----
-
-```json
-{
-  "problem_id": "1",
-  "points": 5,
-  "type": "Freeform",
-  "tags": ["operating-systems", "concurrency", "deadlock-prevention", "semantics", "trap-frames"],
-  "answer": "The correct answer goes here (from solutions file)",
-  "llm_judge_instructions": "Grade according to the solutions file. Full points for complete, correct explanation; partial credit may be awarded for partially correct reasoning."
-}
-```
-
----
-
-```json
-{
-  "problem_id": "2",
-  "points": 6,
-  "type": "Freeform",
-  "tags": ["virtual-memory", "tlb", "address-translation"],
-  "answer": "The correct answer goes here (from solutions file)",
-  "llm_judge_instructions": "Grade according to the solutions file. Full points for correct translation per address; partial credit possible for partially correct reasoning."
-}
-```
-
----
-
-```json
-{
-  "problem_id": "3",
-  "points": 8,
-  "type": "Freeform",
-  "tags": ["deadlock", "concurrency", "resource-ordering", "peterson"],
-  "answer": "The correct answer goes here (from solutions file)",
-  "llm_judge_instructions": "Grade according to the solutions file. Full points for complete and sound proof; partial credit at the grader's discretion for partial reasoning."
-}
-```
-
----
-
-```json
-{
-  "problem_id": "4",
-  "points": 7,
-  "type": "Freeform",
-  "tags": ["concurrency", "dining-problem", "scheduling"],
-  "answer": "The correct answer goes here (from solutions file)",
-  "llm_judge_instructions": "Grade according to the solutions file. Full points for correctly describing the switch decision and efficiency conditions; partial credit as appropriate."
-}
-```
-
----
-
-```json
-{
-  "problem_id": "5",
-  "points": 9,
-  "type": "Freeform",
-  "tags": ["semaphores", "synchronization", "concurrency"],
-  "answer": "The correct answer goes here (from solutions file)",
-  "llm_judge_instructions": "Grade according to the solutions file. Full points for correct semaphore-based cafeteria solution and synchronization details; partial credit as appropriate."
-}
-```
+## Bonus Question (skipped)
