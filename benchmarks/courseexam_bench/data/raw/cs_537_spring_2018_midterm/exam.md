@@ -5,10 +5,10 @@
   "exam_id": "cs_537_spring_2018_midterm",
   "test_paper_name": "CS-537: Midterm (Spring 2018) Mission Impossible",
   "course": "CS 537",
-  "institution": "Unknown Institution",
+  "institution": "University of Wisconsin-Madison",
   "year": 2018,
-  "score_total": 30,
-  "num_questions": 30
+  "score_total": 150,
+  "num_questions": 150
 }
 ```
 
@@ -16,41 +16,15 @@
 
 ## Question 1 [1 point]
 
-Problem I: A program’s main function is as follows:
-int main(int argc, char
-*
-argv[]) {
-char
-*
-str = argv[1];
-while (1)
-printf("%s", str);
-return 0;
-}
-Two processes, both running instances of this program, are currently running (you can assume nothing
-else of relevance is, except perhaps the shell itself). The programs were invoked as follows, assuming a
-“parallel command” as per project 2a (the wish shell):
-wish> main a && main b
-Below are possible (or impossible?) screen captures of someof the output from the beginning of the run
-of the programs. Which of the following are possible?To answer:Fill inAfor possible,Bfor not possible.
 1. abababab ...
-A. Possible
-2. aaaaaaaa ...
-A. Possible
-3. bbbbbbbb ...
-A. Possible
-4. aaaabbbb ...
-A. Possible
-5. bbbbaaaa ...
-A. Possible
 
 ```json
 {
   "problem_id": "1",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["concurrency","processes","scheduling","operating-systems"],
-  "choices": ["Possible", "Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -59,41 +33,15 @@ A. Possible
 
 ## Question 2 [1 point]
 
-Problem II: Here is source code for another program, calledincrement.c:
-int value = 0;
-int main(int argc, char
-*
-argv[]) {
-while (1) {
-printf("%d", value);
-value++;
-}
-return 0;
-}
-While increment.c is running, another program,reset.c, is run once as a separate process. Here is the
-source code ofreset.c:
-int value;
-int main(int argc, char
-*
-argv[]) {
-value = 0;
-return 0;
-}
-Which of the following are possible outputs of the increment process?
-To answer:Fill inAfor possible,Bfor not possible.
-6. 012345678 ...A. Possible
-7. 012301234 ...B. Not Possible(value is reset, but how?)
-8. 012345670123 ...B. Not Possible(value is reset, but how?)
-9. 01234567891011 ...A. Possible(value not reset; it’s just “9 10 11” squished together)
-10. 123456789 ...B. Not Possible(increment starts at 0)
+2. aaaaaaaa ...
 
 ```json
 {
   "problem_id": "2",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["concurrency","shared-memory","race-conditions"],
-  "choices": ["Possible", "Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -102,42 +50,15 @@ To answer:Fill inAfor possible,Bfor not possible.
 
 ## Question 3 [1 point]
 
-Problem III:A concurrent program (with multiple threads) looks like this:
-volatile int counter = 1000;
-void
-*
-worker(void
-*
-arg) {
-counter--;
-return NULL;
-}
-int main(int argc, char
-*
-argv[]) {
-pthread_t p1, p2;
-pthread_create(&p1, NULL, worker, NULL);
-pthread_create(&p2, NULL, worker, NULL);
-pthread_join(p1, NULL);
-pthread_join(p2, NULL);
-printf("%d\n", counter);
-return 0;
-}
-Assumingpthread create()andpthreadjoin()all work as expected (i.e., they don’t return an error), which outputs are possible?
-To answer:Fill inAfor possible,Bfor not possible.
-11. 0B. Not Possible
-12. 1000B. Not Possible
-13. 999A. Possible(race on counter; if both read before decrement...)
-14. 998A. Possible(race, but one decrements before the other)
-15. 1002B. Not Possible
+3. bbbbbbbb ...
 
 ```json
 {
   "problem_id": "3",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["concurrency","threads","race-condition"],
-  "choices": ["0", "1000", "999", "998", "1002"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -146,27 +67,15 @@ To answer:Fill inAfor possible,Bfor not possible.
 
 ## Question 4 [1 point]
 
-Problem IV:Processes exist in a number of different states. We’ve focused upon a few (Running, Ready,
-and Blocked) but real systems have slightly more. For example, xv6 also has an Embryo state (used when
-the process is being created), and a Zombie state (used when the process has exited but its parent hasn’t yet
-called wait() on it).
-Assuming you start observing the states of a given process atsome point in time (not necessarily from
-its creation, but perhaps including that), which process states could you possibly observe?
-Note: once you start observing the process, you will see ALL states it is in, until you stop sampling.
-To answer:Fill inAfor possible,Bfor not possible.
-16. Running, Running, Running, Ready, Running, Running, Running, ReadyA. Possible
-17. Embryo, Ready, Ready, Ready, Ready, ReadyA. Possible
-18. Running, Running, Blocked, Blocked, Blocked, RunningB. Not Possible
-19. Running, Running, Blocked, Blocked, Blocked, Ready, RunningA. Possible
-20. Embryo, Running, Blocked, Running, Zombie, RunningB. Not Possible
+4. aaaabbbb ...
 
 ```json
 {
   "problem_id": "4",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["process-states","os","xv6"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -175,37 +84,16 @@ To answer:Fill inAfor possible,Bfor not possible.
 
 ## Question 5 [1 point]
 
-Problem V:The following code is shown to you:
-int main(int argc, char
-*
-argv[]) {
-printf("a");
-fork();
-printf("b");
-return 0;
-}
-Assuming fork() succeeds andprintf()prints its outputs immediately (no buffering occurs), whatare
-possible outputs of this program?
-To answer:Fill inAfor possible,Bfor not possible.
-21. ab
-B. Not Possible
-22. abb
-A. Possible
-23. bab
-B. Not Possible
-24. bba
-B. Not Possible
-25. a
-B. Not Possible
+5. bbbbaaaa ...
 
 ```json
 {
   "problem_id": "5",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["fork","process-creation","output"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "B"
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
 }
 ```
 
@@ -213,28 +101,15 @@ B. Not Possible
 
 ## Question 6 [1 point]
 
-Problem VI:Assumingfork()might fail (by returning an error code and not creating a new process)
-andprintf()prints its outputs immediately (no buffering occurs), whatare possible outputs of the same
-program as above?
-To answer:Fill inAfor possible,Bfor not possible.
-26. ab
-A. Possible
-27. abb
-A. Possible
-28. bab
-B. Not Possible
-29. bba
-B. Not Possible
-30. a
-B. Not Possible
+6. 012345678 ...
 
 ```json
 {
   "problem_id": "6",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["fork-failure","process-creation","output"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -243,48 +118,16 @@ B. Not Possible
 
 ## Question 7 [1 point]
 
-Problem VII:Here is even more code to look at. Assume the program/bin/true, when it runs, never
-prints anything and just returns 0 in all cases.
-int main(int argc, char
-*
-argv[]) {
-int rc = fork();
-if (rc == 0) {
-char
-*
-my_argv[] = { "/bin/true", NULL };
-execv(my_argv[0], my_argv);
-printf("1");
-} else if (rc > 0) {
-wait(NULL);
-printf("2");
-} else {
-printf("3");
-}
-return 0;
-}
-Assuming all system calls succeed andprintf()prints its outputs immediately (no buffering occurs),
-what outputs are possible?
-To answer:Fill inAfor possible,Bfor not possible.
-31. 123
-B. Not Possible
-32. 12
-B. Not Possible
-33. 2
-A. Possible
-34. 23
-B. Not Possible
-35. 3
-B. Not Possible
+7. 012301234 ...
 
 ```json
 {
   "problem_id": "7",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["fork","exec","process-creation"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -292,29 +135,16 @@ B. Not Possible
 
 ## Question 8 [1 point]
 
-Problem VIII:Same code snippet as in the last problem, but new question: assuming any of the system calls
-above might fail (by not doing what is expected, and returning an error code), what outputs are possible?
-Again assume thatprintf()prints its outputs immediately (no buffering occurs).
-To answer:Fill inAfor possible,Bfor not possible.
-36. 123
-B. Not Possible
-37. 12
-A. Possible
-38. 2
-A. Possible
-39. 23
-B. Not Possible
-40. 3
-A. Possible
+8. 012345670123 ...
 
 ```json
 {
   "problem_id": "8",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["fork","exec","system-calls-failure"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -322,28 +152,15 @@ A. Possible
 
 ## Question 9 [1 point]
 
-Problem IX:Assume, for the following jobs, a FIFO scheduler and only oneCPU. Each job has a “required”
-runtime, which means the job needs that many time units on theCPU to complete.
-Job A arrives at time=0, required runtime=X time units
-Job B arrives at time=5, required runtime=Y time units
-Job C arrives at time=10, required runtime=Z time units
-Assuming anaverage turnaround timebetween 10 and 20 time units (inclusive), which of the following
-run times for A, B, and C are possible?
-To answer:Fill inAfor possible,Bfor not possible.
-41. A=10, B=10, C=10A’s turnaround: 10-0=10, B: 20-5=15; C: 30-10=20. Avg: 15A. Possible
-42. A=20, B=20, C=20A: 20-0=20; B: 40-5=35; C: 60-10=50; Avg: 35B. Not Possible
-43. A=5, B=10, C=15A: 5-0=5; B: 15-5=10; C: 30-10=20; Avg: 35/3=11.67A. Possible
-44. A=20, B=30, C=40A: 20-0=20; B: 50-5=45; C: 90-10=80; Avg: 48.33B. Not Possible
-45. A=30, B=1, C=1A: 30-0=30; B=31-5=26; C=32-10=22; Avg: 26.B. Not Possible(should have set
-A=22 or so; oh well)
+9. 01234567891011 ...
 
 ```json
 {
   "problem_id": "9",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["cpu-scheduling","fifo","turnaround"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -352,33 +169,16 @@ A=22 or so; oh well)
 
 ## Question 10 [1 point]
 
-Problem X:Assume the following schedule for a set of three jobs, A, B, and C:
-A runs first (for 10 time units) but is not yet done
-B runs next (for 10 time units) but is not yet done
-C runs next (for 10 time units) and runs to completion
-A runs to completion (for 10 time units)
-B runs to completion (for 5 time units)
-Which scheduling disciplines could allow this schedule to occur?
-To answer:Fill inAfor possible,Bfor not possible.
-46. FIFO
-B. Not Possible
-47. Round Robin
-A. Possible
-48. STCF (Shortest Time to Completion First)
-B. Not Possible
-49. Multi-level Feedback Queue
-A. Possible
-50. Lottery Scheduling
-A. Possible
+10. 123456789 ...
 
 ```json
 {
   "problem_id": "10",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["cpu-scheduling","policy-comparison"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -386,23 +186,16 @@ A. Possible
 
 ## Question 11 [1 point]
 
-Problem XI:The Multi-level Feedback Queue (MLFQ) is a fancy scheduler that does lots of things. Which
-of the following things could you possibly say (correctly!)about the MLFQ approach?
-To answer:Fill inAfor things that are true about MLFQ,Bfor things that are not true about MLFQ.
-51. MLFQ learns things about running jobsA. Possible/True
-52. MLFQ starves long running jobsB. Not Possible/False
-53. MLFQ uses different length time slices for jobsA. Possible/True
-54. MLFQ uses round robinA. Possible
-55. MLFQ forgets what it has learned about running jobs sometimesA. Possible
+11. 0
 
 ```json
 {
   "problem_id": "11",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["mlfq","scheduling"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -410,26 +203,15 @@ To answer:Fill inAfor things that are true about MLFQ,Bfor things that are not t
 
 ## Question 12 [1 point]
 
-Problem XII:The simplest technique for virtualizing memory is known as dynamic relocation, or “base-
-and-bounds”. Assuming the following system characteristics:
-- a 1KB virtual address space
-- a base register set to 10000
-- a bounds register set to 100
-Which of the followingphysical memory locationscan be legally accessed by the running program?
-To answer:Fill inAfor legally accessible locations,Bfor locations not legally accessible by this program.
-56. 0B. Not Possible
-57. 1000B. Not Possible
-58. 10000A. Possible
-59. 10050A. Possible
-60. 10100B. Not Possible
+12. 1000
 
 ```json
 {
   "problem_id": "12",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["memory-management","base-and-bounds","virtual-memory"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "B"
 }
 ```
@@ -438,23 +220,15 @@ To answer:Fill inAfor legally accessible locations,Bfor locations not legally ac
 
 ## Question 13 [1 point]
 
-Problem XIII:Assuming the same set-up as above (1 KB virtual address space, base=10000, bounds=100),
-which of the followingvirtual addressescan be legally accessed by the running program? (i.e., whichare
-valid?)
-To answer:Fill inAfor valid virtual addresses,Bfor not valid ones.
-61. 0A. Possible
-62. 1000B. Not Possible
-63. 10000B. Not Possible
-64. 10050B. Not Possible
-65. 10100B. Not Possible
+13. 999
 
 ```json
 {
   "problem_id": "13",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-addressing","segmentation-base","memory-management"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -463,24 +237,16 @@ To answer:Fill inAfor valid virtual addresses,Bfor not valid ones.
 
 ## Question 14 [1 point]
 
-Problem XIV:Segmentation is a generalization of base-and-bounds. Whichpossible advantages does seg-
-mentation have as compared to base-and-bounds?
-To answer:Fill inAfor cases where the statement is true about segmentation and(as a result) segmentation
-has a clear advantage over base-and-bounds,Botherwise.
-66. Faster translationB. Not Possible
-67. Less physical memory wasteA. Possible
-68. Better sharing of code in memoryA. Possible
-69. More hardware support needed to implement itB. Not Possible
-70. More OS issues to handle, such as compactionB. Not Possible
+14. 998
 
 ```json
 {
   "problem_id": "14",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["segmentation","memory-management","address-translation"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "B"
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
 }
 ```
 
@@ -488,35 +254,15 @@ has a clear advantage over base-and-bounds,Botherwise.
 
 ## Question 15 [1 point]
 
-Problem XV:Assume the following in a simple segmentation system that supportstwosegments: one
-(positive growing) for code and a heap, and one (negative growing) for a stack:
-- Virtual address space size 128 bytes (small!)
-- Physical memory size 512 (small!)
-Segment register information:
-Segment 0 base  (grows positive) : 0
-Segment 0 limit                  : 20 (decimal)
-Segment 1 base  (grows negative) : 0x200 (decimal 512)
-Segment 1 limit                  : 20 (decimal)
-Which of the following arevalidvirtual memory accesses?
-To answer:Fill inAfor valid virtual accesses,Bfor non-valid accesses.
-71. 0x1d (decimal: 29)
-B. Not Possible
-72. 0x7b (decimal: 123)
-A. Possible
-73. 0x10 (decimal: 16)
-A. Possible
-74. 0x5a (decimal: 90)
-B. Not Possible
-75. 0x0a (decimal: 10)
-A. Possible
+15. 1002
 
 ```json
 {
   "problem_id": "15",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["segmentation","virtual-memory","addressing"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","virtual-memory"],
+  "choices": ["Possible","Not possible"],
   "answer": "B"
 }
 ```
@@ -525,38 +271,15 @@ A. Possible
 
 ## Question 16 [1 point]
 
-Problem XVI:In a simple page-based virtual memory, with a linear page table, assume the following:
-- virtual address space size is 128 bytes (small!)
-- physical memory size of 1024 bytes (small!)
-- page size of 16 bytes
-The format of the page table: The high-order (leftmost) bit is the VALID bit.
-If the bit is 1, the rest of the entry is the PFN.
-If the bit is 0, the page is not valid.
-Here are the contents of the page table (from entry 0 down to the max size)
-[0]   0x80000034
-[1]   0x00000000
-[2]   0x00000000
-[3]   0x00000000
-[4]   0x8000001e
-[5]   0x80000017
-[6]   0x80000011
-[7]   0x8000002e
-Which of the following virtual addresses arevalid?
-To answer:Fill inAfor valid virtual accesses,Bfor non-valid accesses.
-From the page table, we can see valid pages 0,4,5,6,7. VPNs are given by top 3 bits of a 7-bit address (since 128-byte space and 16-byte pages). VPNs 0,4,5,6,7 are valid; 1,2,3 are not.
-76. 0x34 (decimal: 52)B. Not ValidVPN=3
-77. 0x44 (decimal: 68)A. ValidVPN=4
-78. 0x57 (decimal: 87)A. ValidVPN=5
-79. 0x18 (decimal: 24)B. Not ValidVPN=1
-80. 0x46 (decimal: 70)A. ValidVPN=4
+16. Running, Running, Running, Ready, Running, Running, Running, Ready
 
 ```json
 {
   "problem_id": "16",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["paging","page-table","virtual-memory"],
-  "choices": ["Valid","Not Valid"],
+  "tags": ["operating-systems","concurrency","process-states"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -565,31 +288,15 @@ From the page table, we can see valid pages 0,4,5,6,7. VPNs are given by top 3 b
 
 ## Question 17 [1 point]
 
-Problem XVII:TLBs are a critical part of modern paging systems. Assume thefollowing system:
-- page size is 64 bytes
-- TLB contains 4 entries
-- TLB replacement policy is LRU (least recently used)
-Each of the following represents a virtual memory address trace, i.e., a set of virtual memory addresses
-referenced by a program. In which of the following traces will the TLB possibly help speed up execution?
-To answer:Fill inAfor cases where the TLB will speed up the program,Bfor the cases where it won’t.
-81. 0, 100, 200, 1, 101, 201, ... (repeats in this pattern)
-A. Speed up
-82. 0, 100, 200, 300, 0, 100, 200, 300, ... (repeats)
-A. Speed up
-83. 0, 1000, 2000, 3000, 4000, 0, 1000, 2000, 3000, 4000, ... (repeats)
-B. No Speedup
-84. 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, ... (repeats)
-A. Speed up
-85. 300, 200, 100, 0, 300, 200, 100, 0, ... (repeats)
-A. Speed up
+17. Embryo, Ready, Ready, Ready, Ready, Ready
 
 ```json
 {
   "problem_id": "17",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["tlb","paging","performance"],
-  "choices": ["Speed up","No Speedup"],
+  "tags": ["operating-systems","concurrency","process-states"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -598,29 +305,15 @@ A. Speed up
 
 ## Question 18 [1 point]
 
-Problem XVIII:Which of the following statements are true statements about various page-replacement
-policies?
-To answer:Fill inAfor true statements,Bfor false ones.
-86. The LRU policy always outperforms the FIFO policy.
-B. False
-87. The OPT (optimal) policy always performs at least as wellas LRU.
-A. True
-88. A bigger cache’s hit percentage is always greater than orequal to a smaller cache’s hit percentage, if
-they are using the same replacement policy.
-B. False
-89. A bigger cache’s hit percentage is always greater than orequal to a smaller cache’s hit percentage,
-if they are using the LRU replacement policy.
-A. True
-90. Random replacement is always worse than LRU replacement.
-B. False
+18. Running, Running, Blocked, Blocked, Blocked, Running
 
 ```json
 {
   "problem_id": "18",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["page-replacement","policy-comparison"],
-  "choices": ["True","False"],
+  "tags": ["operating-systems","concurrency","process-states"],
+  "choices": ["Possible","Not possible"],
   "answer": "B"
 }
 ```
@@ -629,29 +322,15 @@ B. False
 
 ## Question 19 [1 point]
 
-Problem XIX:Assume a memory that can hold 4 pages, and an LRU replacement policy. The first four
-references to memory are to pages 6, 7, 7, 9.
-Assuming the next five accesses are to pages 7, 9, 0, 4, 9, whichof those will hit in memory? (and which
-will miss?)
-To answer:Fill inAfor cache hits,Bfor misses.
-91. 7
-A. Hit
-92. 9
-A. Hit
-93. 0
-B. Miss
-94. 4
-B. Miss
-95. 9
-A. Hit
+19. Running, Running, Blocked, Blocked, Blocked, Ready, Running
 
 ```json
 {
   "problem_id": "19",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["paging","lrU","cache"],
-  "choices": ["Hit","Miss"],
+  "tags": ["operating-systems","concurrency","process-states"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -660,45 +339,16 @@ A. Hit
 
 ## Question 20 [1 point]
 
-Problem XX:Assume this attempted implementation of a lock:
-void init(lock_t
-*
-mutex) {
-mutex->flag = 0;  // 0 -> lock is available, 1 -> held
-}
-void lock(lock_t
-*
-mutex) {
-while (mutex->flag == 1) // L1
-;                      // L2
-mutex->flag = 1;         // L3
-}
-void unlock(lock_t
-*
-mutex) {
-mutex->flag = 0;         // L4
-}
-Assume 5 threads are competing for this lock. How many threads can possibly acquire the lock?
-To answer:Fill inAfor possible,Bfor not possible.
-96. 1
-A. Possible
-97. 2
-A. Possible
-98. 3
-A. Possible
-99. 4
-A. Possible
-100. 5
-A. Possible
+20. Embryo, Running, Blocked, Running, Zombie, Running
 
 ```json
 {
   "problem_id": "20",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["locking","race-condition","synchronization"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-states"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -706,45 +356,16 @@ A. Possible
 
 ## Question 21 [1 point]
 
-Problem XXI:Here is a ticket lock:
-typedef struct __lock_t {
-int ticket, turn;
-} lock_t;
-void lock_init(lock_t
-*
-lock) {
-lock->ticket = 0;
-lock->turn   = 0;
-}
-void lock(lock_t
-*
-lock) {
-int myturn = FetchAndAdd(&lock->ticket);
-while (lock->turn != myturn)
-; // spin
-}
-void unlock(lock_t
-*
-lock) {
-lock->turn = lock->turn + 1;
-}
-Assuming a maximum of 5 threads in the system, and further assuming the ticket lock is used “properly”
-(i.e., threads acquire and release it as expected), what values oflock->ticketandlock->turnare
-possible? (at the same time)To answer:Fill inAfor possible,Bfor not possible.
-101.ticket=0andturn=0A. Possible
-102.ticket=0andturn=1B. Not Possible
-103.ticket=1andturn=0A. Possible
-104.ticket=16andturn=5B. Not Possible
-105.ticket=1000andturn=999A. Possible
+21. ab
 
 ```json
 {
   "problem_id": "21",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["ticket-lock","synchronization","threading"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -752,36 +373,15 @@ possible? (at the same time)To answer:Fill inAfor possible,Bfor not possible.
 
 ## Question 22 [1 point]
 
-Problem XXII:Assume the following list insertion code, which inserts into a list pointed to by shared global
-variablehead:
-int List_Insert(int key) {
-node_t
-*
-n = malloc(sizeof(node_t));
-if (n == NULL) { return -1; }
-n->key = key;
-n->next = head;
-head = n;
-return 0;
-}
-This code is executed by each of three threads exactly once, without adding any synchronization primi-
-tives (such as locks). Assumingmalloc()is thread-safe (i.e., can be called without worries of data races)
-and thatmalloc()returns successfully, how long might the list be when these three threads are finished
-executing? (assume the list was empty to begin)
-To answer:Fill inAfor possible,Bfor not possible.
-106. 0B. Not Possible
-107. 1A. Possible
-108. 2A. Possible
-109. 3A. Possible
-110. 4B. Not Possible
+22. abb
 
 ```json
 {
   "problem_id": "22",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["data-races","linked-list","memory-allocation"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -790,59 +390,16 @@ To answer:Fill inAfor possible,Bfor not possible.
 
 ## Question 23 [1 point]
 
-Problem XXIII:Assume the following code, in which a “background malloc” allocates memory in a thread
-and initializes it:
-void
-*
-background_malloc(void
-*
-arg) {
-int
-**
-int_ptr = (int
-**
-) arg;      // [typo from int
-*
--> int
-**
-corrected here]
-*
-int_ptr = calloc(1, sizeof(int)); // allocates space for 1 int
-**
-int_ptr = 10;                    // calloc: also zeroes memory
-return NULL;
-}
-int main(int argc, char
-*
-argv[]) {
-pthread_t p1;
-int
-*
-result = NULL;
-pthread_create(&p1, NULL, background_malloc, &result);
-printf("%d\n",
-*
-result);
-return 0;
-}
-The code unfortunately is buggy. What are the possible outcomes of this code? Assume the calls to
-pthread
-create()andcalloc()succeed, and that a NULL pointer dereference crashes reliably.
-To answer:Fill inAif possible,Bfor not possible.
-111. The code prints out 0A. Possible
-112. The code prints out 10A. Possible
-113. The code prints out 100B. Not Possible
-114. The code crashesA. Possible
-115. The code hangs foreverB. Not Possible
+23. bab
 
 ```json
 {
   "problem_id": "23",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["threading","malloc","races"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -850,61 +407,16 @@ To answer:Fill inAif possible,Bfor not possible.
 
 ## Question 24 [1 point]
 
-Problem XXIV:Here is some more multi-threaded code:
-void
-*
-printer(void
-*
-arg) {
-char
-*
-p = (char
-*
-) arg;
-printf("%c",
-*
-p);
-return NULL;
-}
-int main(int argc, char
-*
-argv[]) {
-pthread_t p[5];
-for (int i = 0; i < 5; i++) {
-char
-*
-c = malloc(sizeof(char));
-*
-c = ’a’ + i; // hint: ’a’ + 1 = ’b’, etc.
-pthread_create(&p[i], NULL, printer, (void
-*
-) c);
-}
-for (int i = 0; i < 5; i++)
-pthread_join(p[i], NULL);
-return 0;
-}
-Assuming calls to all library routines succeed, which of thefollowing outputs are possible?
-To answer:Fill inAif possible,Bfor not possible.
-116. abcde
-A. Possible
-117. edcba
-A. Possible
-118. cccde
-B. Not Possible
-119. eeeee
-B. Not Possible
-120. aaaaa
-B. Not Possible
+24. bba
 
 ```json
 {
   "problem_id": "24",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["threading","stdout","order"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -912,57 +424,16 @@ B. Not Possible
 
 ## Question 25 [1 point]
 
-Problem XXV:Assume the sameprinter()function (from above), but this slightly changedmain():
-void
-*
-printer(void
-*
-arg) {
-char
-*
-p = (char
-*
-) arg;
-printf("%c",
-*
-p);
-return NULL;
-}
-int main(int argc, char
-*
-argv[]) {
-pthread_t p[5];
-for (int i = 0; i < 5; i++) {
-char c = ’a’ + i;
-pthread_create(&p[i], NULL, printer, (void
-*
-) &c);
-}
-for (int i = 0; i < 5; i++)
-pthread_join(p[i], NULL);
-return 0;
-}
-Assuming calls to all library routines succeed, which of thefollowing outputs are possible?
-To answer:Fill inAif possible,Bfor not possible.
-121. abcde
-A. Possible
-122. edcba
-A. Possible
-123. cccde
-A. Possible
-124. eeeee
-A. Possible
-125. aaaaa
-B. Not Possible
+25. a
 
 ```json
 {
   "problem_id": "25",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["threading","stack","race-condition"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -970,57 +441,15 @@ B. Not Possible
 
 ## Question 26 [1 point]
 
-Problem XXVI:Assume the following multi-threaded memory allocator, roughly sketched out as follows:
-int bytes_left = MAX_HEAP_SIZE;
-pthread_cond_t c;
-pthread_mutex_t m;
-void
-*
-allocate(int size) {
-pthread_mutex_lock(&m);
-while (bytes_left < size)
-pthread_cond_wait(&c, &m);
-void
-*
-ptr = ...; // get mem from internal data structs
-bytes_left -= size;
-pthread_mutex_unlock(&m);
-return ptr;
-}
-void free(void
-*
-ptr, int size) {
-pthread_mutex_lock(&m);
-bytes_left += size;
-pthread_cond_signal(&c);
-pthread_mutex_unlock(&m);
-}
-Assume all of memory is used up (i.e.,bytes
-leftis 0). Then:
-•One thread (T1) callsallocate(100)
-•Some time later, a second thread (T2) callsallocate(1000)
-•Finally, some time later, a third thread (T3) callsfree(200)
-Assuming all calls to thread library functions work as expected, which of the following are possible just
-after this sequence of events has taken place?
-To answer:Fill inAif possible,Bfor not possible.
-126. T1 and T2 remain blocked insideallocate()
-A. Possible
-127. T1 becomes unblocked, gets 100 bytes allocated, and returns fromallocate()
-A. Possible
-128. T2 becomes unblocked, gets 1000 bytes allocated, and returns fromallocate()
-B. Not Possible
-129. T3 becomes blocked insidefree()
-B. Not Possible
-130. T1, T2, and T3 become deadlocked
-B. Not Possible
+26. ab
 
 ```json
 {
   "problem_id": "26",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["memory-allocator","condvars","mutexes"],
-  "choices": ["Possible","Not Possible"],
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -1029,23 +458,15 @@ B. Not Possible
 
 ## Question 27 [1 point]
 
-Problem XXVII:A Semaphore is a useful synchronization primitive. Which of the following statements
-are true of semaphores?
-To answer:Fill inAif true,Bfor not true.
-131. Each semaphore has an integer valueA. True
-132. If a semaphore is initialized to 1, it can be used as a lockA. True
-133. Semaphores can be initialized to values higher than 1A. True
-134. A single lock and condition variable can be used in tandem to implement a semaphoreA. True
-135. Callingsem
-post()may block, depending on the current value of the semaphoreB. False
+27. abb
 
 ```json
 {
   "problem_id": "27",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["semaphores","synchronization"],
-  "choices": ["True","False"],
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
 }
 ```
@@ -1054,50 +475,16 @@ post()may block, depending on the current value of the semaphoreB. False
 
 ## Question 28 [1 point]
 
-Problem XXVIII:Here is the classic semaphore version of the producer/consumer problem:
-void
-*
-producer(void
-*
-arg) {  // core of producer
-for (i = 0; i < num; i++) {
-sem_wait(&empty);
-sem_wait(&mutex);
-put(i);
-sem_post(&mutex);
-sem_post(&full);
-}
-}
-void
-*
-consumer(void
-*
-arg) {  // core of consumer
-while (!done) {
-sem_wait(&full);
-sem_wait(&mutex);
-int tmp = get(i);
-sem_post(&mutex);
-sem_post(&empty);
-// do something with tmp ...
-}
-}
-For the following statements about this working solution, which statements are true, and which are not?
-To answer:Fill inAif true,Bfor not true.
-136. The semaphorefullmust be initialized to 0A. True
-137. The semaphorefullmust be initialized to 1B. False
-138. The semaphoreemptymust be initialized to 1B. False
-139. The semaphoreemptycan be initialized to 1A. True
-140. The semaphoremutexmust be initialized to 1A. True
+28. bab
 
 ```json
 {
   "problem_id": "28",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["producer-consumer","semaphores"],
-  "choices": ["True","False"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -1105,27 +492,16 @@ To answer:Fill inAif true,Bfor not true.
 
 ## Question 29 [1 point]
 
-Problem XXIX:One way to avoid deadlock is to schedule threads carefully. Assume the following charac-
-teristics of threads T1, T2, and T3:
-•T1 (at some point) acquires and releases locks L1, L2
-•T2 (at some point) acquires and releases locks L1, L3
-•T3 (at some point) acquires and releases locks L3, L1, and L4
-For which schedules below is deadlock possible?
-To answer:Fill inAif deadlock is possible,Bfor not possible.
-141. T1 runs to completion, then T2 to completion, then T3 runsB. Not Possible
-142. T1 and T2 run concurrently to completion, then T3 runsB. Not Possible
-143. T1, T2, and T3 run concurrentlyA. Possible
-144. T3 runs to completion, then T1 and T2 run concurrentlyB. Not Possible
-145. T1 and T3 run concurrently to completion, then T2 runsB. Not Possible
+29. bba
 
 ```json
 {
   "problem_id": "29",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["deadlock","scheduling","locks"],
-  "choices": ["Possible","Not Possible"],
-  "answer": "A"
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
 
@@ -1133,24 +509,2055 @@ To answer:Fill inAif deadlock is possible,Bfor not possible.
 
 ## Question 30 [1 point]
 
-Problem XXX:The multi-level page table is something that cannot be avoided. No matter what you do,
-there it is, bringing joy and horror to us all. In this last question, you’ll get your chance at a question about
-this foreboding structure. Fortunately, you don’t have to perform a translation. Instead, just answer these
-true/false questions about the multi-level page table.
-To answer:Fill inAif true,Bfor not true.
-146. A multi-level page table may use more pages than a linearpage tableA. True
-147. It’s easier to allocate pages of the page table in a multi-level table (as compared to a linear page table) A. True
-148. Multi-level page table lookups take longer than linearpage table lookupsA. True
-149. With larger virtual address spaces, usually more levels are usedA. True
-150. TLBs are useful in making multi-level page tables even smallerB. False
+30. a
 
 ```json
 {
   "problem_id": "30",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["multilevel-page-table","tlb","virtual-memory"],
-  "choices": ["True","False"],
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 31 [1 point]
+
+31. 123
+
+```json
+{
+  "problem_id": "31",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 32 [1 point]
+
+32. 12
+
+```json
+{
+  "problem_id": "32",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 33 [1 point]
+
+33. 2
+
+```json
+{
+  "problem_id": "33",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
   "answer": "A"
+}
+```
+
+---
+
+## Question 34 [1 point]
+
+34. 23
+
+```json
+{
+  "problem_id": "34",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 35 [1 point]
+
+35. 3
+
+```json
+{
+  "problem_id": "35",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 36 [1 point]
+
+36. 123
+
+```json
+{
+  "problem_id": "36",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 37 [1 point]
+
+37. 12
+
+```json
+{
+  "problem_id": "37",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 38 [1 point]
+
+38. 2
+
+```json
+{
+  "problem_id": "38",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 39 [1 point]
+
+39. 23
+
+```json
+{
+  "problem_id": "39",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 40 [1 point]
+
+40. 3
+
+```json
+{
+  "problem_id": "40",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","process-scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 41 [1 point]
+
+41. A=10, B=10, C=10
+
+```json
+{
+  "problem_id": "41",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 42 [1 point]
+
+42. A=20, B=20, C=20
+
+```json
+{
+  "problem_id": "42",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 43 [1 point]
+
+43. A=5, B=10, C=15
+
+```json
+{
+  "problem_id": "43",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 44 [1 point]
+
+44. A=20, B=30, C=40
+
+```json
+{
+  "problem_id": "44",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 45 [1 point]
+
+45. A=30, B=1, C=1
+
+```json
+{
+  "problem_id": "45",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","concurrency","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 46 [1 point]
+
+46. FIFO
+
+```json
+{
+  "problem_id": "46",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","scheduling","processor"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 47 [1 point]
+
+47. Round Robin
+
+```json
+{
+  "problem_id": "47",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","scheduling","processor"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 48 [1 point]
+
+48. STCF (Shortest Time to Completion First)
+
+```json
+{
+  "problem_id": "48",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","scheduling","processor"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 49 [1 point]
+
+49. Multi-level Feedback Queue
+
+```json
+{
+  "problem_id": "49",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","scheduling","mlfq"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 50 [1 point]
+
+50. Lottery Scheduling
+
+```json
+{
+  "problem_id": "50",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","scheduling","lottery"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 51 [1 point]
+
+51. MLFQ learns things about running jobs
+
+```json
+{
+  "problem_id": "51",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","mlfq","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 52 [1 point]
+
+52. MLFQ starves long running jobs
+
+```json
+{
+  "problem_id": "52",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","mlfq","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 53 [1 point]
+
+53. MLFQ uses different length time slices for jobs
+
+```json
+{
+  "problem_id": "53",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","mlfq","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 54 [1 point]
+
+54. MLFQ uses round robin
+
+```json
+{
+  "problem_id": "54",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","mlfq","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 55 [1 point]
+
+55. MLFQ forgets what it has learned about running jobs sometimes
+
+```json
+{
+  "problem_id": "55",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["operating-systems","mlfq","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 56 [1 point]
+
+56. 0
+
+```json
+{
+  "problem_id": "56",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 57 [1 point]
+
+57. 1000
+
+```json
+{
+  "problem_id": "57",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 58 [1 point]
+
+58. 10000
+
+```json
+{
+  "problem_id": "58",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 59 [1 point]
+
+59. 10050
+
+```json
+{
+  "problem_id": "59",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 60 [1 point]
+
+60. 10100
+
+```json
+{
+  "problem_id": "60",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 61 [1 point]
+
+61. 0
+
+```json
+{
+  "problem_id": "61",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 62 [1 point]
+
+62. 1000
+
+```json
+{
+  "problem_id": "62",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 63 [1 point]
+
+63. 10000
+
+```json
+{
+  "problem_id": "63",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 64 [1 point]
+
+64. 10050
+
+```json
+{
+  "problem_id": "64",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 65 [1 point]
+
+65. 10100
+
+```json
+{
+  "problem_id": "65",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["virtual-memory","address-space"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 66 [1 point]
+
+66. Faster translation
+
+```json
+{
+  "problem_id": "66",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 67 [1 point]
+
+67. Less physical memory waste
+
+```json
+{
+  "problem_id": "67",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 68 [1 point]
+
+68. Better sharing of code in memory
+
+```json
+{
+  "problem_id": "68",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 69 [1 point]
+
+69. More hardware support needed to implement it
+
+```json
+{
+  "problem_id": "69",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 70 [1 point]
+
+70. More OS issues to handle, such as compaction
+
+```json
+{
+  "problem_id": "70",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 71 [1 point]
+
+71. 0x1d (decimal: 29)
+
+```json
+{
+  "problem_id": "71",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 72 [1 point]
+
+72. 0x7b (decimal: 123)
+
+```json
+{
+  "problem_id": "72",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 73 [1 point]
+
+73. 0x10 (decimal: 16)
+
+```json
+{
+  "problem_id": "73",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 74 [1 point]
+
+74. 0x5a (decimal: 90)
+
+```json
+{
+  "problem_id": "74",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 75 [1 point]
+
+75. 0x0a (decimal: 10)
+
+```json
+{
+  "problem_id": "75",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["segmentation","memory-management"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 76 [1 point]
+
+76. 0x34 (decimal: 52)
+
+```json
+{
+  "problem_id": "76",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 77 [1 point]
+
+77. 0x44 (decimal: 68)
+
+```json
+{
+  "problem_id": "77",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 78 [1 point]
+
+78. 0x57 (decimal: 87)
+
+```json
+{
+  "problem_id": "78",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 79 [1 point]
+
+79. 0x18 (decimal: 24)
+
+```json
+{
+  "problem_id": "79",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 80 [1 point]
+
+80. 0x46 (decimal: 70)
+
+```json
+{
+  "problem_id": "80",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","virtual-memory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 81 [1 point]
+
+81. 0, 100, 200, 1, 101, 201, ... (repeats in this pattern)
+
+```json
+{
+  "problem_id": "81",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["tlb","paging","caching"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 82 [1 point]
+
+82. 0, 100, 200, 300, 0, 100, 200, 300, ... (repeats)
+
+```json
+{
+  "problem_id": "82",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["tlb","paging","caching"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 83 [1 point]
+
+83. 0, 1000, 2000, 3000, 4000, 0, 1000, 2000, 3000, 4000, ... (repeats)
+
+```json
+{
+  "problem_id": "83",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["tlb","paging","caching"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 84 [1 point]
+
+84. 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, ... (repeats)
+
+```json
+{
+  "problem_id": "84",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["tlb","paging","caching"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 85 [1 point]
+
+85. 300, 200, 100, 0, 300, 200, 100, 0, ... (repeats)
+
+```json
+{
+  "problem_id": "85",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["tlb","paging","caching"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 86 [1 point]
+
+86. The LRU policy always outperforms the FIFO policy.
+
+```json
+{
+  "problem_id": "86",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["page-replacement","LRU","FIFO"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 87 [1 point]
+
+87. The OPT (optimal) policy always performs at least as well as LRU.
+
+```json
+{
+  "problem_id": "87",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["page-replacement","optimal","LRU"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 88 [1 point]
+
+88. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if they are using the same replacement policy.
+
+```json
+{
+  "problem_id": "88",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","capacity","Belady"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 89 [1 point]
+
+89. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if they are using the LRU replacement policy.
+
+```json
+{
+  "problem_id": "89",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","LRU","Belady"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 90 [1 point]
+
+90. Random replacement is always worse than LRU replacement.
+
+```json
+{
+  "problem_id": "90",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","replacement-policies","LRU"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 91 [1 point]
+
+91. 7
+
+```json
+{
+  "problem_id": "91",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","TLB","paging"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 92 [1 point]
+
+92. 9
+
+```json
+{
+  "problem_id": "92",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","TLB","paging"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 93 [1 point]
+
+93. 0
+
+```json
+{
+  "problem_id": "93",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","TLB","paging"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 94 [1 point]
+
+94. 4
+
+```json
+{
+  "problem_id": "94",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","TLB","paging"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 95 [1 point]
+
+95. 9
+
+```json
+{
+  "problem_id": "95",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["cache","TLB","paging"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 96 [1 point]
+
+96. 1
+
+```json
+{
+  "problem_id": "96",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["locks","concurrency","theory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 97 [1 point]
+
+97. 2
+
+```json
+{
+  "problem_id": "97",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["locks","concurrency","theory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 98 [1 point]
+
+98. 3
+
+```json
+{
+  "problem_id": "98",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["locks","concurrency","theory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 99 [1 point]
+
+99. 4
+
+```json
+{
+  "problem_id": "99",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["locks","concurrency","theory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 100 [1 point]
+
+100. 5
+
+```json
+{
+  "problem_id": "100",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["locks","concurrency","theory"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 101 [1 point]
+
+101. ticket=0 and turn=0
+
+```json
+{
+  "problem_id": "101",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["synchronization","ticket-lock"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 102 [1 point]
+
+102. ticket=0 and turn=1
+
+```json
+{
+  "problem_id": "102",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["synchronization","ticket-lock"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 103 [1 point]
+
+103. ticket=1 and turn=0
+
+```json
+{
+  "problem_id": "103",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["synchronization","ticket-lock"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 104 [1 point]
+
+104. ticket=16 and turn=5
+
+```json
+{
+  "problem_id": "104",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["synchronization","ticket-lock"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 105 [1 point]
+
+105. ticket=1000 and turn=999
+
+```json
+{
+  "problem_id": "105",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["synchronization","ticket-lock"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 106 [1 point]
+
+106. 0
+
+```json
+{
+  "problem_id": "106",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["linked-list","concurrency"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 107 [1 point]
+
+107. 1
+
+```json
+{
+  "problem_id": "107",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["linked-list","concurrency"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 108 [1 point]
+
+108. 2
+
+```json
+{
+  "problem_id": "108",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["linked-list","concurrency"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 109 [1 point]
+
+109. 3
+
+```json
+{
+  "problem_id": "109",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["linked-list","concurrency"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 110 [1 point]
+
+110. 4
+
+```json
+{
+  "problem_id": "110",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["linked-list","concurrency"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 111 [1 point]
+
+111. The code prints out 0
+
+```json
+{
+  "problem_id": "111",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 112 [1 point]
+
+112. The code prints out 10
+
+```json
+{
+  "problem_id": "112",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 113 [1 point]
+
+113. The code prints out 100
+
+```json
+{
+  "problem_id": "113",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 114 [1 point]
+
+114. The code crashes
+
+```json
+{
+  "problem_id": "114",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 115 [1 point]
+
+115. The code hangs forever
+
+```json
+{
+  "problem_id": "115",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 116 [1 point]
+
+116. abcde
+
+```json
+{
+  "problem_id": "116",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 117 [1 point]
+
+117. edcba
+
+```json
+{
+  "problem_id": "117",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 118 [1 point]
+
+118. cccde
+
+```json
+{
+  "problem_id": "118",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 119 [1 point]
+
+119. eeeee
+
+```json
+{
+  "problem_id": "119",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 120 [1 point]
+
+120. aaaaa
+
+```json
+{
+  "problem_id": "120",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 121 [1 point]
+
+121. abcde
+
+```json
+{
+  "problem_id": "121",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 122 [1 point]
+
+122. edcba
+
+```json
+{
+  "problem_id": "122",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 123 [1 point]
+
+123. cccde
+
+```json
+{
+  "problem_id": "123",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 124 [1 point]
+
+124. eeeee
+
+```json
+{
+  "problem_id": "124",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 125 [1 point]
+
+125. aaaaa
+
+```json
+{
+  "problem_id": "125",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","printing"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 126 [1 point]
+
+126. T1 and T2 remain blocked insideallocate()
+
+```json
+{
+  "problem_id": "126",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation","condition-variables"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 127 [1 point]
+
+127. T1 becomes unblocked, gets 100 bytes allocated, and returns fromallocate()
+
+```json
+{
+  "problem_id": "127",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation","condition-variables"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 128 [1 point]
+
+128. T2 becomes unblocked, gets 1000 bytes allocated, and returns fromallocate()
+
+```json
+{
+  "problem_id": "128",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation","condition-variables"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 129 [1 point]
+
+129. T3 becomes blocked insidefree()
+
+```json
+{
+  "problem_id": "129",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","memory-allocation","condition-variables"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 130 [1 point]
+
+130. T1, T2, and T3 become deadlocked
+
+```json
+{
+  "problem_id": "130",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["multithreading","deadlock"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 131 [1 point]
+
+131. Each semaphore has an integer value
+
+```json
+{
+  "problem_id": "131",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["semaphores","synchronization"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 132 [1 point]
+
+132. If a semaphore is initialized to 1, it can be used as a lock
+
+```json
+{
+  "problem_id": "132",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["semaphores","synchronization"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 133 [1 point]
+
+133. Semaphores can be initialized to values higher than 1
+
+```json
+{
+  "problem_id": "133",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["semaphores","synchronization"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 134 [1 point]
+
+134. A single lock and condition variable can be used in tandem to implement a semaphore
+
+```json
+{
+  "problem_id": "134",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["semaphores","synchronization"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 135 [1 point]
+
+135. Calling sem_post() may block, depending on the current value of the semaphore
+
+```json
+{
+  "problem_id": "135",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["semaphores","synchronization"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 136 [1 point]
+
+136. The semaphorefull must be initialized to 0
+
+```json
+{
+  "problem_id": "136",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["producer-consumer","semaphores"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 137 [1 point]
+
+137. The semaphorefull must be initialized to 1
+
+```json
+{
+  "problem_id": "137",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["producer-consumer","semaphores"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 138 [1 point]
+
+138. The semaphoreempty must be initialized to 1
+
+```json
+{
+  "problem_id": "138",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["producer-consumer","semaphores"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 139 [1 point]
+
+139. The semaphoreempty can be initialized to 1
+
+```json
+{
+  "problem_id": "139",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["producer-consumer","semaphores"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 140 [1 point]
+
+140. The semaphoremutex must be initialized to 1
+
+```json
+{
+  "problem_id": "140",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["producer-consumer","semaphores"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 141 [1 point]
+
+141. T1 runs to completion, then T2 to completion, then T3 runs
+
+```json
+{
+  "problem_id": "141",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["deadlock","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 142 [1 point]
+
+142. T1 and T2 run concurrently to completion, then T3 runs
+
+```json
+{
+  "problem_id": "142",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["deadlock","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 143 [1 point]
+
+143. T1, T2, and T3 run concurrently
+
+```json
+{
+  "problem_id": "143",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["deadlock","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 144 [1 point]
+
+144. T3 runs to completion, then T1 and T2 run concurrently
+
+```json
+{
+  "problem_id": "144",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["deadlock","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 145 [1 point]
+
+145. T1 and T3 run concurrently to completion, then T2 runs
+
+```json
+{
+  "problem_id": "145",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["deadlock","scheduling"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
+}
+```
+
+---
+
+## Question 146 [1 point]
+
+146. A multi-level page table may use more pages than a linearpage table
+
+```json
+{
+  "problem_id": "146",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","multilevel-page-table"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 147 [1 point]
+
+147. It’s easier to allocate pages of the page table in a multi-level table (as compared to a linear page table)
+
+```json
+{
+  "problem_id": "147",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","multilevel-page-table"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 148 [1 point]
+
+148. Multi-level page table lookups take longer than linearpage table lookups
+
+```json
+{
+  "problem_id": "148",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","multilevel-page-table","latency"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 149 [1 point]
+
+149. With larger virtual address spaces, usually more levels are used
+
+```json
+{
+  "problem_id": "149",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","multilevel-page-table"],
+  "choices": ["Possible","Not possible"],
+  "answer": "A"
+}
+```
+
+---
+
+## Question 150 [1 point]
+
+150. TLBs are useful in making multi-level page tables even smaller
+
+```json
+{
+  "problem_id": "150",
+  "points": 1,
+  "type": "ExactMatch",
+  "tags": ["paging","TLB","multilevel-page-table"],
+  "choices": ["Possible","Not possible"],
+  "answer": "B"
 }
 ```
