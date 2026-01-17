@@ -5,33 +5,31 @@
   "exam_id": "cs537_spring_2018_final",
   "test_paper_name": "CS 537 Spring 2018 Final",
   "course": "CS 537",
-  "institution": "UW-Madison",
+  "institution": "University of Wisconsin-Madison",
   "year": 2018,
-  "score_total": 79,
+  "score_total": 80,
   "num_questions": 80
 }
 ```
 
 ---
 
+
 ## Question 1 [1 point]
 
-For a specific RAID array (call it “RAID A”), a read of a block takes about 10ms. A write of a block 
-also takes about 10ms. This RAID is likely:
+For a specific RAID array (call it “RAID A”), a read of a block takes about 10ms. A write of a block also takes about 10ms. This RAID is likely:
 A) RAID-1 (mirroring)
 B) RAID-4 (parity disk)
 C) RAID-5 (rotating parity)
 D) RAID-4 or RAID-5
 E) All of the above
 
-Your answer should be one letter only (A, B, C, D, or E).
-
 ```json
 {
   "problem_id": "1",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
+  "tags": ["raid","storage-systems","forensics"],
   "choices": ["RAID-1 (mirroring)", "RAID-4 (parity disk)", "RAID-5 (rotating parity)", "RAID-4 or RAID-5", "All of the above"],
   "answer": "A"
 }
@@ -41,8 +39,7 @@ Your answer should be one letter only (A, B, C, D, or E).
 
 ## Question 2 [1 point]
 
-Question 2: for “RAID B”, two small random writes usually take about twice as long as one random write. This 
-RAID is likely:
+for “RAID B”, two small random writes usually take about twice as long as one random write. This RAID is likely:
 A) RAID-1 (mirroring)
 B) RAID-4 (parity disk)
 C) RAID-5 (rotating parity)
@@ -54,7 +51,7 @@ E) All of the above
   "problem_id": "2",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
+  "tags": ["raid","storage-systems","forensics"],
   "choices": ["RAID-1 (mirroring)", "RAID-4 (parity disk)", "RAID-5 (rotating parity)", "RAID-4 or RAID-5", "All of the above"],
   "answer": "B"
 }
@@ -64,7 +61,7 @@ E) All of the above
 
 ## Question 3 [1 point]
 
-Question 3: for “RAID C”, a large write (of 7 blocks) usually takes about as much time as a small write (1 block). This RAID is likely:
+for “RAID C”, a large write (of 7 blocks) usually takes about as much time as a small write (1 block). This RAID is likely:
 A) RAID-1 (mirroring)
 B) RAID-4 (parity disk)
 C) RAID-5 (rotating parity)
@@ -76,7 +73,7 @@ E) All of the above
   "problem_id": "3",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
+  "tags": ["raid","storage-systems","forensics"],
   "choices": ["RAID-1 (mirroring)", "RAID-4 (parity disk)", "RAID-5 (rotating parity)", "RAID-4 or RAID-5", "All of the above"],
   "answer": "D"
 }
@@ -86,7 +83,7 @@ E) All of the above
 
 ## Question 4 [1 point]
 
-Question 4: For “RAID D”, the overall throughput (measured in MB/s) is about 4 MB/s when issuing many 1-block random writes. In comparison, a comparable RAID array configured to use striping (RAID-0) achieved a throughput of about 8 MB/s. This RAID (RAID D) is likely:
+For “RAID D”, the overall throughput (measured in MB/s) is about 4 MB/s when issuing many 1-block random writes. In comparison, a comparable RAID array configured to use striping (RAID-0) achieved a throughput of about 8 MB/s. This RAID (RAID D) is likely:
 A) RAID-1 (mirroring)
 B) RAID-4 (parity disk)
 C) RAID-5 (rotating parity)
@@ -98,7 +95,7 @@ E) All of the above
   "problem_id": "4",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
+  "tags": ["raid","storage-systems","forensics"],
   "choices": ["RAID-1 (mirroring)", "RAID-4 (parity disk)", "RAID-5 (rotating parity)", "RAID-4 or RAID-5", "All of the above"],
   "answer": "A"
 }
@@ -108,7 +105,7 @@ E) All of the above
 
 ## Question 5 [1 point]
 
-Question 5: for “RAID E”, the overall throughput when writing large sequential blocks to disk is about 700 MB/s. In comparison, large sequential writes to a RAID 0 achieves about 800 MB/s. This RAID (RAID-E) is likely:
+for “RAID E”, the overall throughput when writing large sequential blocks to disk is about 700 MB/s. In comparison, large sequential writes to a RAID 0 achieves about 800 MB/s. This RAID (RAID-E) is likely:
 A) RAID-1 (mirroring)
 B) RAID-4 (parity disk)
 C) RAID-5 (rotating parity)
@@ -120,7 +117,7 @@ E) All of the above
   "problem_id": "5",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
+  "tags": ["raid","storage-systems","forensics"],
   "choices": ["RAID-1 (mirroring)", "RAID-4 (parity disk)", "RAID-5 (rotating parity)", "RAID-4 or RAID-5", "All of the above"],
   "answer": "D"
 }
@@ -130,7 +127,7 @@ E) All of the above
 
 ## Question 6 [1 point]
 
-Question 6: For “RAID F”, you know that the RAID is likely RAID-4 or RAID-5. You issue a single perfectly aligned block write. The number of physical I/Os you measure on RAID F during this write is:
+For “RAID F”, you know that the RAID is likely RAID-4 or RAID-5. You issue a single perfectly aligned block write. The number of physical I/Os you measure on RAID F during this write is:
 A) 0
 B) 1
 C) 2
@@ -140,11 +137,11 @@ E) 4
 ```json
 {
   "problem_id": "6",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
-  "choices": ["0", "1", "2", "3", "4"],
-  "answer": "E"
+ "points": 1,
+ "type": "ExactMatch",
+ "tags": ["raid","storage-systems","forensics"],
+ "choices": ["0","1","2","3","4"],
+ "answer": "B"
 }
 ```
 
@@ -152,7 +149,7 @@ E) 4
 
 ## Question 7 [1 point]
 
-Question 7: For “RAID G”, you have already figured out that it is likely a RAID-1 (mirroring). You then issue a single write to the RAID. The write is small (1 block) is aligned. The number of physical I/Os you measure on the disks of RAID G is always:
+For “RAID G”, you have already figured out that it is likely a RAID-1 (mirroring). You then issue a single write to the RAID. The write is small (1 block) is aligned. The number of physical I/Os you measure on the disks of RAID G is always:
 A) 0
 B) 1
 C) 2
@@ -164,8 +161,8 @@ E) Always > 2
   "problem_id": "7",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
-  "choices": ["0", "1", "2", "Sometimes =2, sometimes >2", "Always > 2"],
+  "tags": ["raid","storage-systems","forensics"],
+  "choices": ["0","1","2","Sometimes =2, sometimes >2","Always > 2"],
   "answer": "C"
 }
 ```
@@ -174,7 +171,7 @@ E) Always > 2
 
 ## Question 8 [1 point]
 
-Question 8: For “RAID H”, you have already figured out that it is likely a RAID-1 (mirroring). You then issue a single write to the RAID. The write is small (1 block); however, it is not necessarily aligned. The number of physical I/Os you measure on the disks of RAID H is always:
+For “RAID H”, you have already figured out that it is likely a RAID-1 (mirroring). You then issue a single write to the RAID. The write is small; however, it is not necessarily aligned. The number of physical I/Os you measure on the disks of RAID H is always:
 A) 0
 B) 1
 C) 2
@@ -186,8 +183,8 @@ E) Always > 2
   "problem_id": "8",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
-  "choices": ["0", "1", "2", "Sometimes =2, sometimes >2", "Always > 2"],
+  "tags": ["raid","storage-systems","forensics"],
+  "choices": ["0","1","2","Sometimes =2, sometimes >2","Always > 2"],
   "answer": "D"
 }
 ```
@@ -196,9 +193,7 @@ E) Always > 2
 
 ## Question 9 [1 point]
 
-Question 9: For “RAID I”, you already know that it is RAID-5 (rotating parity). You then issue a single small 
-read (1 block), which is never aligned. The number of physical I/Os you measure on the disks of RAID I is 
-always:
+For “RAID I”, you already know that it is RAID-5 (rotating parity). You then issue a single small read (1 block), which is never aligned. The number of physical I/Os you measure on the disks of RAID I is always:
 A) 0
 B) 1
 C) 2
@@ -210,8 +205,8 @@ E) Always > 2
   "problem_id": "9",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
-  "choices": ["0", "1", "2", "Sometimes =2, sometimes >2", "Always > 2"],
+  "tags": ["raid","storage-systems","forensics"],
+  "choices": ["0","1","2","Sometimes =2, sometimes >2","Always > 2"],
   "answer": "C"
 }
 ```
@@ -220,8 +215,8 @@ E) Always > 2
 
 ## Question 10 [1 point]
 
-Question 10: For “RAID J”, you measure the total number of physical I/Os under a read-only workload. You find that it is equal to the number of logical reads issued to the RAID. You also see that one disk is never accessed. From this, you conclude that the RAID is:
-A) RAID-0 (striping) 
+For “RAID J”, you measure the total number of physical I/Os under a read-only workload. You find that it is equal to the number of logical reads issued to the RAID. You also see that one disk is never accessed. From this, you conclude that the RAID is:
+A) RAID-0 (striping)
 B) RAID-1 (mirroring)
 C) RAID-4 (parity disk)
 D) RAID-0 or RAID-1
@@ -232,9 +227,9 @@ E) RAID-0 or RAID-1 or RAID-4
   "problem_id": "10",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["raid", "storage", "forensics"],
+  "tags": ["raid","storage-systems","forensics"],
   "choices": ["RAID-0 (striping)", "RAID-1 (mirroring)", "RAID-4 (parity disk)", "RAID-0 or RAID-1", "RAID-0 or RAID-1 or RAID-4"],
-  "answer": "C"
+  "answer": "D"
 }
 ```
 
@@ -242,6 +237,10 @@ E) RAID-0 or RAID-1 or RAID-4
 
 ## Question 11 [1 point]
 
+A new type of disk has come to market. It is called a “shingled disk”, and has the following properties. First, tracks are grouped into groups called “shingles”. Within each shingle, tracks are packed very tightly, such that when you write to a block on track K, you will likely overwrite (oops) the corresponding block on track K+1. Thus, tracks within a shingle should be written in order, from 0 to T-1 (assuming T tracks in each shingle);  
+if you stick to writing tracks in order within a shingle, you won’t lose any data.
+The reason for shingles: it allows disk manufacturers to pack even more data on disk, making disks cheaper.
+The problem: you can’t easily overwrite a block in place; rather, the device needs to keep a mapping table of some kind (the Shingle Translation Layer, or STL), and write blocks out (within each shingle) in log-structured fashion.
 Question 11: Assume the STL maps each 4KB block to a location on the disk. How big must the STL be to hold translations for an entire 512-GB disk? Assume a 4-byte disk address for each entry in an array-like structure in the STL.
 A) 1 MB
 B) 128 MB
@@ -254,8 +253,8 @@ E) None of the above
   "problem_id": "11",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["1 MB", "128 MB", "512 MB", "1 GB", "None of the above"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["1 MB","128 MB","512 MB","1 GB","None of the above"],
   "answer": "C"
 }
 ```
@@ -264,7 +263,7 @@ E) None of the above
 
 ## Question 12 [1 point]
 
-Question 12: The STL size can be changed by mapping chunks in sizes other than the usual 4KB block. With each doubling of the block size, the STL:
+The STL size can be changed by mapping chunks in sizes other than the usual 4KB block. With each doubling of the block size, the STL:
 A) Increases in size by 2x
 B) Decreases in size by 2x
 C) Increases in size by 4x
@@ -276,8 +275,8 @@ E) None of the above
   "problem_id": "12",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["Increases in size by 2x", "Decreases in size by 2x", "Increases in size by 4x", "Decreases in size by 4x", "None of the above"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["Increases in size by 2x","Decreases in size by 2x","Increases in size by 4x","Decreases in size by 4x","None of the above"],
   "answer": "B"
 }
 ```
@@ -286,7 +285,7 @@ E) None of the above
 
 ## Question 13 [1 point]
 
-Question 13: In a shingled disk, all writes are log-structured. As a result, which of the following is NOT true:
+In a shingled disk, all writes are log-structured. As a result, which of the following is NOT true:
 A) Write performance is similar to a regular hard drive for sequential workloads
 B) Write performance is similar to a regular hard drive for random workloads
 C) Read performance is similar to a regular hard drive for sequential workloads
@@ -298,8 +297,8 @@ E) All of the above are true
   "problem_id": "13",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["Write performance similar to HDD for sequential", "Write performance similar to HDD for random", "Read performance similar to HDD for sequential", "Read performance similar to HDD for random", "All of the above are true"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["Write performance is similar to a regular hard drive for sequential workloads","Write performance is similar to a regular hard drive for random workloads","Read performance is similar to a regular hard drive for sequential workloads","Read performance is similar to a regular hard drive for random workloads","All of the above are true"],
   "answer": "B"
 }
 ```
@@ -308,7 +307,7 @@ E) All of the above are true
 
 ## Question 14 [1 point]
 
-Question 14: The STL size can be changed by mapping chunks in sizes other than the usual 4KB block. With each doubling of the block size, the STL:
+The STL size can be changed by mapping chunks in sizes other than the usual 4KB block. With each doubling of the block size, the STL:
 A) Increases in size by 2x
 B) Decreases in size by 2x
 C) Increases in size by 4x
@@ -320,17 +319,17 @@ E) None of the above
   "problem_id": "14",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["Increases in size by 2x", "Decreases in size by 2x", "Increases in size by 4x", "Decreases in size by 4x", "None of the above"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["Increases in size by 2x","Decreases in size by 2x","Increases in size by 4x","Decreases in size by 4x","None of the above"],
   "answer": "B"
 }
 ```
 
 ---
 
-## Question 15 [0 points]
+## Question 15 [1 point]
 
-Question 15: In a shingled disk, all writes are log-structured. As a result, which one of the these is NOT true:
+In a shingled disk, all writes are log-structured. As a result, which one of the these is NOT true:
 A) Performance is similar to a regular hard drive for sequential write workloads
 B) Performance is similar to a regular hard drive for random write workloads
 C) Performance is similar to a regular hard drive for sequential read workloads
@@ -340,11 +339,11 @@ E) Performance is similar to a regular hard drive for workloads with a mix of se
 ```json
 {
   "problem_id": "15",
-  "points": 0,
+  "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["Performance is similar to HDD for sequential writes", "Performance is similar to HDD for random writes", "Performance is similar to HDD for sequential reads", "Performance is similar to HDD for random reads", "Performance is similar to HDD for mixed workloads"],
-  "answer": ""
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["Performance is similar to a regular hard drive for sequential write workloads","Performance is similar to a regular hard drive for random write workloads","Performance is similar to a regular hard drive for sequential read workloads","Performance is similar to a regular hard drive for random read workloads","Performance is similar to a regular hard drive for workloads with a mix of sequential reads/writes"],
+  "answer": "B"
 }
 ```
 
@@ -352,7 +351,7 @@ E) Performance is similar to a regular hard drive for workloads with a mix of se
 
 ## Question 16 [1 point]
 
-Question 16: You have a suspicion that the STL cannot hold all mapping entries in device memory; as a result, sometimes when reading from disk, an extra read is incurred (to look up the mapping information). The workload used here is to repeatedly read some number of blocks N (many times), and report the average time per read; N is increased along the x-axis. Which line on the graph best reflects this result? [Figure excluded]
+You have a suspicion that the STL cannot hold all mapping entries in device memory; as a result, sometimes when reading from disk, an extra read is incurred (to look up the mapping information). The workload used here is to repeatedly read some number of blocks N (many times), and report the average time per read; N is increased along the x-axis. Which line on the graph best reflects this result?
 A) Lowest line with drop halfway
 B) Next lowest dashed line line with drop halfway 
 C) Solid line with rise halfway
@@ -364,8 +363,8 @@ E) None of the above
   "problem_id": "16",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["Lowest line with drop halfway", "Next lowest dashed line line with drop halfway", "Solid line with rise halfway", "Topmost line which goes up then down", "None of the above"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["Lowest line with drop halfway","Next lowest dashed line line with drop halfway","Solid line with rise halfway","Topmost line which goes up then down","None of the above"],
   "answer": "C"
 }
 ```
@@ -374,9 +373,9 @@ E) None of the above
 
 ## Question 17 [1 point]
 
-Question 17: Assuming a FIFO scheduling policy, and 
-a request stream which reads blocks 21, 17, 11, 7, 13, 
-what is the last block to be read?
+The next questions will use the picture on the right, which reveals the internals of this shingled disk. As you can see, it only has three tracks, and looks remarkably like a disk simulator used in some OS classes.
+Assuming a FIFO scheduling policy, and  
+a request stream which reads blocks 21, 17, 11, 7, 13, what is the last block to be read?
 A) 21
 B) 17
 C) 11
@@ -388,8 +387,8 @@ E) 13
   "problem_id": "17",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["disk-scheduling", "forensics", "shingled-disk-drives"],
-  "choices": ["21", "17", "11", "7", "13"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["21","17","11","7","13"],
   "answer": "E"
 }
 ```
@@ -398,7 +397,7 @@ E) 13
 
 ## Question 18 [1 point]
 
-Question 18: Same question, but assume a SSTF scheduling policy, and a VERY FAST seek. What is the last block read?
+Same question, but assume a SSTF scheduling policy, and a VERY FAST seek. What is the last block read?
 A) 21
 B) 17
 C) 11
@@ -410,8 +409,8 @@ E) 13
   "problem_id": "18",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["disk-scheduling", "forensics", "shingled-disk-drives"],
-  "choices": ["21", "17", "11", "7", "13"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["21","17","11","7","13"],
   "answer": "A"
 }
 ```
@@ -420,7 +419,7 @@ E) 13
 
 ## Question 19 [1 point]
 
-Question 19: Same question, but assume SATF scheduling policy, and a VERY FAST seek. What is the last block read?
+Same question, but assume SATF scheduling policy, and a VERY FAST seek. What is the last block read?
 A) 21
 B) 17
 C) 11
@@ -432,8 +431,8 @@ E) 13
   "problem_id": "19",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["disk-scheduling", "forensics", "shingled-disk-drives"],
-  "choices": ["21", "17", "11", "7", "13"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["21","17","11","7","13"],
   "answer": "B"
 }
 ```
@@ -442,7 +441,7 @@ E) 13
 
 ## Question 20 [1 point]
 
-Question 20: In a shingled disk, all writes are log-structured. Specifically, writes are directed to the currently-being-written shingle, and the STL is updated accordingly. As a result, does disk scheduling of write requests (assuming a workload only contains write requests) help performance?
+In a shingled disk, all writes are log-structured. Specifically, writes are directed to the currently-being-written shingle, and the STL is updated accordingly. As a result, does disk scheduling of write requests (assuming a workload only contains write requests) help performance?
 A) Yes (always)
 B) Yes (sometimes)
 C) No (never)
@@ -454,8 +453,8 @@ E) None of the above
   "problem_id": "20",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["shingled-disk-drives", "storage", "forensics"],
-  "choices": ["Yes (always)", "Yes (sometimes)", "No (never)", "Can’t answer without more details", "None of the above"],
+  "tags": ["shingled-disk-drives","storage-systems","forensics"],
+  "choices": ["Yes (always)","Yes (sometimes)","No (never)","Can’t answer without more details","None of the above"],
   "answer": "B"
 }
 ```
@@ -464,7 +463,7 @@ E) None of the above
 
 ## Question 21 [1 point]
 
-Question 21: A file descriptor is:
+A file descriptor is:
 A) a system-wide object used to access files
 B) a per-process integer used to access files
 C) readily forged
@@ -476,8 +475,8 @@ E) hard to understand
   "problem_id": "21",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["a system-wide object used to access files", "a per-process integer used to access files", "readily forged", "returned to a process via the close() system call", "hard to understand"],
+  "tags": ["file-systems","operating-systems","forensics"],
+  "choices": ["a system-wide object used to access files","a per-process integer used to access files","readily forged","returned to a process via the close() system call","hard to understand"],
   "answer": "B"
 }
 ```
@@ -486,7 +485,7 @@ E) hard to understand
 
 ## Question 22 [1 point]
 
-Question 22: Adding the O_TRUNC flag to the open() call will
+Adding the O_TRUNC flag to the open() call will
 A) puts the data in a locked “trunk” file
 B) causes the open call to fail (usually)
 C) implies you must add O_TRUNC to close() as well
@@ -498,8 +497,8 @@ E) truncates the file to size=0
   "problem_id": "22",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["puts the data in a locked “trunk” file", "causes the open call to fail (usually)", "implies you must add O_TRUNC to close() as well", "creates the file (if it doesn’t exist)", "truncates the file to size=0"],
+  "tags": ["file-systems","operating-systems","forensics"],
+  "choices": ["puts the data in a locked “trunk” file","causes the open call to fail (usually)","implies you must add O_TRUNC to close() as well","creates the file (if it doesn’t exist)","truncates the file to size=0"],
   "answer": "E"
 }
 ```
@@ -508,7 +507,7 @@ E) truncates the file to size=0
 
 ## Question 23 [1 point]
 
-Question 23: The “unlink()” system call is to the program “rm” as THIS is to the “rmdir” program
+The “unlink()” system call is to the program “rm” as THIS is to the “rmdir” program
 A) unlink()
 B) delete()
 C) rmdir()
@@ -520,8 +519,8 @@ E) fork()
   "problem_id": "23",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["unlink()", "delete()", "rmdir()", "link()", "fork()"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["unlink()","delete()","rmdir()","link()","fork()"],
   "answer": "C"
 }
 ```
@@ -530,7 +529,7 @@ E) fork()
 
 ## Question 24 [1 point]
 
-Question 24: The “lseek()” call is used to
+The “lseek()” call is used to
 A) reposition the disk head
 B) do a long disk seek, immediately
 C) change the current file offset
@@ -542,8 +541,8 @@ E) close files after a layoff period
   "problem_id": "24",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["reposition the disk head", "do a long disk seek, immediately", "change the current file offset", "force changes to disk", "close files after a layoff period"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["reposition the disk head","do a long disk seek, immediately","change the current file offset","force changes to disk","close files after a layoff period"],
   "answer": "C"
 }
 ```
@@ -552,7 +551,7 @@ E) close files after a layoff period
 
 ## Question 25 [1 point]
 
-Question 25: The following information is NOT available within a typical inode: 
+The following information is NOT available within a typical inode:
 A) owner
 B) size (bytes)
 C) blocks allocated
@@ -564,8 +563,8 @@ E) last access time
   "problem_id": "25",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["inode", "file-system-api", "forensics"],
-  "choices": ["owner", "size (bytes)", "blocks allocated", "file name", "last access time"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["owner","size (bytes)","blocks allocated","file name","last access time"],
   "answer": "D"
 }
 ```
@@ -574,7 +573,7 @@ E) last access time
 
 ## Question 26 [1 point]
 
-Question 26: The “read()” call is to the “cat” program as the BLANK call is to the “ls” program:
+The “read()” call is to the “cat” program as the BLANK call is to the “ls” program:
 A) read()
 B) readdir()
 C) stat()
@@ -586,8 +585,8 @@ E) umount()
   "problem_id": "26",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["read()", "readdir()", "stat()", "fstat()", "umount()"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["read()","readdir()","stat()","fstat()","umount()"],
   "answer": "B"
 }
 ```
@@ -596,7 +595,7 @@ E) umount()
 
 ## Question 27 [1 point]
 
-Question 27: Which type of links do most UNIX file systems support?
+Which type of links do most UNIX file systems support?
 A) hyperlinks
 B) soft links
 C) forked links
@@ -608,8 +607,8 @@ E) unlinks
   "problem_id": "27",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["hyperlinks", "soft links", "forked links", "sausage links", "unlink()"],
+  "tags": ["file-systems","unix","forensics"],
+  "choices": ["hyperlinks","soft links","forked links","sausage links","unlink()"],
   "answer": "B"
 }
 ```
@@ -618,7 +617,7 @@ E) unlinks
 
 ## Question 28 [1 point]
 
-Question 28: A file is NOT
+A file is NOT
 A) a container for data
 B) a byte array that can be read or written
 C) something with a low-level name
@@ -630,8 +629,8 @@ E) something that can be referred to via a high-level name, thanks to directorie
   "problem_id": "28",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["a container for data", "a byte array that can be read or written", "something with a low-level name", "easily deleted", "referred to via a high-level name"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["a container for data","a byte array that can be read or written","something with a low-level name","easily deleted","something that can be referred to via a high-level name, thanks to directories"],
   "answer": "D"
 }
 ```
@@ -640,7 +639,7 @@ E) something that can be referred to via a high-level name, thanks to directorie
 
 ## Question 29 [1 point]
 
-Question 29: Let’s say we wish to write data to a file and then force the contents of a file to disk. We should thus call:
+Let’s say we wish to write data to a file and then force the contents of a file to disk. We should thus call:
 A) write()
 B) write() then fsync()
 C) write() then fopen()
@@ -652,8 +651,8 @@ E) write() then fit()
   "problem_id": "29",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["write()", "write() then fsync()", "write() then fopen()", "write() then falloc()", "write() then fit()"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["write()","write() then fsync()","write() then fopen()","write() then falloc()","write() then fit()"],
   "answer": "B"
 }
 ```
@@ -662,7 +661,7 @@ E) write() then fit()
 
 ## Question 30 [1 point]
 
-Question 30: To atomically replace the contents of a file foo, we should use the following sequence of system calls: open() [to open a new temporary file], write() to write data to the disk, force the contents to disk (with a certain file system call, as in question 29), and finally:
+To atomically replace the contents of a file foo, we should use the following sequence of system calls: open() [to open a new temporary file], write() to write data to the disk, force the contents to disk (with a certain file system call, as in question 29), and finally:
 A) close() to close the file
 B) rename() to change the name of the temporary file to the desired file name
 C) link() to link the file to another name
@@ -674,8 +673,8 @@ E) None of the above
   "problem_id": "30",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["file-system-api", "forensics"],
-  "choices": ["close() to close the file", "rename() to change the name of the temporary file to the desired file name", "link() to link the file to another name", "unlink() to remove the original file foo", "None of the above"],
+  "tags": ["file-systems","forensics"],
+  "choices": ["close() to close the file","rename() to change the name of the temporary file to the desired file name","link() to link the file to another name","unlink() to remove the original file foo","None of the above"],
   "answer": "B"
 }
 ```
@@ -684,6 +683,7 @@ E) None of the above
 
 ## Question 31 [1 point]
 
+VSFS-like on-disk image reconstruction:
 Question 31: Assume you call mkdir(“/n”) on the empty root file system. The inode bitmap is missing; what should it look like:
 inode bitmap  ????????
 inodes        [d a:0 r:3] [d a:1 r:2] [] [] [] [] [] []
@@ -701,9 +701,9 @@ E) None of the above
   "problem_id": "31",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["10000000", "11000000", "11100000", "10100000", "None of the above"],
-  "answer": "B"
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["10000000","11000000","11100000","10100000","None of the above"],
+  "answer": "A"
 }
 ```
 
@@ -711,7 +711,7 @@ E) None of the above
 
 ## Question 32 [1 point]
 
-Question 32: Assume you had instead called creat(“/z”) on an empty file system. Unfortunately, in this case, the data block for the root directory has gone bad. What should be in there?
+Assume you had instead called creat(“/z”) on an empty file system. Unfortunately, in this case, the data block for the root directory has gone bad. What should be in there?
 inode bitmap  11000000
 inodes        [d a:0 r:2] [f a:- r:1] [] []
 data bitmap   10000000
@@ -728,8 +728,8 @@ E) [(.,0) (..,0) (/z,2)]
   "problem_id": "32",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["[(.,0) (..,0)]", "[(.,0) (..,0) (z,1)]", "[(.,0) (..,0) (z,2)]", "[(.,0) (..,0) (/z,1)]", "[(.,0) (..,0) (/z,2)]"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["[(.,0) (..,0)]","[(.,0) (..,0) (z,1)]","[(.,0) (..,0) (z,2)]","[(.,0) (..,0) (/z,1)]","[(.,0) (..,0) (/z,2)]"],
   "answer": "B"
 }
 ```
@@ -738,20 +738,20 @@ E) [(.,0) (..,0) (/z,2)]
 
 ## Question 33 [1 point]
 
-Question 33: What are the contents of the missing data block (Block 1)?
-a) (.,0) (..,0)
-b) (.,1) (..,0)
-c) (.,2) (..,0)
-d) foofoofoo
-e) None of the above
+In the VSFS-like on-disk state, what are the contents of the missing data block (Block 1)?
+A) (.,0) (..,0)
+B) (.,1) (..,0)
+C) (.,2) (..,0)
+D) foofoofoo
+E) None of the above
 
 ```json
 {
   "problem_id": "33",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["(.,0) (..,0)", "(.,1) (..,0)", "(.,2) (..,0)", "foofoofoo", "None of the above"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["(.,0) (..,0)","(.,1) (..,0)","(.,2) (..,0)","foofoofoo","None of the above"],
   "answer": "B"
 }
 ```
@@ -760,20 +760,20 @@ e) None of the above
 
 ## Question 34 [1 point]
 
-Question 34: Which two operations were run upon the empty file system to result in this state?
-a) creat(“/d”); creat(“/w”);
-b) creat(“/d”); link(“/d”, “/w”);
-c) creat(“/w”); unlink(“/d”);
-d) mkdir(“/d”); mkdir(“/w”);
-e) None of the above
+Which two operations were run upon the empty file system to result in this state?
+A) creat(“/d”); creat(“/w”);
+B) creat(“/d”); link(“/d”, “/w”);
+C) creat(“/w”); unlink(“/d”);
+D) mkdir(“/d”); mkdir(“/w”);
+E) None of the above
 
 ```json
 {
   "problem_id": "34",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["creat(“/d”); creat(“/w”);", "creat(“/d”); link(“/d”, “/w”);", "creat(“/w”); unlink(“/d”);", "mkdir(“/d”); mkdir(“/w”);", "None of the above"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["creat(“/d”); creat(“/w”);","creat(“/d”); link(“/d”, “/w”);","creat(“/w”); unlink(“/d”);","mkdir(“/d”); mkdir(“/w”);","None of the above"],
   "answer": "D"
 }
 ```
@@ -782,20 +782,20 @@ e) None of the above
 
 ## Question 35 [1 point]
 
-Question 35: Which ONE of the following is not true about the above file system state?
-a) There is a proper root directory
-b) The file “/c” exists
-c) The file “/m” exists
-d) If you read the first block of “/c”, you get “foofoofoo”
-e) If you unlink “/c”, you can no longer read “foofoofoo”
+Which ONE of the following is not true about the above file system state?
+A) There is a proper root directory
+B) The file “/c” exists
+C) The file “/m” exists
+D) If you read the first block of “/c”, you get “foofoofoo”
+E) If you unlink “/c”, you can no longer read “foofoofoo”
 
 ```json
 {
   "problem_id": "35",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["There is a proper root directory", "The file “/c” exists", "The file “/m” exists", "If you read the first block of “/c”, you get “foofoofoo”", "If you unlink “/c”, you can no longer read “foofoofoo”"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["There is a proper root directory","The file “/c” exists","The file “/m” exists","If you read the first block of “/c”, you get “foofoofoo”","If you unlink “/c”, you can no longer read “foofoofoo”"],
   "answer": "E"
 }
 ```
@@ -804,20 +804,20 @@ e) If you unlink “/c”, you can no longer read “foofoofoo”
 
 ## Question 36 [1 point]
 
-Question 36: Which ONE of the following is true about the above file system state?
-a) File “/m” is a hard link to “/c”
-b) File “/c” is a hard link to “/m”
-c) Both “/c” and “/m” are links to the same file
-d) The root directory has many data blocks in it
-e) The file “/m” has many data blocks in it
+Which ONE of the following is true about the above file system state?
+A) File “/m” is a hard link to “/c”
+B) File “/c” is a hard link to “/m”
+C) Both “/c” and “/m” are links to the same file
+D) The root directory has many data blocks in it
+E) The file “/m” has many data blocks in it
 
 ```json
 {
   "problem_id": "36",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["File “/m” is a hard link to “/c”", "File “/c” is a hard link to “/m”", "Both “/c” and “/m” are links to the same file", "The root directory has many data blocks in it", "The file “/m” has many data blocks in it"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["File “/m” is a hard link to “/c”","File “/c” is a hard link to “/m”","Both “/c” and “/m” are links to the same file","The root directory has many data blocks in it","The file “/m” has many data blocks in it"],
   "answer": "C"
 }
 ```
@@ -826,20 +826,20 @@ e) The file “/m” has many data blocks in it
 
 ## Question 37 [1 point]
 
-Question 37: In this final file system state, which regular files exist?
-a) Only /d, /g, /j
-b) Only /d, /g, /j, /n
-c) Only /d, /g, /j, /y/n
-d) Only /d, /g, /j, /y
-e) None of the above
+In this final file system state, which regular files exist?
+A) Only /d, /g, /j
+B) Only /d, /g, /j, /n
+C) Only /d, /g, /j, /y/n
+D) Only /d, /g, /j, /y
+E) None of the above
 
 ```json
 {
   "problem_id": "37",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["Only /d, /g, /j", "Only /d, /g, /j, /n", "Only /d, /g, /j, /y/n", "Only /d, /g, /j, /y", "None of the above"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["Only /d, /g, /j","Only /d, /g, /j, /n","Only /d, /g, /j, /y/n","Only /d, /g, /j, /y","None of the above"],
   "answer": "C"
 }
 ```
@@ -848,20 +848,20 @@ e) None of the above
 
 ## Question 38 [1 point]
 
-Question 38: In the above file system format, what is the largest number of regular-file inodes that can be allocated?
-a) 1 
-b) 6
-c) 7
-d) 8
-e) As many as needed
+In the above file system format, what is the largest number of regular-file inodes that can be allocated?
+A) 1
+B) 6
+C) 7
+D) 8
+E) As many as needed
 
 ```json
 {
   "problem_id": "38",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "inode-map", "file-system"],
-  "choices": ["1", "6", "7", "8", "As many as needed"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["1","6","7","8","As many as needed"],
   "answer": "C"
 }
 ```
@@ -870,21 +870,21 @@ e) As many as needed
 
 ## Question 39 [1 point]
 
-Question 39: Bitmaps are useful as allocation structures because of all the reasons below EXCEPT:
-a) They are compact
-b) They are human readable
-c) They allow for quick lookup of free space
-d) They allow for lookup to readily find consecutive free blocks
-e) Updates to them do not add any disk traffic
+Bitmaps are useful as allocation structures because of all the reasons below EXCEPT:
+A) They are compact
+B) They are human readable
+C) They allow for quick lookup of free space
+D) They allow for lookup to readily find consecutive free blocks
+E) Updates to them do not add any disk traffic
 
 ```json
 {
   "problem_id": "39",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["filesystem", "forensics"],
-  "choices": ["They are compact", "They are human readable", "They allow for quick lookup of free space", "They allow for lookup to readily find consecutive free blocks", "Updates to them do not add any disk traffic"],
-  "answer": "E"
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["They are compact","They are human readable","They allow for quick lookup of free space","They allow for lookup to readily find consecutive free blocks","Updates to them do not add any disk traffic"],
+  "answer": "B"
 }
 ```
 
@@ -892,20 +892,20 @@ e) Updates to them do not add any disk traffic
 
 ## Question 40 [1 point]
 
-Question 40: VSFS has all the following features EXCEPT:
-a) Regular files
-b) Directories
-c) Hard links
-d) Simple allocation structures
-e) Fast crash consistency
+VSFS has all the following features EXCEPT:
+A) Regular files
+B) Directories
+C) Hard links
+D) Simple allocation structures
+E) Fast crash consistency
 
 ```json
 {
   "problem_id": "40",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["vsfs", "filesystem", "forensics"],
-  "choices": ["Regular files", "Directories", "Hard links", "Simple allocation structures", "Fast crash consistency"],
+  "tags": ["filesystem-implementation","vsfs","forensics"],
+  "choices": ["Regular files","Directories","Hard links","Simple allocation structures","Fast crash consistency"],
   "answer": "E"
 }
 ```
@@ -914,8 +914,7 @@ e) Fast crash consistency
 
 ## Question 41 [1 point]
 
-Journaling
-Question 41: Assume that a process appends a data block to an existing (small) file. How many blocks are written to the journal as part of this update?
+Assume that a process appends a data block to an existing (small) file. How many blocks are written to the journal as part of this update?
 A) 1
 B) 2
 C) 3
@@ -927,9 +926,9 @@ E) None of the above
   "problem_id": "41",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
-  "answer": "A"
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
+  "answer": "C"
 }
 ```
 
@@ -937,7 +936,7 @@ E) None of the above
 
 ## Question 42 [1 point]
 
-Question 42: Now assume that a process reads a block from a file. Reading, in this file system, updates the “last accessed time” field in the inode. How many blocks are written to the journal as part of this read?
+Now assume that a process reads a block from a file. Reading, in this file system, updates the “last accessed time” field in the inode. How many blocks are written to the journal as part of this read?
 A) 1
 B) 2
 C) 3
@@ -949,8 +948,8 @@ E) None of the above
   "problem_id": "42",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "A"
 }
 ```
@@ -959,7 +958,7 @@ E) None of the above
 
 ## Question 43 [1 point]
 
-Question 43: Now a process creates a 0-byte file in the root directory (which does not have many entries in it, so there is room for another entry in an existing directory data block). How many blocks are written to the journal as part of this file creation?
+Now a process creates a 0-byte file in the root directory (which does not have many entries in it, so there is room for another entry in an existing directory data block). How many blocks are written to the journal as part of this file creation?
 A) 1
 B) 2
 C) 3
@@ -971,8 +970,8 @@ E) None of the above
   "problem_id": "43",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "D"
 }
 ```
@@ -981,7 +980,7 @@ E) None of the above
 
 ## Question 44 [1 point]
 
-Question 44: Finally, a process deletes a 1-byte file from the root directory (leaving the root directory empty). Assuming the root directory only uses a single data block for its data, how many blocks are written to the journal as part of this file creation?
+Finally, a process deletes a 1-byte file from the root directory (leaving the root directory empty). Assuming the root directory only uses a single data block for its data, how many blocks are written to the journal as part of this file creation?
 A) 1
 B) 2
 C) 3
@@ -993,8 +992,8 @@ E) None of the above
   "problem_id": "44",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "E"
 }
 ```
@@ -1003,8 +1002,7 @@ E) None of the above
 
 ## Question 45 [1 point]
 
-Journaling (2)
-Question 45: Assume that a process has appends a data block to an existing (small) file. How many blocks are written to the journal as part of this update?
+Question 45: In ordered mode journaling, assume that a process has appends a data block to an existing (small) file. How many blocks are written to the journal as part of this update?
 A) 1
 B) 2
 C) 3
@@ -1016,8 +1014,8 @@ E) None of the above
   "problem_id": "45",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "B"
 }
 ```
@@ -1026,7 +1024,7 @@ E) None of the above
 
 ## Question 46 [1 point]
 
-Question 46: Now assume that a process reads a block from a file. Reading, in this file system, updates the “last accessed time” field in the inode. How many blocks are written to the journal as part of this read?
+Now assume that a process reads a block from a file. Reading, in this file system, updates the “last accessed time” field in the inode. How many blocks are written to the journal as part of this read?
 A) 1
 B) 2
 C) 3
@@ -1038,8 +1036,8 @@ E) None of the above
   "problem_id": "46",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "A"
 }
 ```
@@ -1048,7 +1046,7 @@ E) None of the above
 
 ## Question 47 [1 point]
 
-Question 47: Now a process creates a 0-byte file in the root directory (which does not have many entries in it, so there is room for another entry in an existing directory data block). How many blocks are written to the journal as part of this file creation?
+Now a process creates a 0-byte file in the root directory (which does not have many entries in it, so there is room for another entry in an existing directory data block). How many blocks are written to the journal as part of this file creation?
 A) 1
 B) 2
 C) 3
@@ -1060,8 +1058,8 @@ E) None of the above
   "problem_id": "47",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "D"
 }
 ```
@@ -1070,7 +1068,7 @@ E) None of the above
 
 ## Question 48 [1 point]
 
-Question 48: Finally, a process deletes a 1-byte file from the root directory (leaving the root directory empty). Assuming the root directory only uses a single data block for its data, how many blocks are written to the journal as part of this file creation?
+Finally, a process deletes a 1-byte file from the root directory (leaving the root directory empty). Assuming the root directory only uses a single data block for its data, how many blocks are written to the journal as part of this file creation?
 A) 1
 B) 2
 C) 3
@@ -1082,8 +1080,8 @@ E) None of the above
   "problem_id": "48",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["1", "2", "3", "4", "None of the above"],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["1","2","3","4","None of the above"],
   "answer": "E"
 }
 ```
@@ -1092,7 +1090,7 @@ E) None of the above
 
 ## Question 49 [1 point]
 
-Question 49: Which of the following statements is NOT true about journaling file systems?
+Which of the following statements is NOT true about journaling file systems?
 A) Journaling adds a new on-disk structure to the file system
 B) Journaling is the same as write-ahead logging (the terms are used interchangeably)
 C) Journaling generally increases the amount of write traffic to the disk
@@ -1104,12 +1102,8 @@ E) Whether in data or ordered journaling modes, file system metadata is always f
   "problem_id": "49",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["Journaling adds a new on-disk structure to the file system",
-              "Journaling is the same as write-ahead logging (the terms are used interchangeably)",
-              "Journaling generally increases the amount of write traffic to the disk",
-              "Journaling always makes performance worse (than the same file system without journaling)",
-              "Whether in data or ordered journaling modes, file system metadata is always first written to the journal before being updated in place."],
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["Journaling adds a new on-disk structure to the file system","Journaling is the same as write-ahead logging (the terms are used interchangeably)","Journaling generally increases the amount of write traffic to the disk","Journaling always makes performance worse (than the same file system without journaling)","Whether in data or ordered journaling modes, file system metadata is always first written to the journal before being updated in place."],
   "answer": "D"
 }
 ```
@@ -1118,7 +1112,7 @@ E) Whether in data or ordered journaling modes, file system metadata is always f
 
 ## Question 50 [1 point]
 
-Question 50: Which of the following best represents a final, complete, and most optimized version of the ordered (metadata only) journaling protocol?
+Which of the following best represents a final, complete, and most optimized version of the ordered (metadata only) journaling protocol?
 A) Data write, then journal metadata write, then journal commit.
 B) Data write, then journal metadata write, then journal commit, then checkpoint of metadata.
 C) Data write, then journal metadata write, then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.
@@ -1130,9 +1124,9 @@ E) None of the above
   "problem_id": "50",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["journaling", "forensics"],
-  "choices": ["Data write, then journal metadata write, then journal commit.", "Data write, then journal metadata write, then journal commit, then checkpoint of metadata.", "Data write, then journal metadata write, then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.", "Data write and journal metadata write (concurrently), then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.", "None of the above"],
-  "answer": "D"
+  "tags": ["journaling","filesystem","forensics"],
+  "choices": ["Data write, then journal metadata write, then journal commit.","Data write, then journal metadata write, then journal commit, then checkpoint of metadata.","Data write, then journal metadata write, then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.","Data write and journal metadata write (concurrently), then journal commit, then checkpoint of metadata, then (later) mark the transaction free in the journal superblock.","None of the above"],
+  "answer": "C"
 }
 ```
 
@@ -1140,7 +1134,7 @@ E) None of the above
 
 ## Question 51 [1 point]
 
-Question 51: What file operation was performed?
+What file operation was performed?
 a) mkdir(“ku3”);
 b) creat(“ku3”);
 c) rmdir(“/“);
@@ -1152,9 +1146,9 @@ e) None of the above
   "problem_id": "51",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["mkdir(“ku3”);", "creat(“ku3”);", "rmdir(“/“);", "link(“.”, “ku3”);", "None of the above"],
-  "answer": "B"
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["mkdir(“ku3”);","creat(“ku3”);","rmdir(“/“);","link(“.”, “ku3”);","None of the above"],
+  "answer": "A"
 }
 ```
 
@@ -1162,7 +1156,7 @@ e) None of the above
 
 ## Question 52 [1 point]
 
-Question 52: In the above file system state, which of the blocks are live?
+In the above file system state, which of the blocks are live?
 a) 0 through 8
 b) 4 through 8
 c) 0 through 3
@@ -1174,8 +1168,8 @@ e) None
   "problem_id": "52",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["0 through 8", "4 through 8", "0 through 3", "0 and 4 through 8", "None"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["0 through 8","4 through 8","0 through 3","0 and 4 through 8","None"],
   "answer": "D"
 }
 ```
@@ -1184,7 +1178,7 @@ e) None
 
 ## Question 53 [1 point]
 
-Question 53: In the above file system state, which inodes are allocated?
+In the above file system state, which inodes are allocated?
 a) 7 and 8
 b) 1, 2, and 4
 c) 0 and 122
@@ -1196,8 +1190,8 @@ e) None of the above
   "problem_id": "53",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["7 and 8", "1, 2, and 4", "0 and 122", "5 and 6", "None of the above"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["7 and 8","1, 2, and 4","0 and 122","5 and 6","None of the above"],
   "answer": "C"
 }
 ```
@@ -1206,7 +1200,7 @@ e) None of the above
 
 ## Question 54 [1 point]
 
-Question 54: What file operations were performed to get to this new state?
+What file operations were performed to get to this new state?
 a) A file read
 b) A file link
 c) A file create
@@ -1218,8 +1212,8 @@ e) A file unlink
   "problem_id": "54",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["A file read", "A file link", "A file create", "A file create and then write", "A file unlink"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["A file read","A file link","A file create","A file create and then write","A file unlink"],
   "answer": "D"
 }
 ```
@@ -1228,7 +1222,7 @@ e) A file unlink
 
 ## Question 55 [1 point]
 
-Question 55: In the above file system state, which of the blocks are live?
+In the above file system state, which of the blocks are live?
 a) 0 through 11
 b) 4 through 11
 c) 4 through 11 (except 6 and 8)
@@ -1240,9 +1234,9 @@ e) 7 through 11
   "problem_id": "55",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["0 through 11", "4 through 11", "4 through 11 (except 6 and 8)", "4 through 11 (except 6, 8, and 10)", "7 through 11"],
-  "answer": "C"
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["0 through 11","4 through 11","4 through 11 (except 6 and 8)","4 through 11 (except 6, 8, and 10)","7 through 11"],
+  "answer": "D"
 }
 ```
 
@@ -1250,7 +1244,7 @@ e) 7 through 11
 
 ## Question 56 [1 point]
 
-Question 56: In the above file system state, how many versions of the root inode exist (live or dead)?
+In the above file system state, how many versions of the root inode exist (live or dead)?
 a) 0
 b) 1
 c) 2
@@ -1262,8 +1256,8 @@ e) 4 or more
   "problem_id": "56",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["0", "1", "2", "3", "4 or more"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["0","1","2","3","4 or more"],
   "answer": "C"
 }
 ```
@@ -1272,7 +1266,7 @@ e) 4 or more
 
 ## Question 57 [1 point]
 
-Question 57: In the above file system state, how many live chunks of the imap are there?
+In the above file system state, how many live chunks of the imap are there?
 a) 0
 b) 1
 c) 2
@@ -1284,8 +1278,8 @@ e) 4 or more
   "problem_id": "57",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["0", "1", "2", "3", "4 or more"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["0","1","2","3","4 or more"],
   "answer": "C"
 }
 ```
@@ -1294,20 +1288,20 @@ e) 4 or more
 
 ## Question 58 [1 point]
 
-Question 58: The last five blocks of the log (16-20) represent the results of which operation?
-a) A directory creation
-b) A file creation
-c) A multi-block write
-d) A file link
-e) None of the above
+The last five blocks of the log (16-20) represent the results of which operation?
+A) A directory creation
+B) A file creation
+C) A multi-block write
+D) A file link
+E) None of the above
 
 ```json
 {
   "problem_id": "58",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["A directory creation", "A file creation", "A multi-block write", "A file link", "None of the above"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["A directory creation","A file creation","A multi-block write","A file link","None of the above"],
   "answer": "C"
 }
 ```
@@ -1316,20 +1310,20 @@ e) None of the above
 
 ## Question 59 [1 point]
 
-Question 59: The blocks 12-15 represent the results of which operation?
-a) A directory creation
-b) A file creation
-c) A multi-block write
-d) A file link
-e) None of the above
+The blocks 12-15 represent the results of which operation?
+A) A directory creation
+B) A file creation
+C) A multi-block write
+D) A file link
+E) None of the above
 
 ```json
 {
   "problem_id": "59",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["A directory creation", "A file creation", "A multi-block write", "A file link", "None of the above"],
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["A directory creation","A file creation","A multi-block write","A file link","None of the above"],
   "answer": "D"
 }
 ```
@@ -1338,9 +1332,9 @@ e) None of the above
 
 ## Question 60 [1 point]
 
-Question 60: If you read the contents of the first block (offset=0) of file “/ym6”, you would get:
+If you read the contents of the first block (offset=0) of file “/ym6”, you would get:
 A) f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0
-B) l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1
+B) l1l1l1l1l1l1l1l1l1l1l1l1l1l1l
 C) h2h2h2h2h2h2h2h2h2h2h2h2h2h2h2h2
 D) All of the above
 E) None of the above
@@ -1350,9 +1344,9 @@ E) None of the above
   "problem_id": "60",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["log-structured-file-system", "forensics"],
-  "choices": ["f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0", "l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1", "h2h2h2h2h2h2h2h2h2h2h2h2h2h2h2h2", "All of the above", "None of the above"],
-  "answer": "E"
+  "tags": ["log-structured-filesystem","forensics"],
+  "choices": ["f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0","l1l1l1l1l1l1l1l1l1l1l1l1l1l1l","h2h2h2h2h2h2h2h2h2h2h2h2h2h2h2h2","All of the above","None of the above"],
+  "answer": "C"
 }
 ```
 
@@ -1360,6 +1354,7 @@ E) None of the above
 
 ## Question 61 [1 point]
 
+Flash-based SSDs
 Question 61: Assume the following page-mapped FTL: 1000:0, 1001:1, 1002:2 (X:Y means logical address X maps to physical page Y). What data is returned if the user of the SSD issues a read to address=1002?
 A) aaaa
 B) bbbb
@@ -1372,8 +1367,8 @@ E) None of the above
   "problem_id": "61",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["aaaa", "bbbb", "cccc", "dddd", "None of the above"],
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["aaaa","bbbb","cccc","dddd","None of the above"],
   "answer": "C"
 }
 ```
@@ -1394,9 +1389,9 @@ E) None of the above
   "problem_id": "62",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["aaaa", "bbbb", "cccc", "dddd", "None of the above"],
-  "answer": "E"
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["aaaa","bbbb","cccc","dddd","None of the above"],
+  "answer": "C"
 }
 ```
 
@@ -1404,8 +1399,8 @@ E) None of the above
 
 ## Question 63 [1 point]
 
-Question 63: Assume a page-mapped FTL. The user issues a read which returns “ffff”. Which of the following could NOT accurately represent the contents of the entire FTL?
-A) 1000:1, 1001:3, 1002:5, 1003:7 
+Assume a page-mapped FTL. The user issues a read which returns “ffff”. Which of the following could NOT accurately represent the contents of the entire FTL?
+A) 1000:1, 1001:3, 1002:5, 1003:7
 B) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0
 C) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2
 D) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4
@@ -1416,9 +1411,9 @@ E) None of the above
   "problem_id": "63",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["1000:1, 1001:3, 1002:5, 1003:7", "1000:1, 1001:3, 1002:5, 1003:7, 1004:0", "1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2", "1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4", "None of the above"],
-  "answer": "E"
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["1000:1, 1001:3, 1002:5, 1003:7","1000:1, 1001:3, 1002:5, 1003:7, 1004:0","1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2","1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4","None of the above"],
+  "answer": "D"
 }
 ```
 
@@ -1426,8 +1421,8 @@ E) None of the above
 
 ## Question 64 [1 point]
 
-Question 64: Assume a page-mapped FTL. The user issues a read which returns “aaaa”. Which of the following could NOT accurately represent the contents of the entire FTL?
-A) 1000:1, 1001:3, 1002:5, 1003:7 
+Assume a page-mapped FTL. The user issues a read which returns “aaaa”. Which of the following could NOT accurately represent the contents of the entire FTL?
+A) 1000:1, 1001:3, 1002:5, 1003:7
 B) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0
 C) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2
 D) 1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4
@@ -1438,8 +1433,8 @@ E) None of the above
   "problem_id": "64",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["1000:1, 1001:3, 1002:5, 1003:7", "1000:1, 1001:3, 1002:5, 1003:7, 1004:0", "1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2", "1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4", "None of the above"],
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["1000:1, 1001:3, 1002:5, 1003:7","1000:1, 1001:3, 1002:5, 1003:7, 1004:0","1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2","1000:1, 1001:3, 1002:5, 1003:7, 1004:0, 1005:2, 1006:4","None of the above"],
   "answer": "A"
 }
 ```
@@ -1448,7 +1443,7 @@ E) None of the above
 
 ## Question 65 [1 point]
 
-Question 65: Assume you have a page-mapped FTL. The user writes to address=14, data=iiii. What will the contents of flash physical page 4 be just after this write takes place?
+Assume you have a page-mapped FTL. If you issue a write to address=14, data=iiii, what will the contents of flash physical page 4 be just after this write takes place?
 A) dddd
 B) eeee
 C) ffff
@@ -1460,9 +1455,9 @@ E) None of the above
   "problem_id": "65",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["dddd", "eeee", "ffff", "iiii", "None of the above"],
-  "answer": "B"
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["dddd","eeee","ffff","iiii","None of the above"],
+  "answer": "D"
 }
 ```
 
@@ -1482,12 +1477,8 @@ E) None of the above
   "problem_id": "66",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["10:0, 11:1, 12:2, 13:3, 14:4, 15:5, 16:6, 17:7",
-              "10:0, 11:1, 12:2, 13:3, 14:2, 15:5, 16:6, 17:7",
-              "10:0, 11:1, 12:2, 13:3, 14:8, 15:5, 16:6, 17:7",
-              "10:0, 11:1, 12:2, 13:3, 15:5, 16:6, 17:7",
-              "None of the above"],
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["10:0, 11:1, 12:2, 13:3, 14:4, 15:5, 16:6, 17:7","10:0, 11:1, 12:2, 13:3, 14:2, 15:5, 16:6, 17:7","10:0, 11:1, 12:2, 13:3, 14:8, 15:5, 16:6, 17:7","10:0, 11:1, 12:2, 13:3, 15:5, 16:6, 17:7","None of the above"],
   "answer": "C"
 }
 ```
@@ -1496,7 +1487,7 @@ E) None of the above
 
 ## Question 67 [1 point]
 
-Question 67: After the write (to address=14, data=iiii) is complete, the SSD decides to perform garbage collection (GC). Which of the following will NOT happen as part of the GC?
+After the write (to address=14, data=iiii) is complete, the SSD decides to perform garbage collection (GC). Which of the following will NOT happen as part of the GC?
 A) Block 0 is erased
 B) Block 1 is erased
 C) Data from pages 5, 6, 7 are copied elsewhere
@@ -1508,8 +1499,8 @@ E) Block 2 is erased
   "problem_id": "67",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["Block 0 is erased", "Block 1 is erased", "Data from pages 5, 6, 7 are copied elsewhere", "The contents of the FTL will change", "Block 2 is erased"],
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["Block 0 is erased","Block 1 is erased","Data from pages 5, 6, 7 are copied elsewhere","The contents of the FTL (the mappings) will change","Block 2 is erased"],
   "answer": "A"
 }
 ```
@@ -1518,6 +1509,8 @@ E) Block 2 is erased
 
 ## Question 68 [1 point]
 
+Flash-based SSDs (2)
+One problem with page-mapped FTLs is that they make the mapping tables too large. The last few questions around SSDs deal with this issue.
 Question 68: Assume you have a page-mapped FTL. If each entry in the FTL takes 4 bytes (assuming it is an array), how large is the FTL? Assume the SSD is only 1 MB in size, and uses 1 KB pages.
 A) 1 KB
 B) 4 KB
@@ -1530,8 +1523,8 @@ E) None of the above
   "problem_id": "68",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["1 KB", "4 KB", "1 MB", "4 MB", "None of the above"],
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["1 KB","4 KB","1 MB","4 MB","None of the above"],
   "answer": "B"
 }
 ```
@@ -1552,8 +1545,8 @@ E) None of the above
   "problem_id": "69",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["flash-ssd", "ftl", "forensics"],
-  "choices": ["1 KB", "4 KB", "1 MB", "4 MB", "None of the above"],
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["1 KB","4 KB","1 MB","4 MB","None of the above"],
   "answer": "A"
 }
 ```
@@ -1562,6 +1555,7 @@ E) None of the above
 
 ## Question 70 [1 point]
 
+And now, a final, general question for you about SSDs.
 Question 70: Which of the following is NOT true about flash-based SSDs?
 A) SSDs need less memory to perform logical to physical translation than hard drives
 B) SSDs are generally faster than hard drives for write-oriented workloads
@@ -1574,9 +1568,9 @@ E) SSDs use fewer moving parts than hard drives
   "problem_id": "70",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["ssd", "flash", "forensics"],
-  "choices": ["SSDs need less memory to perform translation", "SSDs are generally faster for write-oriented workloads", "SSDs are generally more expensive per byte", "SSDs are generally faster for read-oriented workloads", "SSDs use fewer moving parts"],
-  "answer": "A"
+  "tags": ["flash-storage","ssds","forensics"],
+  "choices": ["SSDs need less memory to perform logical to physical translation than hard drives","SSDs are generally faster than hard drives for write-oriented workloads","SSDs are generally more expensive than hard drives (cost per byte)","SSDs are generally faster than hard drives for read-oriented workloads","SSDs use fewer moving parts than hard drives"],
+  "answer": "C"
 }
 ```
 
@@ -1584,6 +1578,12 @@ E) SSDs use fewer moving parts than hard drives
 
 ## Question 71 [1 point]
 
+Virtual Memory
+You are given a system with 64 bytes of physical memory, 4 byte pages, and 16-byte virtual address spaces. Your forensics tools dig up the following page table structure (high bit: Valid/NOT, rest is the PFN):
+  [0] 0x00000000 
+  [1] 0x800000?? <- missing!
+  [2] 0x00000000 
+  [3] 0x00000000 
 Question 71: A trace you have accesses virtual address 0x7, which translates to 0x33. What two hex digits are missing from page table entry 1 above?
 A) 0x0a
 B) 0x0b
@@ -1596,8 +1596,8 @@ E) None of the above
   "problem_id": "71",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["0x0a", "0x0b", "0x0c", "0x0d", "None of the above"],
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["0x0a","0x0b","0x0c","0x0d","None of the above"],
   "answer": "C"
 }
 ```
@@ -1606,12 +1606,11 @@ E) None of the above
 
 ## Question 72 [1 point]
 
-Question 72: Given the same system (4 byte pages, 16 byte virtual address space), and the following page table:
-A) 0x00000000
-B) 0x80000005
-C) 0x8000000a
-D) 0x00000000
-
+Assuming the same system (4 byte pages, 16 byte virtual address space), and the following page table:
+  [0] 0x00000000 
+  [1] 0x80000005 
+  [2] 0x8000000a 
+  [3] 0x00000000 
 Question 72: Given the virtual address 4, which decimal physical address does it translate to?
 A) 5
 B) 10
@@ -1624,9 +1623,9 @@ E) 45
   "problem_id": "72",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["5", "10", "20", "54", "45"],
-  "answer": "C"
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["5","10","20","54","45"],
+  "answer": "B"
 }
 ```
 
@@ -1634,6 +1633,11 @@ E) 45
 
 ## Question 73 [1 point]
 
+Assuming the following page table (on the same system, again):
+  [0] 0x00000000 
+  [1] 0x8000000e 
+  [2] 0x00000000 
+  [3] 0x80000009 
 Question 73: Which ranges of virtual address are valid?
 A) 0 ... 64
 B) 0 ... 16
@@ -1646,8 +1650,8 @@ E) 80 ... 89
   "problem_id": "73",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["0 ... 64", "0 ... 16", "4 ... 7 and 12 ... 15", "0 ... 3 and 8 ... 11", "80 ... 89"],
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["0 ... 64","0 ... 16","4 ... 7 and 12 ... 15","0 ... 3 and 8 ... 11","80 ... 89"],
   "answer": "C"
 }
 ```
@@ -1656,7 +1660,9 @@ E) 80 ... 89
 
 ## Question 74 [1 point]
 
-Question 74: You are told a given system has 30-bit virtual address, with a 4KB page size. Assuming a 4-byte page table entry size, how big is a linear page table for a given process?
+Virtual Memory (2)
+You are given some statistics about various systems, and need to do some basic calculations before continuing.
+Question 74: You are told a given system has a 30-bit virtual address, with a 4KB page size. Assuming a 4-byte page table entry size, how big is a linear page table for a given process?
 A) 1 MB
 B) 2 MB
 C) 4 MB
@@ -1668,9 +1674,9 @@ E) None of the above
   "problem_id": "74",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["1 MB", "2 MB", "4 MB", "8 MB", "None of the above"],
-  "answer": "A"
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["1 MB","2 MB","4 MB","8 MB","None of the above"],
+  "answer": "C"
 }
 ```
 
@@ -1678,7 +1684,7 @@ E) None of the above
 
 ## Question 75 [1 point]
 
-Question 75: You are next given system has a 10-bit virtual address, with a 256 byte page size. Assuming a 4-byte page table entry size, how big is a linear page table for a given process?
+Question 75: You are next given system has a 10-bit virtual address. with a 256 byte page size. Assuming a 4-byte page table entry size, how big is a linear page table for a given process?
 A) 16 bytes
 B) 16 KB
 C) 16 MB
@@ -1690,9 +1696,9 @@ E) None of the above
   "problem_id": "75",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["16 bytes", "16 KB", "16 MB", "16 GB", "None of the above"],
-  "answer": "A"
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["16 bytes","16 KB","16 MB","16 GB","None of the above"],
+  "answer": "B"
 }
 ```
 
@@ -1712,9 +1718,9 @@ E) None of the above
   "problem_id": "76",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["28", "18", "8", "32", "None of the above"],
-  "answer": "B"
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["28","18","8","32","None of the above"],
+  "answer": "A"
 }
 ```
 
@@ -1722,7 +1728,7 @@ E) None of the above
 
 ## Question 77 [1 point]
 
-Question 77: In memory dumps, you are told that the system only has 3 pages, that pages 3, 4, and 5 are in memory. You also check a history log and find that the last 10 pages accessed were 8, 7, 4, 2, 5, 4, 7, 3, 4, 5 (in that order, with 5 being most recently accessed). 
+Lastly, you are given some memory dumps, which tell you something about the contents of memory. In this dump, you find that the system only has 3 pages, that pages 3, 4, and 5 are in memory. You also check a history log and find that the last 10 pages accessed were 8, 7, 4, 2, 5, 4, 7, 3, 4, 5 (in that order, with 5 being most recently accessed).
 Question 77: You are then asked to determine which replacement policy was used. Is it:
 A) FIFO
 B) LRU
@@ -1735,8 +1741,8 @@ E) Cannot tell from the given information
   "problem_id": "77",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["FIFO", "LRU", "MRU", "LFU", "Cannot tell from the given information"],
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["FIFO","LRU","MRU","LFU","Cannot tell from the given information"],
   "answer": "E"
 }
 ```
@@ -1745,6 +1751,8 @@ E) Cannot tell from the given information
 
 ## Question 78 [1 point]
 
+Virtual Memory (3)
+With the same situation as above (3-page system, with 3, 4, 5 in memory, and the last 10 pages accessed are 8, 7, 4, 2, 5, 4, 7, 3, 4, 5), you are asked the following few questions.
 Question 78: Assuming the replacement policy was FIFO, how many misses were encountered while those last 10 pages were accessed? (assume the memory was empty to begin)
 A) 7
 B) 8
@@ -1757,8 +1765,8 @@ E) None of the above
   "problem_id": "78",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["7", "8", "9", "10", "None of the above"],
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["7","8","9","10","None of the above"],
   "answer": "C"
 }
 ```
@@ -1779,8 +1787,8 @@ E) None of the above
   "problem_id": "79",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["7", "8", "9", "10", "None of the above"],
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["7","8","9","10","None of the above"],
   "answer": "B"
 }
 ```
@@ -1801,10 +1809,8 @@ E) None of the above
   "problem_id": "80",
   "points": 1,
   "type": "ExactMatch",
-  "tags": ["virtual-memory", "forensics"],
-  "choices": ["7", "8", "9", "10", "None of the above"],
+  "tags": ["virtual-memory","forensics"],
+  "choices": ["7","8","9","10","None of the above"],
   "answer": "E"
 }
 ```
-
----
