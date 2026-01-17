@@ -1,134 +1,62 @@
-# CS 350 Spring 2014 Midterm
+# CS350 Spring 2014 Midterm
 
 ```json
 {
   "exam_id": "cs350_spring_2014_midterm",
-  "test_paper_name": "CS 350 Spring 2014 Midterm",
+  "test_paper_name": "CS350 Spring 2014 Midterm",
   "course": "CS 350",
   "institution": "University of Waterloo",
   "year": 2014,
   "score_total": 60,
-  "num_questions": 7
+  "num_questions": 21
 }
 ```
 
 ---
-
-## Question 1 [6 point(s)]
-
-{Question text from the exam (Question 1 with parts a, b, and c) }
-
 ```json
 {
-  "problem_id": "1",
-  "points": 6,
-  "type": "Freeform",
-  "tags": ["processes","fork","synchronization"],
-  "answer": "a) Four processes. b) 1 2 1 0 1 0. c) Example possible output: 1 1 0 0 2 1",
-  "llm_judge_instructions": "Part (a): Award 2 points for exactly stating 'Four processes' (or equivalent). Part (b): Award 2 points for the exact sequence '1 2 1 0 1 0'. Part (c): Award 2 points for providing a valid example sequence that could be produced by the modified program but not by the original, with the required counts and ordering constraints (the sequence '1 1 0 0 2 1' is one valid example). Partial credit: 1 point for correctly identifying the quantity in (a); 1 point for a plausible but not exact (b) sequence; 1 point for a partially correct (c) justification if partial constraints are met."
+  "question": "## Question 1 [6 point(s)]\n\n1. (6 total marks)\nConsider the application code below, which uses the fork and waitpid system calls.\n\nint i;\ndofork(){\npid_t pid; int status;\ni++;\npid = fork();\nif (pid == 0){/* child */\nprintf(\"%d\",i);\nreturn;\n}else{/* parent */\ni--;\nwaitpid(pid,&status,0);\nprintf(\"%d\",i);\nreturn;\n}\n}\nint main(){\ni = 0;\ndofork();\ndofork();\n}\n\na. (2 marks) How many processes, in total, will be created when this program is run, including the original parent process?\n\nb. (2 marks) Show the output that will be produced when this program runs. Note that the statement\nprintf(\"%d\",i);\nwill print the value of integer variable i. You should show the combined output of all processes. Your answer should be a single sequence of numbers.\n\nc. (2 marks) Suppose that the call to waitpid is removed from the dofork function, and the modified program is then run. Give an example of output that could be produced by this modified program, but that could not be produced by the original, unmodified program. Again, your answer should be a single sequence of numbers.\n\nThe sequence must include exactly two 0’s, three 1’s, one 2, and nothing else. In addition:\n- at least one 1 must precede the 2, and\n- at least one 0 must precede the last 1.\n"
 }
 ```
 
 ---
-
-## Question 2 [10 point(s)]
-
-{Question text from the exam (Question 2 with parts a and b) }
-
 ```json
 {
-  "problem_id": "2",
-  "points": 10,
-  "type": "Freeform",
-  "tags": ["locks","synchronization"],
-  "answer": "a) int locktryacquire(struct lock *lock){\n    spinlock_acquire(&lock->spinlock);\n    if (lock->holder == NULL){\n        lock->holder = curthread;\n        spinlock_release(&lock->spinlock);\n        return 1;\n    }else{\n        spinlock_release(&lock->spinlock);\n        return 0;\n    }\n}\nb) void acquiretwolocks(struct lock *L1, struct lock *L2){\n    lockacquire(L1);\n    while ( locktryacquire(L2) == 0 ){\n        lockrelease(L1);\n        lockacquire(L1);\n    }\n    return;\n}",
-  "llm_judge_instructions": "Part (a): Award 5 points for a correct, atomic locktryacquire implementation that acquires when free and returns 1, otherwise does not block and returns 0. Include proper spinlock handling. Part (b): Award 5 points for a correct acquiretwolocks implementation that never blocks while holding one lock (no hold-and-wait), using only the two input locks and the allowed primitives. Partial: up to 2 points for a function that compiles but has logical issues; 1 point for partially correct structure."
+  "question": "## Question 2 [10 point(s)]\n\n2. (10 total marks)\nIn this question, you are asked to consider a type of lock with a richer interface than that used by locks in OS/161. In addition to lockacquire and lockrelease, there is an additional interface function called locktryacquire, which is described in part (a) of this question.\n\nYou should assume that the lock structure is defined as follows:\nstruct lock{\nchar *lkname;\nstruct wchan *wchan;\nstruct spinlock spinlock;\nvolatile struct thread *holder;\n};\n\na. (5 marks) In the space below, implement the locktryacquire function, which has the following prototype:\nint locktryacquire(struct lock *lock);\nIf the lock is free, locktryacquire should acquire the lock on behalf of the calling thread, and should return 1 to indicate success. If the lock is not free, locktryacquire should do nothing, and should return 0 to indicate failure. Thus, this function is similar to lockacquire except that it must never cause the calling thread to block. Like lockacquire and lockrelease, locktryacquire must be an atomic operation.\n\n(Write your implementation here.)\n\nb. (5 marks) Suppose that a set of threads is using multiple locks for synchronization. In most cases, threads will acquire and release one lock at a time, using lockacquire and lockrelease. However, in some situations it is necessary for a thread to acquire two locks simultaneously. Write a function called acquiretwolocks that a thread can call to lock two different locks. The function prototype should be as follows:\nvoid acquiretwolocks(struct lock *L1, struct lock *L2)\n\nBefore calling this function, the calling thread must not hold either lock. When this call returns, the calling thread should hold both of the specified locks.\n\nYour implementation of acquiretwolocks must satisfy the following requirements:\n1. The only synchronization primitives that your implementation may use are the two locks that are passed as input parameters. Your implementation may call lockacquire, lockrelease, and/or locktryacquire on those locks. (You may use locktryacquire here even if you did not implement it for part (a).) It may not use any other synchronization primitives, and it may not use wait channels or test-and-set instructions directly.\n2. Your implementation must never “hold and wait”. That is, it must never block or spin while it is holding one of the locks.\n\nKeep your implementation as simple as possible. Overly long or complex solutions may be penalized.\n\n(Write your implementation here.)\n"
 }
 ```
 
 ---
-
-## Question 3 [8 point(s)]
-
-{Question text from the exam (Question 3 with subparts a, b, c) }
-
 ```json
 {
-  "problem_id": "3",
-  "points": 8,
-  "type": "Freeform",
-  "tags": ["synchronization","locks","condition-variables"],
-  "answer": "a) struct lock *mutex; struct cv *cv; volatile int numanimals = NumCats + NumMice;\nb) lockacquire(mutex);\nwhile (numanimals > 0){\n    cv_wait(cv, mutex);\n}\nlockrelease(mutex);\nc) lockacquire(mutex);\nnumanimals--;\nif (numanimals == 0){\n    cv_signal(cv, mutex);\n}\nlockrelease(mutex);",
-  "llm_judge_instructions": "Part (a): Award 2 points for declaring the required synchronization primitives with an initial value for shared variables. Part (b): Award 3 points for correct waiting code using the condition variable (cv_wait) and the mutex. Part (c): Award 3 points for the corresponding code that signals the condition variable when the last thread finishes. Partial: 1–2 points for partially correct declarations or await loops; 1–2 points for partial signaling logic."
+  "question": "## Question 3 [8 point(s)]\n\n3 (8 total marks)\nIn the cat and mouse simulation from Assignment 1, a single master thread is responsible for creating one cat thread for each simulated cat, and one mouse thread for each simulated mouse. After creating the cat and mouse threads, the master thread waits for all of the cats and all of the mice to finish their simulations. To do this, it uses a single semaphore, called CatMouseWait, which has an initial value of 0. The master thread uses the following code to wait for all of the cats and mice to finish\n\nfor(i=0;i<(NumCats+NumMice);i++){\n    P(CatMouseWait);\n}\n\nHere, NumCats and NumMice are global variables representing the numbers of cats and mice. Each cat and each mouse, when it finishes its simulation, executes\n\nV(CatMouseWait);\n\nto indicate that it has finished.\n\nYour task is to re-implement this mechanism, using locks and/or condition variables instead of semaphores. You may use as many locks, condition variables, and global variables as you need in your solution. However, you may not use semaphores, spinlocks, or any other synchronization primitives.\n\na. (2 marks) In the space below, declare any lock(s), condition variable(s), and shared global variable(s) you will need in your solution. Be sure to indicate an initial value for any shared global variable(s).\n\n(Declare variables here.)\n\nb. (3 marks) In the space below, show the code that should be used by the master thread to wait for all cats and mice to finish. This should use the variable(s), lock(s) or condition variable(s) you declared in part (a).\n\n(Write master thread code here.)\n\nc. (3 marks) In the space below, show the code that should be used by each cat and mouse thread to indicate that it has finished. This should use the variable(s), lock(s) or condition variable(s) you declared in part (a). Cats and mice must use the same code.\n\n(Write cat/mouse thread code here.)\n"
 }
 ```
 
 ---
-
-## Question 4 [6 point(s)]
-
-{Question text from the exam (Question 4 with the ll/sc table) }
-
 ```json
 {
-  "problem_id": "4",
-  "points": 6,
-  "type": "Freeform",
-  "tags": ["assembly","synchronization","ll-sc","locks"],
-  "answer": "Value of R0, Value of R1 and the corresponding statements for each of the four cases in the table: 00 Not possible to determine whether the lock is held. 01 The lock holds. 10 Not possible to determine whether the lock is held. 11 Some thread holds the lock.",
-  "llm_judge_instructions": "Part (a): Provide the correct mapping for each (R0, R1) pair to one of the four statements: 'holds the lock', 'Some thread other than holds the lock', 'No thread holds the lock', 'Not possible to determine whether the lock is held'. Award up to 6 points total—1.5 points per cell, with full credit for correct mapping of all four cells. Partial: 0–1.5 points per cell if correct; 0 if incorrect."
+  "question": "## Question 4 [6 point(s)]\n\n4 (6 total marks)\nThe following assembly language pseudo-code shows how the load linked (ll) and store conditional (sc) instructions can be used together to test-and-set a lock. In this code, &lock represents the address of the lock variable. The comments remind you how the ll and sc instructions behave.\n\n// load the value 1 into register R1\nli R1,1\n// load the value of the lock variable into register R0\nll R0,&lock\n// if the value of the lock variable has not changed since the ll\n// instruction, store the value in R1 into the lock variable and\n// set the value in R1 to 1 to indicate success. Otherwise,\n// do not change the value of the lock variable and set the value\n// of R1 to 0 to indicate failure.\nsc R1,&lock\n\nSuppose that a thread T executes these instructions as part of a call to spinlock_acquire. Immediately after T executes the sc instruction, there are four possible situations, depending on the values in the registers R0 and R1.\n\nThe table below lists these four possible situations. For each situation, indicate which of the following statements is true:\n- T holds the lock.\n- Some thread other than T holds the lock.\n- No thread holds the lock.\n- Not possible to determine whether the lock is held.\n\nIndicate your answers by writing the correct statement in each box.\n\nValue of R0 | Value of R1 | Statement\n-----------|-------------|----------\n0          | 0           | _______________________\n0          | 1           | _______________________\n1          | 0           | _______________________\n1          | 1           | _______________________\n"
 }
 ```
 
 ---
-
-## Question 5 [6 point(s)]
-
-{Question text from the exam (Question 5 with parts a, b, c) }
-
 ```json
 {
-  "problem_id": "5",
-  "points": 6,
-  "type": "Freeform",
-  "tags": ["scheduling","preemption"],
-  "answer": "a) 100b\nb) 100q\nc) 100kq",
-  "llm_judge_instructions": "Award 2 points for each subpart correct: a) correctly derives 100*b, b) 100*q, c) 100*k*q. Partial: 1 point per subpart if partially correct (e.g., expressions missing factors or misinterpretation of variables)."
+  "question": "## Question 5 [6 point(s)]\n\n5 (6 total marks)\nSuppose that two different types of processes, crunchers and talkers, run in a system. The system has a single processor, and it uses preemptive round-robin scheduling, with a scheduling quantum of q time units.\n\nCrunchers never block. When they are chosen to run by the scheduler, they will run until they are preempted. Talkers, on the other hand, continuously output characters, as illustrated by the following pseudo-code:\n\nwhile (true){\n    /* output a character */\n}\n\nEach time a talker outputs a character, it blocks for b time units while the character is being output, before becoming ready again. Assume that the actual execution time (time spent in the “running” state) for each iteration of the talker is very small - much smaller than b.\n\nAnswer each of the following questions about this system. Express your answers in terms of b and q. Assume that b < q.\n\na. (2 marks) Suppose that there is one talker process in the system, and no other processes. How long will it take the talker to output 100 characters?\n\n(Answer here.)\n\nb. (2 marks) Suppose that there is one talker and one cruncher running in the system. How much time will elapse before the talker outputs 100 characters?\n\n(Answer here.)\n\nc. (2 marks) Suppose that one talker and k (k > 0) crunchers are running in the system. How much time will elapse before the talker outputs 100 characters? Express your answer in terms of k, b and q.\n\n(Answer here.)\n"
 }
 ```
 
 ---
-
-## Question 6 [8 point(s)]
-
-{Question text from the exam (Question 6 with description and skeleton code) }
-
 ```json
 {
-  "problem_id": "6",
-  "points": 8,
-  "type": "Freeform",
-  "tags": ["semaphores","concurrency","queues"],
-  "answer": "See skeleton code with P and V insertions for AtoB and BtoA as provided in the exam text, ensuring: (1) dequeue never on empty queue, (2) mutual exclusion per queue, (3) preserve enqueue order across queues, (4) no deadlocks; multiple queues may be used concurrently.",
-  "llm_judge_instructions": "Award up to 8 points for correctly inserting semaphore operations to satisfy the four requirements: (1) prevent dequeue on empty, (2) serialize access per queue, (3) preserve inter-queue ordering, (4) avoid deadlock and permit concurrent usage of different queues. Partial: up to 2 points per requirement if partially satisfied; 0 if none."
+  "question": "## Question 6 [8 point(s)]\n\n6 (8 total marks)\nSuppose threads in a concurrent program share access to two different FIFO queues of data, QueueA and QueueB. There are two functions that threads use to move data items between the two queues:\n- AtoB(): this function dequeues one item from QueueA and enqueues that item onto QueueB\n- BtoA(): this function dequeues one item from QueueB and enqueues that item onto QueueA\n\nSuppose that, initially, QueueA contains N data items, and QueueB is empty.\n\nYour job is to modify the skeleton implementations of AtoB() and BtoA() by inserting semaphore operations to ensure that the following synchronization requirements are satisfied:\n1. dequeue() should never be run on an empty queue.\n2. At most one thread at a time should be using each queue. For example, if one thread is running dequeue() on QueueA, no other thread should be running dequeue() or enqueue() on QueueA.\n3. Items must be enqueued onto QueueB in the same order that they are dequeued from QueueA. Similarly, items must be enqueued onto QueueA in the same order that they are dequeued from QueueB.\n4. Threads must never deadlock.\n\nIn addition, it must be possible, at least in some situations, for different threads to use different queues at the same time. In particular, a solution that uses a single semaphore to lock both queues is not acceptable.\n\nAdd semaphore operations (P and V) to the skeleton code below so that these synchronization requirements will be satisfied. Do not use any synchronization primitives other than semaphores in your solution. Do not make any changes to the skeleton code other than inserting calls to semaphore operations.\n\nDeclare Semaphores Here:\n(Specify semaphores and their initial values here.)\n\nSkeleton code:\n\nvoid AtoB(){\n    /* dequeue item from QueueA */\n    x = dequeue(QueueA);\n    /* enqueue the dequeued item onto QueueB */\n    enqueue(x,QueueB);\n}\n\nvoid BtoA(){\n    /* dequeue item from QueueB */\n    x = dequeue(QueueB);\n    /* enqueue the dequeued item onto QueueA */\n    enqueue(x,QueueA);\n}\n"
 }
 ```
 
 ---
-
-## Question 7 [16 point(s)]
-
-{Question text from the exam (Question 7 with parts a–h) }
-
 ```json
 {
-  "problem_id": "7",
-  "points": 16,
-  "type": "Freeform",
-  "tags": ["mips","syscall","kernel","scheduling"],
-  "answer": "a) The following apply: the current value of the program counter is saved; a trap frame is saved; the processor switches to privileged execution mode; the value of the program counter is changed. b) A ready thread is runnable and will run again as soon as the scheduler chooses it to run. A blocked thread will not become runnable again until another process wakes it up (via wakeone or wakeall). c) Disabling interrupts on one processor will not prevent a thread on another processor from entering the critical section. d) False. e) True. f) System calls, interrupts, and exceptions. g) One trap frame on P’s thread’s kernel stack. h) One switch frame on P’s thread’s kernel stack.",
-  "llm_judge_instructions": "Provide full credit (16 points) for correctly answering all eight subparts. Partial credit: award up to 2 points per subpart (a through h) based on partial correctness and justification. For (a), list all applicable effects; for (b)–(h), succinctly state the correct concept with a brief justification where appropriate."
+  "question": "## Question 7 [16 point(s)]\n\n7 (16 total marks)\n\na. (3 total marks) Which of the following effects does a MIPS syscall instruction have when it is executed? (Note: we are interested only in the effects of this single instruction, not the effects of any code that runs after this instruction.) Circle all that apply.\n- the current value of the program counter is saved\n- a trap frame is saved\n- the processor switches to privileged execution mode\n- the current thread stops running\n- a timer interrupt occurs\n- an error code is returned to the application\n- the value of the program counter is changed\n\nb. (2 total marks) Neither threads that are in the ready state nor threads that are in the blocked state are running. What is the difference between these two states?\n\n(Answer here.)\n\nc. (2 total marks) Explain why disabling interrupts may not enforce mutual exclusion on a multi-processor machine.\n\n(Answer here.)\n\nd. (1 total marks) If a thread avoids “holding and waiting”, then that thread will never be involved in a deadlock. True or false? Briefly justify your answer.\n\n(Answer here.)\n\ne. (1 total marks) If all threads avoid “holding and waiting”, then no thread will ever be involved in a deadlock. True or false? Briefly justify your answer.\n\n(Answer here.)\n\nf. (3 total marks) We have identified three types of events that cause execution control to transfer from an application program to the kernel. What are those three types of events?\n\n(Answer here.)\n\ng. (2 total marks) Suppose that a process P calls waitpid and blocks because the process it is waiting for is still running. At the time that P blocks, how many trap frames will be on P’s thread’s stacks, and which stack, or stacks, will those trap frames be found on? Briefly justify your answer.\n\n(Answer here.)\n\nh. (2 total marks) For the same situation described in part (g), how many switch frames will be on P’s thread’s stacks, and which stack, or stacks, will those switch frames be found on? Briefly justify your answer.\n\n(Answer here.)\n"
 }
 ```
-
----
