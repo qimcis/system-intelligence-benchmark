@@ -1,10 +1,10 @@
-# COMP 3000: Operating Systems Winter 2019 Final
+# COMP 3000 Winter 2019 Final
 
 ```json
 {
   "exam_id": "comp3000_winter_2019_final",
-  "test_paper_name": "COMP 3000: Operating Systems Winter 2019 Final",
-  "course": "COMP 3000",
+  "test_paper_name": "COMP 3000 Winter 2019 Final",
+  "course": "COMP3000",
   "institution": "Carleton University",
   "year": 2019,
   "score_total": 52,
@@ -24,8 +24,8 @@ Does execve close files that were previously open? How do you know?
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "execve does not close files that were previously open. We know this because file descriptors 0, 1, and 2 (standard in, out, and error) are by convention always open when a program starts running. Thus they must be open before the execve and execve cannot close them.",
-  "llm_judge_instructions": "Award 2 points for correctly stating that execve does not close pre-existing file descriptors (0, 1, 2) and providing the rationale about standard file descriptors."
+  "answer": "execve does not close files that were previously open.",
+  "llm_judge_instructions": "Award 2 points for correctly stating that execve does not close files that were previously open. Award 0 points otherwise."
 }
 ```
 
@@ -41,8 +41,8 @@ When does a call to wait return immediately? What does wait return?
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "It returns immediately when a child process has already terminated. Wait returns the process ID of the process that has exited and its return value (the value returned by main).",
-  "llm_judge_instructions": "Award 2 points for stating both the immediate return condition and that wait returns the PID and exit status of the terminated child."
+  "answer": "It returns immediately when a child process has already terminated. Wait returns the PID of the exited process and its exit status.",
+  "llm_judge_instructions": "Award 2 points for stating that wait returns immediately if a child has terminated and returns the PID and exit status of that child. 0 points otherwise."
 }
 ```
 
@@ -50,9 +50,10 @@ When does a call to wait return immediately? What does wait return?
 
 ## Question 3 [2 point(s)]
 
-If your program has the following code, what could it potentially output (depending upon the state of the system)?  Assume that this code compiles with no warnings, and assume that you are running this as the user student.
-e x e c v e ( ” / u s r / b i n / whoami ” ,   a r g v  ,   NULL ) ;
-p r i n t f ( ” Done !\n ” ) ;
+If your program has the following code, what could it potentially output (depending upon the state of the system)? Assume you are running this as the user student.
+
+execve("/usr/bin/whoami", argv, NULL);
+printf("Done!\n");
 
 ```json
 {
@@ -60,8 +61,8 @@ p r i n t f ( ” Done !\n ” ) ;
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "This program could either output \"student\" (if whoami exists, is executable by the student user, and operates as expected) or \"Done!\" (if the execve of whoami fails).",
-  "llm_judge_instructions": "Award 2 points for identifying both possible outputs: the username if execve succeeds, or 'Done!' if it fails."
+  "answer": "\"student\" or \"Done!\"",
+  "llm_judge_instructions": "Award 2 points if the answer states that the program could output either 'student' or 'Done!' depending on whether whoami exists and is executable. 0 points otherwise."
 }
 ```
 
@@ -69,7 +70,7 @@ p r i n t f ( ” Done !\n ” ) ;
 
 ## Question 4 [2 point(s)]
 
-What is “stored” in the numeric directories in /proc? And, what is “stored” in the comm file in each of these numeric directories?
+What is stored in the numeric directories in /proc? And, what is stored in the comm file in each of these numeric directories?
 
 ```json
 {
@@ -77,8 +78,8 @@ What is “stored” in the numeric directories in /proc? And, what is “stored
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "The kernel’s information on each process is stored in each numeric directory in /proc. The comm file in each is the short name of the executable for that process.",
-  "llm_judge_instructions": "Award 2 points for correctly stating that process information is in per-PID directories and that 'comm' holds the short executable name."
+  "answer": "The kernel information on each process is stored in /proc/[pid]; the comm file contains the short name of the executable for that process.",
+  "llm_judge_instructions": "Award 2 points for noting that /proc/[pid] contains per-process kernel information and that comm holds the short executable name. 0 points otherwise."
 }
 ```
 
@@ -94,8 +95,8 @@ What is the PATH environment variable used for? Why is this variable used (rathe
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "The PATH environment variable stores the list of directories that should be searched for executables. This needs to be specified as otherwise a shell would have to search the entire filesystem for executables and might end up searching untrusted or otherwise problematic directories.",
-  "llm_judge_instructions": "Award 2 points for explaining PATH's role in directing shell to search specific directories for executables."
+  "answer": "PATH stores directories to search for executables; using PATH avoids the shell searching the entire filesystem and potentially untrusted directories.",
+  "llm_judge_instructions": "Award 2 points for stating that PATH lists directories to search for executables and that it avoids scanning the whole filesystem or untrusted directories. 0 points otherwise."
 }
 ```
 
@@ -111,8 +112,8 @@ Is stack allocation of variables more or less efficient than heap allocation? Sp
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Stack allocation is much more efficient as stack-based variables can be allocated with just one instruction (assuming the stack doesn’t need to grow). Heap allocation requires system calls.",
-  "llm_judge_instructions": "Award 2 points for noting stack is faster and that heap requires system calls."
+  "answer": "Stack allocation is more efficient; heap allocation requires system calls.",
+  "llm_judge_instructions": "Award 2 points for stating that stack allocation is more efficient and that heap allocation entails system calls. 0 points otherwise."
 }
 ```
 
@@ -128,8 +129,8 @@ You’re working on a Linux system where the setuid permission bit is ignored. W
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Programs that are run by the user but need root privileges, such as passwd and fusermount. These programs are not run routinely but will cause a non-privileged user problems when they wish to do certain tasks such as changing their password or using a userspace filesystem such as sshfs. (Full credit for mentioning at least one setuid program and what problems breaking it would cause.)",
-  "llm_judge_instructions": "Award 2 points for identifying setuid-reliant programs and the potential user impact."
+  "answer": "Programs that are run by the user but need root privileges, such as passwd and fusermount; such breakage prevents privileged tasks from users, which is significant.",
+  "llm_judge_instructions": "Award 2 points for identifying at least one setuid program and explaining the resulting problems; 0 points otherwise."
 }
 ```
 
@@ -145,8 +146,8 @@ What happens when you mount a filesystem on a non-empty directory? Specifically,
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "When you mount a filesystem on a non-empty directory, no data is lost or deleted but the files that were in the directory (before the mount) are hidden in favor of the files and directories in the newly mounted filesystem. When the filesystem is unmounted, the old files in the mountpoint again become accessible.",
-  "llm_judge_instructions": "Award 2 points for describing the hiding of pre-existing files and their restoration after unmount."
+  "answer": "No data is lost; the existing files are hidden by the new filesystem until unmount, at which point the old files reappear.",
+  "llm_judge_instructions": "Award 2 points for stating that no data is lost, that existing files are hidden, and that they reappear after unmount. 0 points otherwise."
 }
 ```
 
@@ -162,8 +163,8 @@ Can signal handlers produce race conditions? How? Assume that the process is sin
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Signal handlers can definitely produce race conditions by modifying data structures that are also being modified by the main code. For example, this could be a problem when a signal handler uses a standard library function that makes use of private static storage. If such a function is interrupted and then a signal handler calls it again, the internal storage will be in an undefined state. Look up non-reentrant functions to learn more about this.",
-  "llm_judge_instructions": "Award 2 points for describing race conditions due to non-reentrancy and shared state."
+  "answer": "Yes; by modifying data structures that the main code also uses; issues arise with non-reentrant functions.",
+  "llm_judge_instructions": "Award 2 points for explaining that signal handlers can race with main code by accessing shared data and mentioning non-reentrancy. 0 points otherwise."
 }
 ```
 
@@ -179,8 +180,8 @@ Do you think a symbolic link can refer to a file on another filesystem? What abo
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Symbolic links can refer to any file on the system, because they refer to the destination file by name. Hard links are limited to files in the same filesystem, because they refer to an inode, and inode numbers are filesystem-specific.",
-  "llm_judge_instructions": "Award 2 points for distinguishing between symbolic links (can cross filesystems) and hard links (cannot cross filesystems)."
+  "answer": "Symbolic links can refer to any file; hard links are limited to the same filesystem because they reference inodes.",
+  "llm_judge_instructions": "Award 2 points for stating symbolic links can reference across filesystems and hard links cannot due to inodes. 0 points otherwise."
 }
 ```
 
@@ -196,8 +197,8 @@ Why does fsck (on a non-journaled filesystem) have to walk through the entire fi
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "It has to walk through both because it has to look for inconsistencies, particularly with reference counts on inodes being inconsistent with the filesystem. If a file has a reference count of two and only one file refers to it, the reference count should be set to one. And, if an inode’s reference count is 1 and it isn’t referenced anywhere in the filesystem, a new filename should be made for it (and by convention it is placed in lost+found).",
-  "llm_judge_instructions": "Award 2 points for describing reference count inconsistencies and a concrete example (e.g., inode with refcount 1 but unreferenced)."
+  "answer": "To check for inconsistencies, especially reference counts; e.g., a file with refcount 2 but only one directory entry references it.",
+  "llm_judge_instructions": "Award 2 points for identifying the need to check reference counts and providing a concrete example like mismatched reference counts. 0 points otherwise."
 }
 ```
 
@@ -213,8 +214,8 @@ Why is it important for file copying programs on Linux to treat sparse files dif
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "If sparse files are treated like regular files when copying, then it is possible for the copies to take up much more space than the original files (because the sparse regions in the original will have their blocks allocated in the copy). The same problem does not apply to backup programs when they are backing up, as the sparse regions will compress very well (as they are just a sequence of zeros). The same problem can arise, however, when restoring such a backup, in that the restored backup could take up much more space than the original files.",
-  "llm_judge_instructions": "Award 2 points for explaining the inefficiency of copying sparse files and the compression benefit in backups, with potential restoration caveat."
+  "answer": "Copying sparse files like regular files can allocate blocks for zero regions; backups that compress can mitigate this but restoration may inflate size.",
+  "llm_judge_instructions": "Award 2 points for noting the potential space inefficiency when copying sparse files and mention that backups can compress sparse regions; 0 points otherwise."
 }
 ```
 
@@ -230,8 +231,8 @@ When a process exits, does the kernel automatically reclaim the memory resources
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "When a process exits, the kernel automatically reclaims its memory because the kernel maintains a record of the memory associated with a process, its page table, and thus this record can be consulted to deallocate memory properly on process exit. When a kernel module exits memory is not automatically reclaimed because modules allocate memory as part of the kernel’s own page table. No record is kept of what memory specifically belonged to the module (and indeed such ownership isn’t well defined given the way modules can interact with the rest of the kernel). Thus the kernel doesn’t and cannot deallocate all memory allocated by a module automatically when it exits.",
-  "llm_judge_instructions": "Award 2 points for describing proper per-process memory reclamation and the lack of automatic reclamation for module-allocated memory."
+  "answer": "Yes; the kernel reclaims a process's memory. Kernel modules do not have their memory automatically reclaimed when the module exits.",
+  "llm_judge_instructions": "Award 2 points for stating process memory is reclaimed and module memory is not automatically reclaimed. 0 points otherwise."
 }
 ```
 
@@ -247,8 +248,8 @@ When a system call encounters an error (such as an invalid argument), how does i
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "To return an error, the kernel returns the error code (such as EINVAL) negated as the system call’s return value. In userspace, this code gets put into the errno variable that can be checked automatically using standard functions/macros. (Full credit for mentioning returning the code as the system call’s return value and it being put into errno in userspace.)",
-  "llm_judge_instructions": "Award 2 points for noting negative error codes from syscalls and setting errno in userspace."
+  "answer": "The kernel returns a negative error code as the system call’s return value; userspace sees it in errno.",
+  "llm_judge_instructions": "Award 2 points for describing negative error code return and errno in userspace. 0 points otherwise."
 }
 ```
 
@@ -256,7 +257,7 @@ When a system call encounters an error (such as an invalid argument), how does i
 
 ## Question 15 [2 point(s)]
 
-The remember read() and remember write() have an offset argument that is a pointer to loff_t. The read and write system calls, however, do not have offsets in their arguments. From the perspective of userspace, where is the offset stored? What about from kernel space?
+The functions remember read() and remember write() have an offset argument that is a pointer to lofft. The read and write system calls, however, do not have offsets in their arguments. From the perspective of userspace, where is the offset stored? What about from kernel space?
 
 ```json
 {
@@ -264,8 +265,8 @@ The remember read() and remember write() have an offset argument that is a point
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "From userspace offsets are an implicit part of the open file (referred to using a file descriptor). In kernel space the offset is stored as part of the FILE struct.",
-  "llm_judge_instructions": "Award 2 points for correctly noting user-space implicit offsets via file descriptors and kernel-space offset in the file structure."
+  "answer": "Userspace offsets are implicit in the open file (via the file descriptor). In kernel space the offset is stored as part of the FILE struct.",
+  "llm_judge_instructions": "Award 2 points for correctly stating the userspace implicit offset via file descriptor and kernel-space offset in the file structure. 0 points otherwise."
 }
 ```
 
@@ -273,7 +274,7 @@ The remember read() and remember write() have an offset argument that is a point
 
 ## Question 16 [2 point(s)]
 
-In the remember module, saved data order specified the size of the static buffer. This variable does not specify the number of bytes to allocate (as you would with a call to malloc). What does it specify instead? Why is this different?
+In the remember module, saved data orderspecified the size of the static buffer. This variable does not specify the number of bytes to allocate (as you would with a call to malloc). What does it specify instead? Why is this different?
 
 ```json
 {
@@ -281,8 +282,8 @@ In the remember module, saved data order specified the size of the static buffer
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "It specifies the number of pages to allocate as a power of two (pages = 2^order). Memory is allocated this way to minimize external fragmentation, as the powers of two mean you can always split up a non order zero allocation and get two of the previous (an order 3 allocation can be split into two order 2 allocations). This optimization is important in the kernel as the kernel often needs to allocate contiguous physical pages for tasks such as device I/O. Userspace allocations are all in an exclusive virtual address space so fragmentation is much less of an issue (although most userspace memory allocators do try to minimize fragmentation).",
-  "llm_judge_instructions": "Award 2 points for mentioning page-order (power-of-two) allocation and fragmentation rationale."
+  "answer": "It specifies the number of pages to allocate as a power of two (order). This minimizes external fragmentation.",
+  "llm_judge_instructions": "Award 2 points for stating that it specifies page order (power-of-two pages) and noting fragmentation implications. 0 points otherwise."
 }
 ```
 
@@ -298,8 +299,8 @@ The remember module code does not enforce mutual exclusion on the saved data buf
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "You could enforce mutual exclusion by adding a semaphore (probably a spinlock) that could be used to enforce exclusive access to the saveddata buffer. Before remember read or remember write to saveddata they would grab the semaphore (thus waiting if it was in use) and release it once they were done. The benefit of this is that this prevents concurrent access to /dev/remember by multiple processes leading to undefined behavior, say by two of them writing at the same time, just as we did in 3000pc. Note the original remember module can crash when accessed concurrently.",
-  "llm_judge_instructions": "Award 2 points for proposing a synchronization primitive (semaphore/spinlock) and describing avoidance of race conditions."
+  "answer": "Add a semaphore (e.g., a spinlock) to guard access to the buffer; it prevents concurrent writes/reads and avoids undefined behavior.",
+  "llm_judge_instructions": "Award 2 points for proposing a synchronization primitive (semaphore/spinlock) and explaining the benefit of preventing concurrent access. 0 points otherwise."
 }
 ```
 
@@ -307,7 +308,7 @@ The remember module code does not enforce mutual exclusion on the saved data buf
 
 ## Question 18 [2 point(s)]
 
-How can programs such as bash readline observe the detailed behavior of large numbers of processes? Specifically, what is the key difference between bash readline and other monitoring tools (such as ps), and why is this difference significant?
+How can programs such as bashreadline observe the detailed behavior of large numbers of processes? Specifically, what is the key difference between bashreadline and other monitoring tools (such as ps), and why is this difference significant?
 
 ```json
 {
@@ -315,8 +316,8 @@ How can programs such as bash readline observe the detailed behavior of large nu
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "While ps just reads files in /proc to analyze kernel state, bash readline uploads eBPF bytecode (produced by compiling a C program inlined in the python code) into the kernel. This code is verified and translated into machine code, giving it access to almost any code or data inside the kernel. eBPF thus allows for deeper and much more flexible monitoring of system behavior at the process and kernel level.",
-  "llm_judge_instructions": "Award 2 points for mentioning eBPF-based observation and its deeper access compared to ps."
+  "answer": "bashreadline uploads eBPF bytecode into the kernel for deeper monitoring; ps only reads /proc. This enables deeper access to process and kernel state.",
+  "llm_judge_instructions": "Award 2 points for mentioning eBPF-based monitoring and contrast with ps. 0 points otherwise."
 }
 ```
 
@@ -324,7 +325,7 @@ How can programs such as bash readline observe the detailed behavior of large nu
 
 ## Question 19 [2 point(s)]
 
-When does the producer sleep in 3000pc? Is this sleep essential for 3000pc to work, or is it simply there to improve performance? Explain briefly.
+When does the producer sleep in3000pc? Is this sleep essential for 3000pc to work, or is it simply there to improve performance? Explain briefly.
 
 ```json
 {
@@ -332,8 +333,8 @@ When does the producer sleep in 3000pc? Is this sleep essential for 3000pc to wo
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "The producer sleeps when the queue is full (i.e., the producer has filled every slot and none have been emptied by the consumer yet). This sleep is essential because at this point the producer has nothing to do, it has to wait until the consumer makes progress. The only other alternative would be to do busywork, e.g., to loop until there was work to do. But this would consume CPU cycles with no benefit so it would be counterproductive.",
-  "llm_judge_instructions": "Award 2 points for stating the queue-full condition and that sleep prevents busy-waiting."
+  "answer": "The producer sleeps when the queue is full; this sleep is essential to avoid busy-waiting, not just for performance.",
+  "llm_judge_instructions": "Award 2 points for stating the sleep occurs when the queue is full and that it prevents busy-waiting; 0 points otherwise."
 }
 ```
 
@@ -349,8 +350,8 @@ What’s the difference between a regular mmap and an anonymous mmap? Why would 
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "A regular mmap associates a range of a process’s address space with a range of bytes in a file (thus the bytes in the file become “the same” as the corresponding the bytes in the mapped memory). An anonymous mmap has no associated file, thus it only allocates memory for an address range in a process’s address space. In other words, an anonymous mmap does the memory allocation portion of a regular mmap without connecting it with a file.",
-  "llm_judge_instructions": "Award 2 points for differentiating between file-backed and anonymous mappings and describing usage contexts."
+  "answer": "Regular mmap maps a file into memory; anonymous mmap maps memory without a file. Use when you need file-backed memory vs. pure memory.",
+  "llm_judge_instructions": "Award 2 points for distinguishing file-backed mmap vs anonymous mmap and giving use-case rationale. 0 points otherwise."
 }
 ```
 
@@ -358,7 +359,7 @@ What’s the difference between a regular mmap and an anonymous mmap? Why would 
 
 ## Question 21 [2 point(s)]
 
-The Linux kernel’s random number generator combines data gathered from multiple drivers in the kernel with a cryptographically secure pseudorandom number generator. Why must both of these components be used? (Note that the standard Crand() uses neither of these.)
+The Linux kernel’s random number generator combines data gathered from multiple drivers in the kernel with a cryptographically secure pseudorandom number generator. Why must both of these components be used? (Note that the standard Crand()uses neither of these.)
 
 ```json
 {
@@ -366,8 +367,8 @@ The Linux kernel’s random number generator combines data gathered from multipl
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "The data gathered from multiple drivers produces the base entropy (unpredictability) that is necessary for a true random number generator. This gathered entropy however will generally be biased and the generator should output unbiased bits. The cryptographically secure pseudorandom number generator transforms these bits so they are unbiased and allows the kernel to then produce arbitrarily long that is unpredictable (as predicting its behavior would require reverse engineering the pseudorandom number generator, and a “cryptographically secure” one is resistant to this attack). (Full credit for saying the drivers provide uncertainty and the generator makes it unbiased.)",
-  "llm_judge_instructions": "Award 2 points for explaining the need for entropy sources plus a secure PRNG to produce unbiased, unpredictable numbers."
+  "answer": "Driver gathering provides base entropy; the cryptographic PRNG makes the output unbiased and unpredictable.",
+  "llm_judge_instructions": "Award 2 points for noting base entropy from drivers and unbiased unpredictable output from the PRNG. 0 points otherwise."
 }
 ```
 
@@ -383,8 +384,8 @@ Why do processes have a uid and an euid? Why not just use uid?
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "The euid is the user ID that is used for permission checks while the uid indicates the user controls the process. These two need to be different in UNIX/Linux because a user can run a program that has different privileges from them if the setuid bit is set.",
-  "llm_judge_instructions": "Award 2 points for distinguishing between real UID and effective UID and their security significance."
+  "answer": "euid is used for permission checks; uid identifies the owning user. They differ due to setuid programs.",
+  "llm_judge_instructions": "Award 2 points for explaining the distinction and the need for setuid. 0 points otherwise."
 }
 ```
 
@@ -400,8 +401,8 @@ Why can it be hard to find race condition vulnerabilities? Explain with an examp
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Race condition vulnerabilities can be hard to find because they only manifest under certain conditions, often very rare ones involving the relative scheduling of multiple processes or threads. In 3000log-write the TOCTTOU vulnerability (a race condition vulnerability) would most of the time not happen. Only when you ran it many many times (under specially crafted conditions) would the vulnerability show up.",
-  "llm_judge_instructions": "Award 2 points for noting rarity and scheduling-related nature of race conditions with an example."
+  "answer": "Race conditions often require very specific timing; TOCTTOU is an example where vulnerability only manifests under rare scheduling conditions.",
+  "llm_judge_instructions": "Award 2 points for noting rarity/timing sensitivity and giving TOCTTOU as an example. 0 points otherwise."
 }
 ```
 
@@ -417,8 +418,8 @@ Eve wants to rewrite the semaphore implementation in the thread library she is u
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Eve, please don’t do this. Semaphore code is ugly and hard to follow because it must do very strange low-level things (such as use special machine language instructions) in order to ensure correctness; further, they are also generally highly optimized for performance. If you really wish to improve the code, first study this code and other semaphore implementations. (Full credit for saying no and explaining how semaphores must use special instructions.)",
-  "llm_judge_instructions": "Award 2 points for advocating against rewriting semaphores and explaining complexity."
+  "answer": "No; do not rewrite semaphores. They are complex and error-prone; study existing implementations first. If changes are needed, proceed cautiously.",
+  "llm_judge_instructions": "Award 2 points for advising against self-implementation and suggesting study and careful approach. 0 points otherwise."
 }
 ```
 
@@ -434,8 +435,8 @@ Alice wants to develop a security-related Linux kernel module. This module needs
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "Alice should follow Carol’s advice. Bob’s advice is bad because you can’t use file-related C standard library functions as the file descriptor abstraction isn’t available in the kernel (as the kernel is what implements it). Further, reading files directly from kernel space can lead to many complications as the kernel code for doing this assumes it is running in the context of a system call (and a calling process). Carol’s solution requires the kernel module to simply process data via a write system call for the device, something we already have the code for, and the userspace code can be written in any language using whatever standard tools Alice wishes to use.",
-  "llm_judge_instructions": "Award 2 points for endorsing Carol's approach and explaining kernel-space file access limitations."
+  "answer": "Alice should follow Carol’s advice. Bob’s approach is invalid because kernel space cannot use standard C library file I/O; reading files from the kernel is problematic. Carol’s approach uses a userspace process to read files and communicates via a device, which is safer and standard.",
+  "llm_judge_instructions": "Award 2 points for explaining why kernel space cannot use fopen/fgets and endorsing Carol’s approach, with brief justification. 0 points otherwise."
 }
 ```
 
@@ -451,7 +452,7 @@ The Linux kernel supports the signing of kernel modules. When this feature is en
   "points": 2,
   "type": "Freeform",
   "tags": ["operating-systems"],
-  "answer": "This feature would be useful to prevent any user (including root) from loading unauthorized modules, as modules can violate any security guarantees the kernel would otherwise provide. The kernel would need the public key(s) that signed the modules added to it at compile time (so you’d have to add your public key to the kernel when you compile it if you wanted to sign modules).",
-  "llm_judge_instructions": "Award 2 points for describing the security benefit of module signing and the need to provide a public key to verify modules."
+  "answer": "Useful to prevent loading unauthorized modules; the kernel would need the public key(s) used to sign modules to verify signatures.",
+  "llm_judge_instructions": "Award 2 points for stating the security benefit and that the kernel needs public keys to verify signatures. 0 points otherwise."
 }
 ```
