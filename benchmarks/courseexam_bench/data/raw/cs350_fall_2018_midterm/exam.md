@@ -4,638 +4,360 @@
 {
   "exam_id": "cs350_fall_2018_midterm",
   "test_paper_name": "CS350 Fall 2018 Midterm",
-  "course": "CS 350",
+  "course": "CS350",
   "institution": "University of Waterloo",
   "year": 2018,
   "score_total": 57,
-  "num_questions": 23
+  "num_questions": 18
 }
 ```
 
 ---
 
-## Question 1 [15 point(s)]
+## Question 1 [2 point(s)]
 
-### a. (2 marks)
 Is it possible to have more than one switchframe in a kernel stack?  Explain why or why not.
 
 ```json
 {
-  "problem_id": "1a",
+  "problem_id": "1",
   "points": 2,
   "type": "Freeform",
-  "tags": ["kernel-stack"],
-  "answer": "No. A running thread stores a switchframe in its kernel stack as it context switches to a different thread. Upon returning to the thread, the switchframe is popped off the thread’s kernel stack. Since it is not possible for a thread to context switch away twice without context switching back once in between, there can only be one switchframe in a kernel stack.",
-  "llm_judge_instructions": "Award 2 points for stating that only one switchframe can be present; 0 points otherwise."
+  "tags": ["kernel-stack","os"],
+  "answer": "No. There can only be one switchframe in a kernel stack.",
+  "llm_judge_instructions": "Award 2 points for a correct explanation that there can only be one switchframe in a kernel stack and that a switchframe is popped on return. Award 0 points otherwise."
 }
 ```
 
-### b. (3 marks)
+---
+
+## Question 2 [3 point(s)]
+
 Explain  why  the  following  implementation  of  semaphore  P  is  incorrect.   Provide  an  example interaction between two threads that illustrates the problem.
-```c
-void P(struct semaphore* sem) {
-  spinlock_acquire(&sem->sem_lock);
-  while (sem->sem_count == 0) {
-    spinlock_release(&sem->sem_lock);
-    wchan_lock(sem->sem_wchan);
-    wchan_sleep(sem->sem_wchan);
-    spinlock_acquire(&sem->sem_lock);
-  }
-  sem->sem_count--;
-  spinlock_release(&sem->sem_lock);
-}
-```
 
 ```json
 {
-  "problem_id": "1b",
+  "problem_id": "2",
   "points": 3,
   "type": "Freeform",
-  "tags": ["semaphores"],
-  "answer": "Because there is a window between spinlock_release and wchan_lock where no locks are held, allowing another thread to modify the semaphore state.",
-  "llm_judge_instructions": "Award 3 points for identifying the window where no locks are held and that another thread can modify the semaphore state; 0 points otherwise."
+  "tags": ["semaphore","concurrency"],
+  "answer": "wchanlock should be called before spinlockrelease. In this incorrect implementation, there is a small window in which no locks are held. During this window, the semaphore state can be changed by another thread.",
+  "llm_judge_instructions": "Award 2 points for identifying the bug: that the wait-channel lock (wchanlock) must be acquired before releasing the spinlock. Award 1 point for providing an example interleaving between two threads that demonstrates the window where the semaphore state can be changed. 0 points otherwise."
 }
 ```
 
-### c. (2 marks)
+---
+
+## Question 3 [2 point(s)]
+
 Explain why system calls need to increment the EPC by 4 before returning to user space.  Why is incrementing the EPC not necessary when handling other exceptions?
 
 ```json
 {
-  "problem_id": "1c",
+  "problem_id": "3",
   "points": 2,
   "type": "Freeform",
-  "tags": ["system-calls","exceptions"],
-  "answer": "syscall is an instruction, and so returning to the PC of the system call will cause another syscall exception to be raised. With other exceptions, the exceptional circumstance should be resolved, and the command itself rerun.",
-  "llm_judge_instructions": "Award 2 points for noting that the EPC must advance to avoid re-triggering the system call; 0 points otherwise."
+  "tags": ["system-call","exception"],
+  "answer": "The syscall instruction is the cause of the exception; if EPC is not advanced past the syscall instruction, returning to user space will re-execute the syscall and cause the exception again. For other exceptions, the cause is typically a transient condition and the instruction can be retried without re-triggering the same exception.",
+  "llm_judge_instructions": "Award 2 points for stating that EPC must be advanced to avoid re-executing the syscall instruction and thus retriggering the syscall exception. Award 1 point for a partial explanation that mentions advancing EPC or resuming after handling but does not explicitly link it to retriggering the syscall. Award 0 points otherwise."
 }
 ```
 
-### d. (2 marks)
+---
+
+## Question 4 [2 point(s)]
+
 Explain why a page table entry does not contain a page number, yet a TLB entry contains both a page number and a frame number.
 
 ```json
 {
-  "problem_id": "1d",
+  "problem_id": "4",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","tlb"],
-  "answer": "The page number is the index into the page table and would be redundant to store in a PTE. The TLB is a cache of mappings and must indicate which entries are cached, so it stores both the page number and frame number.",
-  "llm_judge_instructions": "Award 2 points for stating redundancy of page number in a PTE and the purpose of the TLB as a cache storing the page number and frame number; 0 points otherwise."
+  "tags": ["paging","tlb"],
+  "answer": "The page number is the index into the page table array, so it would be redundant to store it in the PTE. The TLB is a cache and must store tags (the page number) along with the frame number to indicate which virtual page each cached entry corresponds to.",
+  "llm_judge_instructions": "Award 2 points for recognizing that the PTE's index is the page number (so storing it in the PTE is redundant) and that the TLB stores page-number tags because it is a cache. Award 0 points otherwise."
 }
 ```
 
-### e. (2 marks)
+---
+
+## Question 5 [2 point(s)]
+
 A trapframe contains more information than a switchframe.  Why?
 
 ```json
 {
-  "problem_id": "1e",
+  "problem_id": "5",
   "points": 2,
   "type": "Freeform",
-  "tags": ["trapframe","switchframe"],
-  "answer": "switchframe is a function with typical calling conventions; an exception is not called, but raised unexpectedly, so all caller-saved state must be preserved, hence trapframes contain more information.",
-  "llm_judge_instructions": "Award 2 points for noting that trapframes must save more state due to asynchronous exceptions, while switchframes follow function-call conventions; 0 points otherwise."
-}
-```
-
-### f. (4 marks)
-Imagine a version of OS/161 with the following bug:  When the exception caused by division by zero is raised, the kernel instead handles it as a system call.  What will be the behavior of the following program if the compiler stores n in v0 and d in a0?  What will be the behavior if the compiler stores n in a0 and d in v0?
-
-Table of system calls:
-System CallSystem Call #
-pidt fork(void)0
-pidt vfork(void)1
-int execv(const char *program, char **args)2
-void exit(int exitcode)3
-pidt waitpid(pidt, int *status, int options)4
-pidt getpid(void)5
-
-int main() {
-int n = 6;
-int d;
-for (d = 2; d >= 0; d--)
-n /= d;
-printf("%d\n", d);
-return 0;
-}
-
-```json
-{
-  "problem_id": "1f",
-  "points": 4,
-  "type": "Freeform",
-  "tags": ["exceptions","syscalls","division-by-zero"],
-  "answer": "First case: The program will exit with exit code 0. Second case: The program will spawn children in a (slow) loop, with each child printing -1.",
-  "llm_judge_instructions": "Award 4 points for identifying the two scenarios: (1) exit code 0, (2) multiple children each printing -1; 0 points otherwise."
+  "tags": ["trapframe","stack-frame"],
+  "answer": "A trapframe is used to save the full processor context when an exception or interrupt occurs (no calling conventions can be assumed), whereas a switchframe follows function calling conventions and may omit saving caller-saved registers.",
+  "llm_judge_instructions": "Award 2 points for noting that trapframes preserve the full processor context for exceptions while switchframes rely on function calling conventions and may not preserve all registers. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 2 [8 point(s)]
+## Question 6 [4 point(s)]
 
-Consider the following functions:
-```c
-int a, b;
-struct lock* lock_a;
-struct lock* lock_b;
-struct cv* cv;
-void funcAB() {
-  lock_acquire(lock_b);
-  // Code that reads/writes b
-  lock_acquire(lock_a);
-  // Code that reads/writes a
-  while (b > 0) {
-    cv_wait(cv, lock_b);
-  }
-  // More code that reads/writes b
-  lock_release(lock_a);
-  lock_release(lock_b);
+Imagine a version of OS/161 with the following bug:  When the exception caused by division by zero is raised, the kernel instead handles it as a system call.  What will be the behavior of the following program if the compiler stores n in v0 and d in a0?  What will be the behavior if the compiler stores n in a0 and d in v0?
+Table of system calls:
+System CallSystem Call #
+pid_t fork(void) 0
+pid_t vfork(void) 1
+int execv(const char *program, char **args) 2
+void exit(int exitcode) 3
+pid_t waitpid(pid_t, int *status, int options) 4
+pid_t getpid(void) 5
+
+int main() {
+  int n = 6;
+  int d;
+  for (d = 2; d >= 0; d--)
+    n /= d;
+  printf("%d\n", d);
+  return 0;
 }
-void funcA() {
-  lock_acquire(lock_a);
-  // Code that reads/writes a
-  lock_release(lock_a);
-}
-void funcB() {
-  lock_acquire(lock_b);
-  b = 0;
-  cv_signal(cv, lock_b);
-  lock_release(lock_b);
+
+```json
+{
+  "problem_id": "6",
+  "points": 4,
+  "type": "Freeform",
+  "tags": ["system-calls","c-programming"],
+  "answer": "If the compiler places n in v0 and d in a0, the division-by-zero exception being mis-handled as a syscall will likely be treated as an exit(0) (or other system call depending on calling convention and syscall number), causing the program to exit with code 0. If the compiler places n in a0 and d in v0, the mis-handled exception may be treated as fork/vfork or another syscall that spawns child processes, resulting in children being spawned in a loop; these children may observe different register setups (e.g., printing -1) depending on the exact misinterpreted syscall behavior.",
+  "llm_judge_instructions": "Award 4 points for correctly identifying both behaviors: (a) the case that results in program exit with exit code 0, and (b) the case that results in spawning children (approximate description of children behavior). If only one case is correct, award 2 points. Award 0 points otherwise."
 }
 ```
-In this program, multiple threads concurrently call each of these functions.  No other functions acquire
-or releaselockaandlockb, and a thread will only access the global variablesaandbif they are
-holdinglockaandlockbrespectively.  You can assume the locks and condition variable have been
-created successfully.  The global variables in this program do not have to be declared as volatile.
 
-### a. (2 marks)
+---
+
+## Question 7 [2 point(s)]
+
 What concurrency problem does this program suffer from?
 
 ```json
 {
-  "problem_id": "2a",
+  "problem_id": "7",
   "points": 2,
   "type": "Freeform",
-  "tags": ["deadlock"],
+  "tags": ["concurrency","deadlock"],
   "answer": "Deadlock",
-  "llm_judge_instructions": "Award 2 points for stating 'Deadlock'; 0 points otherwise."
+  "llm_judge_instructions": "Award 2 points for identifying deadlock. Award 0 points otherwise."
 }
 ```
 
-### b. (4 marks)
+---
+
+## Question 8 [4 point(s)]
+
 Provide a sequence of events that can trigger this problem.
 
 ```json
 {
-  "problem_id": "2b",
+  "problem_id": "8",
   "points": 4,
   "type": "Freeform",
-  "tags": ["deadlock","synchronization"],
-  "answer": "Thread 1 calls funcAB and goes to sleep in cvwait. Thread 2 calls funcB. Thread 3 calls funcAB and sleeps waiting for lock A, after acquiring lock B. Thread 1 awakes and attempts to take lock B.",
-  "llm_judge_instructions": "Award 4 points for the described interleaving leading to deadlock; 0 otherwise."
+  "tags": ["concurrency","deadlock"],
+  "answer": "One possible sequence: Thread 1 calls funcAB and goes to sleep in cv_wait holding lock A; Thread 2 calls funcB and acquires lock B; Thread 3 calls funcAB and acquires lock B and then tries to acquire lock A and blocks; Thread 1 wakes and tries to acquire lock B and blocks — circular waiting results in deadlock.",
+  "llm_judge_instructions": "Award 4 points for a correct interleaving that clearly leads to deadlock. Award 2 points for a mostly correct sequence missing one key step or lock detail. Award 1 point for a minimal description that identifies conflicting locks but lacks a full interleaving. Award 0 points otherwise."
 }
 ```
 
-### c. (2 marks)
+---
+
+## Question 9 [2 point(s)]
+
 What changes to any of the above functions would address this problem?
 
 ```json
 {
-  "problem_id": "2c",
+  "problem_id": "9",
   "points": 2,
   "type": "Freeform",
-  "tags": ["deadlock","synchronization"],
-  "answer": "Acquire lock A before lock B in funcAB.",
-  "llm_judge_instructions": "Award 2 points for proposing locking order change (A before B); 0 otherwise."
+  "tags": ["concurrency","deadlock"],
+  "answer": "Use a consistent lock ordering (always acquire lock A before lock B) or otherwise ensure locks are acquired in a global order to prevent circular waiting.",
+  "llm_judge_instructions": "Award 2 points for correctly identifying the fix (e.g., consistent global lock ordering). Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 3 [10 total marks]
+## Question 10 [2 point(s)]
 
-You are designing a paged virtual memory system on a system with 32-bit virtual addresses and 48-bit
-physical addresses.  Each page is 4KB (2^12 bytes), and each page table entry is 64 bits (8 bytes, 2^3 bytes).
-
-### a. (2 marks)
-In  a  single-level  paged  system,  how  many  bits  of  a  virtual memory  address  would  refer  to  the
-page number and how many to the offset?  How many bits of a physical address would refer to
-the frame number and how many to the offset?
+In a single-level paged system, how many bits of a virtual memory address would refer to the page number and how many to the offset?  How many bits of a physical address would refer to the frame number and how many to the offset?
 
 ```json
 {
-  "problem_id": "3a",
+  "problem_id": "10",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","single-level-page-table"],
-  "answer": "20, 12, 36, 12",
-  "llm_judge_instructions": "Award 2 points for enumerating: VPN=20, offset=12; PFN=36, offset=12; 0 otherwise."
+  "tags": ["paging","memory-management"],
+  "answer": "Virtual address: 20 bits page number, 12 bits offset. Physical address: 36 bits frame number, 12 bits offset.",
+  "llm_judge_instructions": "Award 2 points for correctly identifying virtual page-number and offset bits and physical frame-number and offset bits as stated. Award 0 points otherwise."
 }
 ```
 
-### b. (2 marks)
+---
+
+## Question 11 [2 point(s)]
+
 How many bytes would a single-level page table require?
 
 ```json
 {
-  "problem_id": "3b",
+  "problem_id": "11",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","single-level-page-table"],
-  "answer": "2^23 (8,388,608) bytes",
-  "llm_judge_instructions": "Award 2 points for 8,388,608 bytes; 0 otherwise."
+  "tags": ["paging","memory-management"],
+  "answer": "2^23 bytes",
+  "llm_judge_instructions": "Award 2 points for correctly reporting 2^23 bytes. Award 0 points otherwise."
 }
 ```
 
-### c. (2 marks)
-If a page table entry contains a frame number, a valid bit, a writeable bit, and a single bit for
-tracking page useage, how many bits per page table entry are unused?
+---
+
+## Question 12 [2 point(s)]
+
+If a page table entry contains a frame number, a valid bit, a writeable bit, and a single bit for tracking page usage, how many bits per page table entry are unused?
 
 ```json
 {
-  "problem_id": "3c",
+  "problem_id": "12",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","pte"],
+  "tags": ["paging","pte"],
   "answer": "25",
-  "llm_judge_instructions": "Award 2 points for 25; 0 otherwise."
+  "llm_judge_instructions": "Compute 64 - 36 - 3 = 25 and award 2 points for the correct calculation. Award 0 points otherwise."
 }
 ```
 
-### d. (2 marks)
+---
+
+## Question 13 [2 point(s)]
+
 How many page table entries fit onto a single page?
 
 ```json
 {
-  "problem_id": "3d",
+  "problem_id": "13",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","pte"],
+  "tags": ["paging","memory-management"],
   "answer": "512",
-  "llm_judge_instructions": "Award 2 points for 512; 0 otherwise."
+  "llm_judge_instructions": "Award 2 points for correct calculation 2^9 = 512. Award 0 points otherwise."
 }
 ```
 
-### e. (2 marks)
-What is the minimum number of levels necessary to implement a multi-level paged system if each
-page table at each level must fit into a single page?
+---
+
+## Question 14 [2 point(s)]
+
+What is the minimum number of levels necessary to implement a multi-level paged system if each page table at each level must fit into a single page?
 
 ```json
 {
-  "problem_id": "3e",
+  "problem_id": "14",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","multilevel-paging"],
+  "tags": ["paging","multilevel"],
   "answer": "3",
-  "llm_judge_instructions": "Award 2 points for 3; 0 otherwise."
+  "llm_judge_instructions": "Award 2 points for answering 3 levels. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 4 [8 total marks]
+## Question 15 [3 point(s)]
 
-Many operating systems implement a system call vfork, which is similar to fork, but with these two
-changes:
-1.  The  child  process  shares  the  parent  process  ’s  address  space.   That  is,  the  address  space  is not
-copied, it is shared.
-2.  Upon calling vfork, the parent process blocks until the child process has called execv.
+Change the following sketch of an implementation of fork to instead implement vfork.  Assume that the appropriate changes are made to execv elsewhere.  You may cross out steps and add new steps.
 
-### a. (3 marks)
-Change the following sketch of an implementation of fork to instead implement vfork.  Assume
-that the appropriate changes are made to execv elsewhere.  You may cross out steps and add new
-steps.
-```text
 sys_fork() {
-  create process structure
-  copy address space
-  choose pid for new process
-  create parent/child relationship
-  duplicate trapframe
-  create thread for new process (running child_process)
+create process structure
+copy address space
+choose pid for new process
+create parent/child relationship
+duplicate trapframe
+create thread for new process (running child_process)
 }
 child_process() {
-  copy trapframe to stack
-  modify trapframe
-  enter usermode
+copy trapframe to stack
+modify trapframe
+enter usermode
 }
-```
-Modify the implementation to link to the same address space instead of copying, and ensure the parent blocks until the child reaches execv.
+Replace “copy address space” with “link to same address space”, and add “block until child has reached execv”.
 
 ```json
 {
-  "problem_id": "4a",
+  "problem_id": "15",
+  "points": 3,
+  "type": "Freeform",
+  "tags": ["vfork","os-161"],
+  "answer": "Replace 'copy address space' with linking to the parent's address space and add a mechanism to block the parent until the child calls execv or exits.",
+  "llm_judge_instructions": "Award 3 points for correctly describing replacing address-space copying with linking to the same address space and adding parent blocking until the child reaches execv. Award 0 points otherwise."
+}
+```
+
+---
+
+## Question 16 [3 point(s)]
+
+Each change in the semantics of vfork impacts the implementation of execv.   How would an implementation of execv need to differ to support both of these changes in vfork?
+
+```json
+{
+  "problem_id": "16",
   "points": 3,
   "type": "Freeform",
   "tags": ["vfork","execv"],
-  "answer": "Replace 'copy address space' with 'link to same address space', and add 'block until child has reached execv'.",
-  "llm_judge_instructions": "Award 3 points for describing the replacement and the new synchronization step; 0 otherwise."
+  "answer": "If the process was created with vfork, execv must not immediately destroy the shared address space; instead it should replace the address space for the child and signal/unblock the parent when the child has completed execv (or on error).",
+  "llm_judge_instructions": "Award 3 points for correctly stating the need to preserve or atomically replace the address space for a vfork child and to signal/unblock the parent when execv has completed. Award 0 points otherwise."
 }
 ```
 
-### b. (3 marks)
-Each change in the semantics of vfork impacts the implementation of execv.   How  would  an
-implementation of execv need to differ to support both of these changes in vfork?
+---
+
+## Question 17 [2 point(s)]
+
+The documentation for vfork states that the child process shouldn’t return from the function that called vfork.  Why not?
 
 ```json
 {
-  "problem_id": "4b",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["vfork","execv"],
-  "answer": "If process was created with vfork, do not destroy the address space.  Signal the parent.",
-  "llm_judge_instructions": "Award 3 points for stating not destroying the address space and signaling the parent; 0 otherwise."
-}
-```
-
-### c. (2 marks)
-The  documentation  for vfork states  that  the  child  process  shouldn’t  return  from  the  function
-that called vfork.  Why not?
-
-```json
-{
-  "problem_id": "4c",
+  "problem_id": "17",
   "points": 2,
   "type": "Freeform",
   "tags": ["vfork","stack"],
-  "answer": "The userspace stack is shared, so if the stackframe is popped, the behavior of the function when the parent returns is unpredictable.",
-  "llm_judge_instructions": "Award 2 points for referencing shared user stack and unpredictable behavior; 0 otherwise."
+  "answer": "Because the child and parent share the userspace stack after vfork, if the child returns from the function that called vfork it will pop stack frames that the parent expects to still be present, leading to undefined behavior.",
+  "llm_judge_instructions": "Award 2 points for recognizing that vfork shares the userspace stack and that returning would corrupt the stack expected by the parent. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 5 [16 total marks]
+## Question 18 [16 point(s)]
 
-You have been hired by the city of Waterloo to help solve a modified version of the “traffic intersection”
-problem for an intersection with significant pedestrian traffic.  For safety, instead of allowing vehicles to
-share the intersection with pedestrians, you are to build a scramble intersection that, under specific
-conditions, stops vehicular traffic from all directions to allow pedestrians to cross the intersection.
-In  this  problem,  pedestrians  and  vehicles  must  never  be  inside  the  intersection  at  the  same  time.
-Vehicles  must  also  not  collide  with  other  vehicles.   When  a pedestrian  arrives  at the  intersection,
-he/she  must  wait  until  the intersection  is clear  of  vehicles  before  entering.   However,  no  additional
-vehicles  must  be  allowed  to  enter the intersection  while  a pedestrian  is  either  waiting  or  inside the
-intersection.
+You have been hired by the city of Waterloo to help solve a modified version of the “traffic intersection” problem for an intersection with significant pedestrian traffic. For safety, instead of allowing vehicles to share the intersection with pedestrians, you are to build a scramble intersection that, under specific conditions, stops vehicular traffic from all directions to allow pedestrians to cross the intersection.
 
-The intersection consists of two one-way roads:  one north-to-south and the other east-to-west.  Each
-vehicle arrives at the intersection from one of two directions (north or east), called its origin.  It is trying
-to pass through the intersection and exit in the opposite direction of its origin, called its destination.
-Turns for vehicles are not allowed.  Because pedestrians cannot collide with other pedestrians and
-can only cross when there are no vehicles inside the intersection, we do not need to know a pedestrian’s
-origin or destination.
+Requirements (student sees):
+- Pedestrians and vehicles must never be inside the intersection at the same time.
+- Vehicles must not collide with other vehicles.
+- When a pedestrian arrives, they must wait until the intersection is clear of vehicles before entering.
+- No additional vehicles may enter while a pedestrian is waiting or inside.
+- Two one-way roads: north-to-south and east-to-west. Vehicles originate from north or east and exit opposite direction; no turns.
+- Implement the six synchronization functions: intersection_sync_init, intersection_sync_cleanup, intersection_before_vehicle_entry, intersection_after_vehicle_exit, intersection_before_pedestrian_entry, intersection_after_pedestrian_exit.
+- Global variables may be defined. Solution should prioritize pedestrians while providing fairness between vehicle directions.
 
-Implement the following six functions.  Global variables can be defined in the provided space.  Your
-solution should be efficient.   It should  also  prioritize  pedestrians  while  providing  fairness  between
-vehicles.
-
-The six functions to implement:
-- intersection_sync_init(void)
-- intersection_sync_cleanup(void)
-- intersection_before_vehicle_entry(Direction origin)
-- intersection_after_vehicle_exit(Direction origin)
-- intersection_before_pedestrian_entry(void)
-- intersection_after_pedestrian_exit(void)
-
-(Do NOT include solutions or sample implementations here; implement the functions as part of your answer.)
-
-### a. (3 marks)
-Implement intersection_sync_init(void): initialize locks, condition variables and counters necessary for the synchronization behavior described.
+(Do NOT include any solution code in the question body; implementors will write the functions.)
 
 ```json
 {
-  "problem_id": "5a",
-  "points": 3,
+  "problem_id": "18",
+  "points": 16,
   "type": "Freeform",
-  "tags": ["traffic-intersection","pedestrians","synchronization"],
-  "answer": "Implement intersection_sync_init as shown (initialize lk, per-direction car counters, dir_cv, ped_cv, ped_inside, ped_waiting, next_after_ped).",
-  "llm_judge_instructions": "Award 3 points for providing correct initialization of synchronization primitives and state variables as in the code; 0 otherwise."
-}
-```
-
-### b. (3 marks)
-Implement intersection_sync_cleanup(void): clean up any synchronization primitives allocated in init and ensure no outstanding waiters remain.
-
-```json
-{
-  "problem_id": "5b",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","cleanup"],
-  "answer": "Destroy all condition variables and locks allocated during init; ensure no outstanding waiters.",
-  "llm_judge_instructions": "Award 3 points for describing proper cleanup of synchronization primitives; 0 otherwise."
-}
-```
-
-### c. (3 marks)
-Implement intersection_before_vehicle_entry(Direction origin): ensure vehicles follow the rules (no pedestrians inside or waiting; prevent collisions; provide fairness as described).
-
-```json
-{
-  "problem_id": "5c",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","vehicles"],
-  "answer": "Provide an implementation for intersection_before_vehicle_entry that waits when pedestrians are present or waiting, and respects car presence from opposing direction.",
-  "llm_judge_instructions": "Award 3 points for a correct approach that enforces pedestrian priority and fairness constraints in vehicle entry."
-}
-```
-
-### d. (3 marks)
-Implement intersection_after_vehicle_exit(Direction origin): handle wake-ups for pedestrians or opposing vehicles and update any needed state to preserve fairness and pedestrian priority.
-
-```json
-{
-  "problem_id": "5d",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","vehicles","exit"],
-  "answer": "Implement vehicle exit handling: if no more cars in this direction, wake pedestrians if waiting; otherwise wake up opposing vehicle direction and update next_after_ped.",
-  "llm_judge_instructions": "Award 3 points for a correct explanation of wakeup behavior after a vehicle exits, including interaction with ped_waiting and next_after_ped."
-}
-```
-
-### e. (2 marks)
-Implement intersection_before_pedestrian_entry(void): pedestrians must wait until intersection is empty; mark ped_inside appropriately.
-
-```json
-{
-  "problem_id": "5e",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","pedestrians"],
-  "answer": "Pedestrian waits until there are no vehicles inside the intersection; then enters and marks ped_inside.",
-  "llm_judge_instructions": "Award 2 points for correct behavior: pedestrians wait for empty intersection, then enter."
-}
-```
-
-### f. (2 marks)
-Implement intersection_after_pedestrian_exit(void): on last pedestrian exit, wake up vehicles according to fairness policy and next_after_ped.
-
-```json
-{
-  "problem_id": "5f",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","pedestrians"],
-  "answer": "After pedestrian exits, wake up waiting cars if any in next_after_ped; otherwise wake up opposing direction and keep next_after_ped unchanged or updated accordingly.",
-  "llm_judge_instructions": "Award 2 points for a correct explanation of wakeup logic after pedestrians exit."
-}
-```
-
----
-
-## Question 6 [8 total marks]
-
-### a. (3 marks)
-Change the following sketch of an implementation of fork to instead implement vfork.  Assume
-that the appropriate changes are made to execv elsewhere.  You may cross out steps and add new
-steps.
-```text
-sys_fork() {
-  create process structure
-  copy address space
-  choose pid for new process
-  create parent/child relationship
-  duplicate trapframe
-  create thread for new process (running child_process)
-}
-child_process() {
-  copy trapframe to stack
-  modify trapframe
-  enter usermode
-}
-```
-
-```json
-{
-  "problem_id": "6a",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["vfork","execv"],
-  "answer": "Replace 'copy address space' with 'link to same address space', and add 'block until child has reached execv'.",
-  "llm_judge_instructions": "Award 3 points for describing the replacement and the new synchronization step; 0 otherwise."
-}
-```
-
-### b. (3 marks)
-Each change in the semantics of vfork impacts the implementation of execv.   How  would  an
-implementation of execv need to differ to support both of these changes in vfork?
-
-```json
-{
-  "problem_id": "6b",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["vfork","execv"],
-  "answer": "If process was created with vfork, do not destroy the address space.  Signal the parent.",
-  "llm_judge_instructions": "Award 3 points for stating not destroying the address space and signaling the parent; 0 otherwise."
-}
-```
-
-### c. (2 marks)
-The  documentation  for vfork states  that  the  child  process  shouldn’t  return  from  the  function
-that called vfork.  Why not?
-
-```json
-{
-  "problem_id": "6c",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["vfork","stack"],
-  "answer": "The userspace stack is shared, so if the stackframe is popped, the behavior of the function when the parent returns is unpredictable.",
-  "llm_judge_instructions": "Award 2 points for referencing shared user stack and unpredictable behavior; 0 otherwise."
-}
-```
-
----
-
-## Question 7 [16 total marks]
-
-(Implementation-style question; answer should implement the synchronization behavior for the scramble intersection described in Question 5. Provide code or detailed pseudocode implementing the six functions and any global state used. Do not include instructor solutions in the question prompt.)
-
-### a. (3 marks)
-Implement intersection_sync_init as required for the problem.
-
-```json
-{
-  "problem_id": "7a",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","pedestrians","synchronization"],
-  "answer": "Implement intersection_sync_init as shown (initialize lk, per-direction car counters, dir_cv, ped_cv, ped_inside, ped_waiting, next_after_ped).",
-  "llm_judge_instructions": "Award 3 points for providing correct initialization of synchronization primitives and state variables as in the code; 0 otherwise."
-}
-```
-
-### b. (3 marks)
-Implement intersection_sync_cleanup to properly destroy synchronization primitives allocated during init and ensure no outstanding waiters.
-
-```json
-{
-  "problem_id": "7b",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","cleanup"],
-  "answer": "Destroy all condition variables and locks allocated during init; ensure no outstanding waiters.",
-  "llm_judge_instructions": "Award 3 points for describing proper cleanup of synchronization primitives; 0 otherwise."
-}
-```
-
-### c. (3 marks)
-Implement intersection_before_vehicle_entry(Direction origin) to enforce pedestrian priority and fairness between vehicle directions.
-
-```json
-{
-  "problem_id": "7c",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","vehicles"],
-  "answer": "Provide an implementation for intersection_before_vehicle_entry that waits when pedestrians are present or waiting, and respects car presence from opposing direction.",
-  "llm_judge_instructions": "Award 3 points for a correct approach that enforces pedestrian priority and fairness constraints in vehicle entry."
-}
-```
-
-### d. (3 marks)
-Implement intersection_after_vehicle_exit(Direction origin) to wake pedestrians or vehicles as appropriate and update fairness state.
-
-```json
-{
-  "problem_id": "7d",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","vehicles","exit"],
-  "answer": "Implement vehicle exit handling: if no more cars in this direction, wake pedestrians if waiting; otherwise wake up opposing vehicle direction and update next_after_ped.",
-  "llm_judge_instructions": "Award 3 points for a correct explanation of wakeup behavior after a vehicle exits, including interaction with ped_waiting and next_after_ped."
-}
-```
-
-### e. (2 marks)
-Implement intersection_before_pedestrian_entry so pedestrians wait until intersection is empty and mark ped_inside appropriately.
-
-```json
-{
-  "problem_id": "7e",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","pedestrians"],
-  "answer": "Pedestrian waits until there are no vehicles inside the intersection; then enters and marks ped_inside.",
-  "llm_judge_instructions": "Award 2 points for correct behavior: pedestrians wait for empty intersection, then enter."
-}
-```
-
-### f. (2 marks)
-Implement intersection_after_pedestrian_exit to wake waiting vehicles according to the fairness policy.
-
-```json
-{
-  "problem_id": "7f",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["traffic-intersection","pedestrians"],
-  "answer": "After pedestrian exits, wake up waiting cars if any in next_after_ped; otherwise wake up opposing direction and keep next_after_ped unchanged or updated accordingly.",
-  "llm_judge_instructions": "Award 2 points for a correct explanation of wakeup logic after pedestrians exit."
+  "tags": ["synchronization","concurrency","traffic-intersection","pedestrians"],
+  "answer": "Expected solution outline: Define a global lock, two direction condition variables (one per vehicle direction), a pedestrian condition variable, counters cars_inside[2] and cars_waiting[2], and ped_inside and ped_waiting, plus a next_after_ped variable to choose which vehicle direction is next. Implement intersection_sync_init to create the lock and condition variables and zero counters. Implement intersection_sync_cleanup to destroy condition variables and the lock. Implement intersection_before_vehicle_entry to acquire the lock, increment cars_waiting[origin], wait if pedestrians are inside or waiting or opposing cars are inside, then decrement cars_waiting and increment cars_inside and release the lock. Implement intersection_after_vehicle_exit to decrement cars_inside[origin]; if zero and pedestrians are waiting, wake pedestrians; otherwise wake the opposing vehicle direction and set next_after_ped appropriately. Implement intersection_before_pedestrian_entry to acquire the lock, increment ped_waiting, wait until no cars are inside, then decrement ped_waiting, increment ped_inside and release the lock. Implement intersection_after_pedestrian_exit to decrement ped_inside; if ped_inside becomes 0 then wake cars according to next_after_ped (broadcast the condition variable for that direction) or the opposing direction if none waiting. The solution must ensure mutual exclusion between vehicles and pedestrians and avoid starvation by appropriate wake ordering.",
+  "llm_judge_instructions": "Award points as follows (total 16): 3 points for correct global variables and initialization (correct lock and CV creation and zeroing counters); 2 points for correct cleanup (destroying CVs and lock); 3 points for correct intersection_before_vehicle_entry (proper waiting conditions, cars_waiting handling, and cars_inside increment); 3 points for correct intersection_after_vehicle_exit (decrement, waking pedestrians or vehicles appropriately, and managing next_after_ped); 2 points for correct intersection_before_pedestrian_entry (waiting until no cars inside and handling ped counters); 3 points for correct intersection_after_pedestrian_exit (decrementing ped_inside, waking the correct vehicle direction based on next_after_ped). Award partial credit within each component when behavior is mostly correct but missing a detail; award 0 points for a component with incorrect synchronization that violates safety. Total must sum to 16."
 }
 ```
 
