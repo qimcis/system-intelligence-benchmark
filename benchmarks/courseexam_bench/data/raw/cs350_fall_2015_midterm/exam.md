@@ -8,7 +8,7 @@
   "institution": "University of Waterloo",
   "year": 2015,
   "score_total": 70,
-  "num_questions": 19
+  "num_questions": 11
 }
 ```
 
@@ -16,37 +16,40 @@
 
 ## Question 1 [12 point(s)]
 
-Consider a concurrent program that uses three semaphores sa, sb, and sc initialized as follows (initialization code is executed once by the initial thread). Two functions, func1 and func2, are run by many threads (some threads run func1, others run func2). func1 calls funcA(), and func2 calls funcB(). The original semaphore-based code is:
+Consider the following concurrent program (initialization code is executed once by the initial thread; then many new threads are created, some run func1 and some run func2). The original program uses semaphores as shown:
 
+Global variables / Initialization
 struct semaphore *sa;
 struct semaphore *sb;
 struct semaphore *sc;
 sa = semcreate("A",1);
 sb = semcreate("B",1);
 sc = semcreate("C",0);
+
 void func1(){
-    P(sa);
-    funcA();
-    V(sa);
-    P(sc);
-}
-void func2(){
-    P(sb);
-    funcB();
-    V(sb);
-    V(sc);
+  P(sa);
+  funcA();
+  V(sa);
+  P(sc);
 }
 
-Re-implement func1 and func2, and any required global variables and initialization/cleanup, using locks and condition variables (no semaphores) so that the behavior is equivalent to the semaphore-based version. Show global declarations and initialization (called once before threads start) and cleanup (called once when done), and implementations of func1 and func2. Your code should compile conceptually against an OS/161-like API with lock_acquire/lock_release and cv_wait/cv_signal/cv_broadcast.
+void func2(){
+  P(sb);
+  funcB();
+  V(sb);
+  V(sc);
+}
+
+Re-implement func1 and func2 (including any necessary global variable declarations and initialization) using locks and condition variables (no semaphores). Your re-implemented functions must have the same behavior as the original semaphore-based functions.
 
 ```json
 {
   "problem_id": "1",
   "points": 12,
   "type": "Freeform",
-  "tags": ["synchronization","semaphores","locks","condition-variables"],
-  "answer": "",
-  "llm_judge_instructions": "Total 12 pts. Award 3 pts for correct and complete global declarations and initialization (including any counters or state variables needed). Award 1 pt for providing appropriate cleanup code. Award 4 pts for a correct implementation of func1 that preserves ordering/synchronization equivalent to the semaphore version (correct use of lock(s), cv wait/signal, and counter/state). Award 4 pts for a correct implementation of func2 that preserves equivalent behavior. Partial credit: subtract points for missing lock protection, incorrect condition checks, lost wakeups, or use of semaphores. Full points only if implementation enforces same ordering constraints as the original semaphore code."
+  "tags": ["concurrency", "synchronization", "locks", "condition-variables"],
+  "answer": "A correct re-implementation uses separate locks for protecting funcA and funcB critical sections and a lock+condition variable to implement the signaling behavior of sc, preserving ordering so that func1 waits until func2 signals. For example: declare locks la and lb for funcA and funcB respectively; declare a lock lc, a condition variable cv, and an integer count initialized to 0. func1 acquires la, calls funcA, releases la, then acquires lc, while(count<=0) cv_wait(cv, lc); count--; release lc. func2 acquires lb, calls funcB, releases lb, acquires lc, count++; cv_signal(cv, lc); release lc. (Any equivalent correct implementation that preserves semantics earns full credit.)",
+  "llm_judge_instructions": "Total 12 pts: Award 4 pts for correct and complete global declarations and initialization (locks, cv, counter or equivalent). Award 4 pts for a correct func1 implementation preserving mutual exclusion around funcA and waiting behavior equivalent to P(sc). Award 4 pts for a correct func2 implementation preserving mutual exclusion around funcB and signaling behavior equivalent to V(sc). Partial credit: award points proportionally if parts are partially correct; do not award credit for semaphore-based solutions. Implementation must be thread-safe and preserve original ordering semantics."
 }
 ```
 
@@ -54,16 +57,16 @@ Re-implement func1 and func2, and any required global variables and initializati
 
 ## Question 2a [2 point(s)]
 
-a. What is the maximum number of entries in a page table in this system? (Explain briefly if helpful.)
+What is the maximum number of entries in a page table in this system?
 
 ```json
 {
   "problem_id": "2a",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","paging","memory-management"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 2 pts if the answer is exactly 16 (or 0x10) or states 2^4 = 16. Award 1 pt if the student gives a correct reasoning about page-number bits (e.g., identifies 4 page-number bits) but does not compute the final numeric answer correctly."
+  "tags": ["paging", "virtual-memory"],
+  "answer": "16",
+  "llm_judge_instructions": "Award 2 points for the answer '16'. 0 points for any other answer."
 }
 ```
 
@@ -71,32 +74,31 @@ a. What is the maximum number of entries in a page table in this system? (Explai
 
 ## Question 2b [4 point(s)]
 
-b. A process P1 has the following page table. Frame numbers are in hexadecimal.
-Page Number -> Frame Number:
-00 -> 0x1010
-10 -> 0x2034
-20 -> 0x43AC
-30 -> 0x1100
-40 -> 0xAC11
-50 -> 0x8000
+A process P1 has the following page table (frame numbers shown in hexadecimal):
 
-For each of the following physical addresses, indicate the virtual address that maps to it for P1. If the physical address is not part of the physical memory assigned to P1, write NO TRANSLATION. Use hexadecimal notation for virtual addresses.
+Page Number -> Frame Number
+0x0 -> 0x1010
+0x1 -> 0x2034
+0x2 -> 0x43AC
+0x3 -> 0x1100
+0x4 -> 0xAC11
+0x5 -> 0x8000
+
+For each of the following physical addresses, indicate the virtual address to which it maps. If the physical address is not part of the physical memory assigned to P1, write NO TRANSLATION. Use hexadecimal notation for the virtual addresses.
+
 - 0x1100A0
 - 0xAC1100
 - 0xBA3424
 - 0x43ACA0
-- 0x3A0
-- 0x400
-- 0x2A0
 
 ```json
 {
   "problem_id": "2b",
   "points": 4,
   "type": "Freeform",
-  "tags": ["virtual-memory","paging","address-translation"],
-  "answer": "",
-  "llm_judge_instructions": "4 pts total. Award 1 point for each correctly translated physical address, up to 4 points total (identify the correct virtual address in hex or write NO TRANSLATION correctly). If more than four are correct, cap at 4. No penalty beyond incorrect translations."
+  "tags": ["paging", "virtual-memory"],
+  "answer": "0x1100A0 -> 0x3A0; 0xAC1100 -> 0x400; 0xBA3424 -> NO TRANSLATION; 0x43ACA0 -> 0x2A0",
+  "llm_judge_instructions": "Total 4 pts: Award 1 point for each of the four correct mappings: (0x1100A0 -> 0x3A0), (0xAC1100 -> 0x400), (0xBA3424 -> NO TRANSLATION), (0x43ACA0 -> 0x2A0)."
 }
 ```
 
@@ -104,25 +106,26 @@ For each of the following physical addresses, indicate the virtual address that 
 
 ## Question 2c [2 point(s)]
 
-c. Due to a bug, the following is the page table of P1's child immediately after fork. Based only on copy-on-write semantics of a typical fork implementation, mark entries you are certain are incorrect. Page table:
-Page Number -> Frame Number:
-00 -> 0x2453
-10 -> 0x1010
-20 -> 0xEA35
-30 -> 0x3100
-40 -> 0x2034
-50 -> 0x9012
+Due to a bug in the OS/161 as_copy function, the following is the page table of P1’s child process immediately after it returns from fork. Mark the entries in the child page table that you are certain to be incorrect.
 
-Which entries can you be certain are incorrect? Identify them (by page number).
+Child page table (Page Number -> Frame Number):
+0x0 -> 0x2453
+0x1 -> 0x1010
+0x2 -> 0xEA35
+0x3 -> 0x3100
+0x4 -> 0x2034
+0x5 -> 0x9012
+
+Which entries are certainly incorrect?
 
 ```json
 {
   "problem_id": "2c",
   "points": 2,
   "type": "Freeform",
-  "tags": ["os-161","paging"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 1 point for each correctly identified page table entry that must be incorrect given a correct copy-on-write/fork behavior (i.e., entries that could not result from copying the parent's frames). Full credit if both certainly-incorrect entries are identified; 1 pt if only one is identified; 0 otherwise."
+  "tags": ["os161", "paging"],
+  "answer": "Entries certainly incorrect: 0x1 -> 0x1010 and 0x4 -> 0x2034.",
+  "llm_judge_instructions": "Award 1 point for each correctly identified incorrect entry: 0x1 -> 0x1010 and 0x4 -> 0x2034. 0 points for incorrect identifications."
 }
 ```
 
@@ -130,16 +133,16 @@ Which entries can you be certain are incorrect? Identify them (by page number).
 
 ## Question 2d [2 point(s)]
 
-d. Name one advantage and one disadvantage of having a virtual address space that is smaller than the physical address space.
+Name one advantage and one disadvantage of having a virtual address space that is smaller than the physical address space.
 
 ```json
 {
   "problem_id": "2d",
   "points": 2,
   "type": "Freeform",
-  "tags": ["virtual-memory","paging"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 1 pt for a valid advantage (e.g., smaller page table, less per-process metadata). Award 1 pt for a valid disadvantage (e.g., process cannot use all physical memory, potential wasted physical memory or address space exhaustion)."
+  "tags": ["memory-management", "virtual-memory"],
+  "answer": "Advantage: Smaller page table (less memory used for per-process page tables). Disadvantage: A process cannot directly use all available physical memory; its accessible address range is limited.",
+  "llm_judge_instructions": "Award 1 point for a correct advantage and 1 point for a correct disadvantage (total 2 pts). Each part must be a clear, plausible statement about address space size trade-offs."
 }
 ```
 
@@ -147,7 +150,17 @@ d. Name one advantage and one disadvantage of having a virtual address space tha
 
 ## Question 3a [6 point(s)]
 
-a. Suppose this concurrent program runs on a machine with one single-core processor and k = 4. For each of the following outputs, write “yes” if that output is possible, and “no” if it is not possible. (Answer yes/no for each listed output.)
+Consider the function:
+
+void bump(){
+  int y;
+  x++; // x is a global variable
+  y = x;
+  kprintf("%d", y); // print value of y
+}
+
+Assume x is a volatile global integer initialized to 0 before any calls to bump. Suppose the program uses k concurrent threads, each calling bump once. Calls to kprintf are atomic (i.e., prints do not interleave). For k = 4 running on a single-core processor, which of the following outputs are possible? For each output, write "yes" if possible and "no" if not.
+
 - 1234
 - 4321
 - 0123
@@ -162,9 +175,9 @@ a. Suppose this concurrent program runs on a machine with one single-core proces
   "problem_id": "3a",
   "points": 6,
   "type": "Freeform",
-  "tags": ["concurrency","race-conditions","scheduling"],
-  "answer": "",
-  "llm_judge_instructions": "6 pts total. Award 1 point for each correct yes/no classification for the first six outputs in the list (1234, 4321, 0123, 2222, 4444, 1235). If those six are all correct, award full 6 pts. Do not grade the last three outputs (012, 1124) for points. Partial credit given proportionally (1 pt per correct classification among the first six)."
+  "tags": ["concurrency", "multithreading"],
+  "answer": "Possible: 1234 (yes), 4321 (yes), 2222 (yes), 4444 (yes). Not possible: 0123 (no), 1235 (no), 012 (no), 1124 (no).",
+  "llm_judge_instructions": "Part a (6 pts): Award 1 point each for the following six correct determinations: 1234 -> yes (1 pt), 4321 -> yes (1 pt), 2222 -> yes (1 pt), 4444 -> yes (1 pt), 0123 -> no (1 pt), 1235 -> no (1 pt). (The other outputs were included for completeness but will not be graded for points in this part.)"
 }
 ```
 
@@ -172,203 +185,99 @@ a. Suppose this concurrent program runs on a machine with one single-core proces
 
 ## Question 3b [2 point(s)]
 
-b. Suppose instead the concurrent program with k = 4 runs on a machine with two single-core processors. Do your answers from part (a) change? If not, write "No Change". If so, give one output string from part (a) for which your yes/no answer would change, and explain briefly.
+Suppose instead the concurrent program (with k = 4) runs on a machine with two single-core processors. Do your answers from part (a) change? If not, write "No Change". If so, indicate one output string from part (a) for which you would give a different answer and explain briefly.
 
 ```json
 {
   "problem_id": "3b",
   "points": 2,
   "type": "Freeform",
-  "tags": ["concurrency","multiprocessing","scheduling"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 2 pts if the student correctly states either 'No Change' with brief justification or identifies a single output whose classification would change and provides a correct brief explanation. Award 1 pt for a partially correct reasoning."
+  "tags": ["concurrency", "multithreading"],
+  "answer": "No Change",
+  "llm_judge_instructions": "Award 2 pts for the answer 'No Change'. If a different answer is given, award 2 pts only if a correct example and brief correct explanation are provided; otherwise 0 pts."
 }
 ```
 
 ---
 
-## Question 4a [3 point(s)]
+## Question 4 [8 point(s)]
 
-a. Given a set of virtual-to-physical address translations for process P (provided on the exam sheet), is it possible that the MMU used dynamic relocation (base register) to translate P's virtual addresses to physical addresses? If so, write YES and indicate the relocation register value; if not, write NO and briefly explain why not (one or two sentences).
+Suppose a process P uses the following virtual addresses (left column) and the corresponding physical addresses (right column) are observed:
+
+Virtual Address -> Physical Address
+0x0000 -> 0x2224
+0x0007 -> 0x3234
+0x0008 -> 0x3224
+0x0010 -> 0x1AF0
+0x0018 -> 0x3234
+0x0008 -> 0x0AF0
+
+(These are the translations observed while P is running. Virtual and physical addresses are 32 bits.)
+
+a. Given the translations shown, is it possible that the MMU used dynamic relocation (i.e., a single relocation register) to translate P’s virtual addresses to physical addresses? If so, write "YES" and indicate the relocation register value. If not, write "NO" and briefly explain why not.
+
+b. Is it possible that the MMU used paging with page size 64 KB (2^16 bytes)? If so, write "YES". If not, write "NO" and briefly explain why not.
+
+c. Is it possible that the MMU used paging with page size 4 KB (2^12 bytes)? If so, write "YES". If not, write "NO" and briefly explain why not.
 
 ```json
 {
-  "problem_id": "4a",
-  "points": 3,
+  "problem_id": "4",
+  "points": 8,
   "type": "Freeform",
-  "tags": ["memory-management","mmu","relocation"],
-  "answer": "",
-  "llm_judge_instructions": "3 pts total. Award 2 pts for correctly answering NO (if a single relocation value cannot produce all translations) or YES with a correct relocation value. Award 1 additional point for a correct brief explanation (e.g., explaining that all translations must use the same r and showing a counterexample)."
+  "tags": ["memory-management", "mmu", "virtual-memory"],
+  "answer": "a) NO — the translations imply different relocation offsets for different addresses, so a single relocation register cannot explain them. b) NO — with 64 KB pages the low 16-bit offsets must match between virtual and physical addresses on the same page, but observed offsets differ. c) YES — 4 KB pages are consistent with the observed mappings (same 12-bit offsets where required).",
+  "llm_judge_instructions": "Total 8 pts: Part a (3 pts) — award 3 pts for correctly answering NO with a brief correct justification that translations use different offsets. Part b (3 pts) — award 3 pts for correctly answering NO with a brief correct justification about 16-bit offsets. Part c (2 pts) — award 2 pts for correctly answering YES with brief justification. Partial credit allowed for partially correct explanations."
 }
 ```
 
 ---
 
-## Question 4b [3 point(s)]
+## Question 5 [10 point(s)]
 
-b. Is it possible that the MMU used paging with a page size of 64 KB (2^16 bytes) to translate P's virtual addresses to physical addresses? If so, write YES; if not, write NO and briefly explain why paging with that page size cannot have been used (one or two sentences).
+Answer each part briefly and clearly.
+
+5a. Is it possible for a thread’s kernel stack to contain more than one trapframe? If yes, write "YES" and identify a situation in which this could occur. If not, write "NO".
+
+5b. Is it possible that a call to OS/161’s wchan_sleep function will cause a thread context switch? Answer "YES" or "NO" and briefly explain.
+
+5c. Each page table entry normally includes a valid bit. Explain the purpose of the valid bit. What happens if a process attempts to access a virtual address on a page whose page table entry has the valid bit unset?
+
+5d. When a system call occurs in OS/161, how does the kernel know which system call has been requested? Explain briefly.
 
 ```json
 {
-  "problem_id": "4b",
-  "points": 3,
+  "problem_id": "5",
+  "points": 10,
   "type": "Freeform",
-  "tags": ["memory-management","paging"],
-  "answer": "",
-  "llm_judge_instructions": "3 pts total. Award 2 pts for correctly answering NO (if offsets differ) or YES if offsets are consistent. Award 1 pt for a concise correct explanation referencing page offset equality or mismatch."
+  "tags": ["os161", "kernel", "system-calls"],
+  "answer": "a) YES — for example, if a thread is executing in the kernel (causing a trapframe) and an interrupt occurs, a second trapframe may be pushed; b) YES — wchan_sleep blocks the calling thread causing the scheduler to pick another thread to run (context switch); c) The valid bit indicates whether the mapping is present/usable; accessing a page with valid=0 causes a page fault/exception which the kernel must handle; d) The user program places a syscall code in a predefined register (e.g., v0/r2) before invoking the syscall; the kernel reads that register to determine which syscall was requested.",
+  "llm_judge_instructions": "Total 10 pts: Part a (3 pts) — award 3 pts for correct YES/NO and a clear example if YES. Part b (2 pts) — award 2 pts for correct YES/NO and brief explanation. Part c (2 pts) — award 2 pts for correct explanation of valid bit and exception behavior. Part d (3 pts) — award 3 pts for stating that a syscall code is placed in a known register and the kernel inspects it; brief clarity required. Partial credit allowed per part."
 }
 ```
 
 ---
 
-## Question 4c [2 point(s)]
+## Question 6 [10 point(s)]
 
-c. Is it possible that the MMU used paging with a page size of 4 KB (2^12 bytes) to translate P's virtual addresses to physical addresses? If so, write YES; if not, write NO and briefly justify.
+Answer each part briefly and clearly.
 
-```json
-{
-  "problem_id": "4c",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["memory-management","paging"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 2 pts for YES if the student gives a correct justification that 4 KB pages produce consistent 12-bit offsets in the examples, or 0 pts if incorrect. Partial credit (1 pt) for correct partial reasoning about offsets."
-}
-```
+6a. List the different transitions between the three thread states (Ready, Running, Blocked). Why can’t a thread go from Blocked directly to Running?
 
----
+6b. Explain the difference between a trapframe and a switchframe. What generates a trapframe? What generates a switchframe?
 
-## Question 5a [3 point(s)]
+6c. Describe a scenario in which releasing a spinlock (spinlockrelease(&sem->semlock)) before acquiring the wchan lock (wchan_lock(sem->semwchan)) in the semaphore P() implementation can cause a concurrency problem. Explain briefly.
 
-a. Is it possible for a thread's kernel stack to contain more than one trapframe? If yes, write YES and briefly describe a situation in which this could occur. If not, write NO and explain.
+6d. What information can be found in each TLB entry?
 
 ```json
 {
-  "problem_id": "5a",
-  "points": 3,
+  "problem_id": "6",
+  "points": 10,
   "type": "Freeform",
-  "tags": ["kernel","trapframe","interrupt"],
-  "answer": "",
-  "llm_judge_instructions": "3 pts total. Award 2 pts for correctly answering YES (if that is correct) and describing a concrete scenario (e.g., an interrupt occurs while handling a system call). Award 1 pt for a concise explanation of why multiple trapframes can be present. Partial credit for plausible scenarios."
-}
-```
-
----
-
-## Question 5b [2 point(s)]
-
-b. Can a call to OS/161's wchan_sleep function cause a thread context switch? Answer YES or NO and briefly explain.
-
-```json
-{
-  "problem_id": "5b",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["os-161","sleep","scheduler"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 2 pts for YES with a concise correct explanation that the sleeping thread is descheduled and the scheduler selects another thread to run. Award 1 pt for partially correct reasoning."
-}
-```
-
----
-
-## Question 5c [2 point(s)]
-
-c. Each page table entry normally includes a valid bit. Briefly explain the purpose of the valid bit and what happens if a process attempts to access a virtual address whose page table entry has the valid bit unset.
-
-```json
-{
-  "problem_id": "5c",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["paging","tlb","mmu"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 2 pts for stating that the valid bit indicates whether the page mapping is present/usable and that accessing an invalid page causes an exception/page fault which the kernel must handle. Award 1 pt for partial or imprecise descriptions."
-}
-```
-
----
-
-## Question 5d [3 point(s)]
-
-d. When a system call occurs in OS/161, how does the kernel know which system call has been requested? Explain briefly.
-
-```json
-{
-  "problem_id": "5d",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["os-161","system-call","kernel"],
-  "answer": "",
-  "llm_judge_instructions": "3 pts total. Award 2 pts for stating that the user program places a syscall number/code in a designated register and the kernel's syscall handler reads it. Award 1 pt for identifying the typical register used (e.g., v0/R2) or equivalent platform-specific register."
-}
-```
-
----
-
-## Question 6a [3 point(s)]
-
-a. List the different transitions among the three thread states (Ready, Running, Blocked). Why can't a thread go directly from Blocked to Running? Explain briefly.
-
-```json
-{
-  "problem_id": "6a",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["thread-states","scheduler"],
-  "answer": "",
-  "llm_judge_instructions": "3 pts total. Award 2 pts for listing the four transitions (Ready→Running, Running→Ready, Running→Blocked, Blocked→Ready). Award 1 pt for a clear explanation that Blocked→Running is not allowed because the scheduler must dispatch the thread from Ready to Running and to avoid bypassing scheduler invariants and synchronization (e.g., the thread must be made Ready first)."
-}
-```
-
----
-
-## Question 6b [2 point(s)]
-
-b. Explain the difference between a trapframe and a switchframe. What generates a trapframe? What generates a switchframe?
-
-```json
-{
-  "problem_id": "6b",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["trapframe","switchframe","kernel"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 1 pt for describing the difference (trapframe: full CPU state for exceptions/interrupts/syscalls; switchframe: minimal saved state for context switch). Award 1 pt for correctly identifying generators (trapframe generated by exceptions/interrupts/syscalls; switchframe generated by thread context switches/yield)."
-}
-```
-
----
-
-## Question 6c [3 point(s)]
-
-c. Describe a scenario (step-by-step) in which releasing a semaphore's spinlock before acquiring the wchan lock in the semaphore P() implementation can cause a concurrency problem. Explain the possible bad outcome.
-
-```json
-{
-  "problem_id": "6c",
-  "points": 3,
-  "type": "Freeform",
-  "tags": ["semaphore","concurrency","synchronization"],
-  "answer": "",
-  "llm_judge_instructions": "3 pts total. Award 2 pts for a correct step-by-step scenario showing the race (e.g., thread A sees count==0, releases spinlock, is preempted; thread B does V(), increments count and wakes a waiter; thread A then acquires wchan lock and sleeps despite count>0). Award 1 pt for stating the bad outcome (lost wakeup or indefinite sleep). Partial credit for partial but correct reasoning."
-}
-```
-
----
-
-## Question 6d [2 point(s)]
-
-d. What information is typically stored in each TLB entry?
-
-```json
-{
-  "problem_id": "6d",
-  "points": 2,
-  "type": "Freeform",
-  "tags": ["tlb","memory-management"],
-  "answer": "",
-  "llm_judge_instructions": "2 pts total. Award 2 pts for naming both the virtual page number and the corresponding physical frame number (and optionally permission/flags). Award 1 pt for naming one of the two."
+  "tags": ["os161", "thread-states", "tlb"],
+  "answer": "a) Transitions: Ready -> Running (dispatch), Running -> Ready (preemption or yield), Running -> Blocked (sleep/wait), Blocked -> Ready (wake). A Blocked thread cannot go directly to Running because the scheduler must move it from Ready to Running. b) Trapframe stores processor state saved on an exception/interrupt/syscall; generated by the hardware/exception handling entry. Switchframe stores the minimal registers needed to resume a thread during context switch; generated by thread switch code (thread_yield/threadswitch). c) If the spinlock protecting the semaphore is released before taking the wait-channel lock, a V() may occur in between and wake a thread that hasn't yet gone to sleep, causing a missed wakeup and possible deadlock. d) TLB entries map virtual page numbers to physical frame numbers and typically include permission/valid bits and possibly ASID/flags.",
+  "llm_judge_instructions": "Total 10 pts: Part a (3 pts) — 3 pts for listing transitions and correct explanation. Part b (2 pts) — 2 pts for distinguishing trapframe vs switchframe and identifying generators. Part c (3 pts) — 3 pts for a clear scenario explaining missed wakeup. Part d (2 pts) — 2 pts for listing page->frame mapping and common metadata (valid/permission)."
 }
 ```
 
@@ -376,25 +285,27 @@ d. What information is typically stored in each TLB entry?
 
 ## Question 7 [12 point(s)]
 
-You are designing a matchmaking system for a multiplayer game. A match consists of 3 players and can only start when all 3 players are available. The system owns one server that can host only one match at a time. A new match can start only when (a) the previous match has finished, and (b) three players are available. Implement synchronization to meet these constraints.
+You have been hired to design the matchmaking system for a multiplayer game. A match consists of 3 players and can start only when all 3 players are available. The company has one server that can host only one match at a time. A new match can start only when (a) the previous match has finished, and (b) three players are available.
 
-Provide global variable declarations and implementations of the following functions (called from player threads and system initialization/cleanup):
-- void game_sync_init(void);        // called once before any players arrive
-- void game_sync_cleanup(void);     // called once when system is taken down
-- void before_match(void);          // called once by each player before that player's match; should block until the player's match can start
-- void after_match(void);           // called once by each player after that player's match is finished
+Implement the following functions (you may define global variables). The functions are called as described:
+- game_syncinit(): Called once before any players arrive.
+- gamesynccleanup(): Called once when the system is taken down.
+- before_match(): Called once by each player before that player starts a match. Should block until the player's match can start.
+- after_match(): Called once for each player after that player's match finishes.
 
-You may define global locks, condition variables, and counters. Do not provide any extra output or debugging prints in your synchronization code. Your implementation should ensure exactly three players start a match together, only one match runs on the server at a time, and waiting players are properly awakened to form subsequent matches.
+Provide a synchronization solution that enforces the constraints above.
 
 ```json
 {
   "problem_id": "7",
   "points": 12,
   "type": "Freeform",
-  "tags": ["synchronization","concurrency","condition-variables"],
-  "answer": "",
-  "llm_judge_instructions": "12 pts total. Award 3 pts for correct and complete global variables and initialization (including any counters and creation of lock/cv). Award 1 pt for correct cleanup. Award 4 pts for correct before_match implementation (blocks until exactly 3 players form a match and ensures only one match runs at a time, and releases players to start together). Award 4 pts for correct after_match implementation (decrements in-game count, and if necessary wakes waiting players to start the next match). Deduct points for lost wakeups, incorrect condition checks, or allowing more than one concurrent match."
+  "tags": ["synchronization", "multiparty-games", "threads"],
+  "answer": "A correct solution initializes a lock and condition variable and uses counters to track waiting players, players in the current game, and players forming the next game. Example approach: game_syncinit initializes lock, cv, num_waiting=0, num_in_game=0, num_in_next=0; before_match acquires lock, increments num_waiting, then waits until num_waiting>=3 and num_in_game==0; forms the group by decrementing num_waiting by 3 and setting num_in_game=3, then releases lock; after_match acquires lock, decrements num_in_game; if num_in_game==0 and num_waiting>=3 then wake one waiter to begin next chaining; release lock; gamesynccleanup destroys lock and cv. Any equivalent correct implementation that ensures only one match runs at a time and matches start only when three players are available earns full credit.",
+  "llm_judge_instructions": "Total 12 pts: Award 3 pts for correct initialization and cleanup. Award 5 pts for a correct before_match implementation that blocks appropriately, forms exact groups of 3, prevents starting when a game is in progress, and wakes players correctly. Award 4 pts for a correct after_match that decrements in-game count and wakes next players when appropriate. Partial credit allocated proportionally for partially correct synchronization logic; deduct credit for solutions that allow >1 concurrent game or that can deadlock/miss wakeups."
 }
 ```
 
 ---
+
+## End of Examination
