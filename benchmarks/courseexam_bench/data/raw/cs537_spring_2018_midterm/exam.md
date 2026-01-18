@@ -1,8 +1,10 @@
+# CS 537 Spring 2018 Midterm
+
 ```json
 {
   "exam_id": "cs537_spring_2018_midterm",
-  "test_paper_name": "CS-537: Midterm (Spring 2018) Mission Impossible",
-  "course": "CS537",
+  "test_paper_name": "CS 537 Spring 2018 Midterm",
+  "course": "CS 537",
   "institution": "University of Wisconsin-Madison",
   "year": 2018,
   "score_total": 30,
@@ -10,11 +12,9 @@
 }
 ```
 
-# CS-537: Midterm (Spring 2018) Mission Impossible
-
 ---
 
-## Question 1 [1 point(s)]
+## Question 1 [5 point(s)]
 
 Problem I: A program’s main function is as follows:
 int main(int argc, char *argv[]) {
@@ -23,12 +23,10 @@ int main(int argc, char *argv[]) {
     printf("%s", str);
   return 0;
 }
-Two processes, both running instances of this program, are currently running (you can assume nothing
-else of relevance is, except perhaps the shell itself). The programs were invoked as follows, assuming a
-“parallel command” as per project 2a (the wish shell):
+Two processes, both running instances of this program, are currently running. The programs were invoked as follows (a "parallel command"):
 wish> main a && main b
-Below are possible (or impossible?) screen captures of some of the output from the beginning of the run
-of the programs. Which of the following are possible? To answer: Fill in A for possible, B for not possible.
+Below are possible (or impossible?) screen captures of some of the output from the beginning of the run of the programs. Which of the following are possible? To answer: Fill in A for possible, B for not possible.
+
 1. abababab ...
 2. aaaaaaaa ...
 3. bbbbbbbb ...
@@ -39,78 +37,54 @@ of the programs. Which of the following are possible? To answer: Fill in A for p
 {
   "problem_id": "1",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["operating-systems"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["concurrency"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 2 [1 point(s)]
-
-Problem I (continued): Same program as above. Below are possible (or impossible?) screen captures of some of the output from the beginning of the run of the programs. Which of the following are possible? To answer: Fill in A for possible, B for not possible.
-2. aaaaaaaa ...
-3. bbbbbbbb ...
-4. aaaabbbb ...
-5. bbbbaaaa ...
-
-```json
-{
-  "problem_id": "2",
-  "points": 1,
-  "type": "ExactMatch",
-  "tags": ["operating-systems"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
-}
-```
-
----
-
-## Question 3 [1 point(s)]
+## Question 2 [3 point(s)]
 
 Problem II: Here is source code for another program, called increment.c:
 int value = 0;
 int main(int argc, char *argv[]) {
   while (1) {
-    printf("%d", value);
+    printf(\"%d\", value);
     value++;
   }
   return 0;
 }
-While increment.c is running, another program, reset.c, is run once as a separate process. Here is the
-source code of reset.c:
+While increment.c is running, another program, reset.c, is run once as a separate process. Here is the source code of reset.c:
 int value;
 int main(int argc, char *argv[]) {
   value = 0;
   return 0;
 }
 Which of the following are possible outputs of the increment process? To answer: Fill in A for possible, B for not possible.
-3. 012345678 ...
-4. 012301234 ...
-5. 012345670123 ...
-6. 01234567891011 ...
-7. 123456789 ...
+
+6. 012345678 ...
+7. 012301234 ...
+8. 012345670123 ...
+9. 01234567891011 ...
+10. 123456789 ...
 
 ```json
 {
-  "problem_id": "3",
+  "problem_id": "2",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["concurrency","memory-model"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 4 [1 point(s)]
+## Question 3 [5 point(s)]
 
 Problem III: A concurrent program (with multiple threads) looks like this:
 volatile int counter = 1000;
@@ -124,39 +98,34 @@ int main(int argc, char *argv[]) {
   pthread_create(&p2, NULL, worker, NULL);
   pthread_join(p1, NULL);
   pthread_join(p2, NULL);
-  printf("%d\n", counter);
+  printf(\"%d\\n\", counter);
   return 0;
 }
-Assuming pthread_create() and pthread_join() all work as expected (i.e., they don’t return an error), which outputs are possible? To answer: Fill in A for possible, B for not possible.
-4. 0
-5. 1000
-6. 999
-7. 998
-8. 1002
+Assuming pthread_create() and pthread_join() work as expected, which outputs are possible? To answer: Fill in A for possible, B for not possible.
+
+11. 0
+12. 1000
+13. 999
+14. 998
+15. 1002
 
 ```json
 {
-  "problem_id": "4",
+  "problem_id": "3",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["concurrency","threads"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 5 [1 point(s)]
+## Question 4 [4 point(s)]
 
-Problem IV: Processes exist in a number of different states. For example, xv6 has an Embryo state (used when
-the process is being created), and a Zombie state (used when the process has exited but its parent hasn’t yet
-called wait() on it).
-Assuming you start observing the states of a given process at some point in time (not necessarily from
-its creation, but perhaps including that), which process states could you possibly observe?
-Note: once you start observing the process, you will see ALL states it is in, until you stop sampling.
-To answer: Fill in A for possible, B for not possible.
+Problem IV: Processes exist in a number of different states (Running, Ready, Blocked, etc.). Assuming you start observing the states of a given process at some point in time (not necessarily from its creation), which process state sequences could you possibly observe? Note: once you start observing the process, you will see ALL states it is in, until you stop sampling. To answer: Fill in A for possible, B for not possible.
+
 16. Running, Running, Running, Ready, Running, Running, Running, Ready
 17. Embryo, Ready, Ready, Ready, Ready, Ready
 18. Running, Running, Blocked, Blocked, Blocked, Running
@@ -165,29 +134,28 @@ To answer: Fill in A for possible, B for not possible.
 
 ```json
 {
-  "problem_id": "5",
+  "problem_id": "4",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["operating-systems"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["os","process-states"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 6 [1 point(s)]
+## Question 5 [5 point(s)]
 
 Problem V: The following code is shown to you:
 int main(int argc, char *argv[]) {
-  printf("a");
+  printf(\"a\");
   fork();
-  printf("b");
+  printf(\"b\");
   return 0;
 }
-Assuming fork() succeeds and printf() prints its outputs immediately (no buffering occurs), what are
-possible outputs of this program? To answer: Fill in A for possible, B for not possible.
+Assuming fork() succeeds and printf() prints its outputs immediately (no buffering occurs), what are possible outputs of this program? To answer: Fill in A for possible, B for not possible.
+
 21. ab
 22. abb
 23. bab
@@ -196,23 +164,21 @@ possible outputs of this program? To answer: Fill in A for possible, B for not p
 
 ```json
 {
-  "problem_id": "6",
+  "problem_id": "5",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["processes","fork"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 7 [1 point(s)]
+## Question 6 [5 point(s)]
 
-Problem VI: Assuming fork() might fail (by returning an error code and not creating a new process)
-and printf() prints its outputs immediately (no buffering occurs), what are possible outputs of the same
-program as above? To answer: Fill in A for possible, B for not possible.
+Problem VI: Assuming fork() might fail (by returning an error code and not creating a new process) and printf() prints its outputs immediately (no buffering occurs), what are possible outputs of the same program as above? To answer: Fill in A for possible, B for not possible.
+
 26. ab
 27. abb
 28. bab
@@ -221,37 +187,36 @@ program as above? To answer: Fill in A for possible, B for not possible.
 
 ```json
 {
-  "problem_id": "7",
+  "problem_id": "6",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["processes","fork"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 8 [1 point(s)]
+## Question 7 [5 point(s)]
 
-Problem VII: Assume the program /bin/true, when it runs, never prints anything and just returns 0 in all cases.
+Problem VII: Here is code. Assume the program /bin/true, when it runs, never prints anything and just returns 0.
 int main(int argc, char *argv[]) {
   int rc = fork();
   if (rc == 0) {
-    char *my_argv[] = { "/bin/true", NULL };
+    char *my_argv[] = { \"/bin/true\", NULL };
     execv(my_argv[0], my_argv);
-    printf("1");
+    printf(\"1\");
   } else if (rc > 0) {
     wait(NULL);
-    printf("2");
+    printf(\"2\");
   } else {
-    printf("3");
+    printf(\"3\");
   }
   return 0;
 }
-Assuming all system calls succeed and printf() prints outputs immediately (no buffering occurs),
-what outputs are possible? To answer: Fill in A for possible, B for not possible.
+Assuming all system calls succeed and printf() prints its outputs immediately (no buffering occurs), what outputs are possible? To answer: Fill in A for possible, B for not possible.
+
 31. 123
 32. 12
 33. 2
@@ -260,24 +225,21 @@ what outputs are possible? To answer: Fill in A for possible, B for not possible
 
 ```json
 {
-  "problem_id": "8",
+  "problem_id": "7",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["processes","fork","exec"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 9 [1 point(s)]
+## Question 8 [5 point(s)]
 
-Problem VIII: Same code snippet as in the last problem, but new question: assuming any of the system calls
-above might fail (by not doing what is expected, and returning an error code), what outputs are possible?
-Again assume that printf() prints its outputs immediately (no buffering occurs).
-To answer: Fill in A for possible, B for not possible.
+Problem VIII: Same code snippet as in the last problem, but new question: assuming any of the system calls above might fail (by returning an error code), what outputs are possible? Assume printf() prints its outputs immediately. To answer: Fill in A for possible, B for not possible.
+
 36. 123
 37. 12
 38. 2
@@ -286,27 +248,25 @@ To answer: Fill in A for possible, B for not possible.
 
 ```json
 {
-  "problem_id": "9",
+  "problem_id": "8",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["processes","fork","exec"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 10 [1 point(s)]
+## Question 9 [5 point(s)]
 
-Problem IX: Assume, for the following jobs, a FIFO scheduler and only one CPU. Each job has a “required”
-runtime, which means the job needs that many time units on the CPU to complete.
-Job A arrives at time=0, required runtime=X time units
-Job B arrives at time=5, required runtime=Y time units
-Job C arrives at time=10, required runtime=Z time units
-Assuming an average turnaround time between 10 and 20 time units (inclusive), which of the following
-run times for A, B, and C are possible? To answer: Fill in A for possible, B for not possible.
+Problem IX: Assume, for the following jobs, a FIFO scheduler and only one CPU. Each job has a required runtime.
+Job A arrives at time=0, required runtime=X
+Job B arrives at time=5, required runtime=Y
+Job C arrives at time=10, required runtime=Z
+Assuming an average turnaround time between 10 and 20 time units (inclusive), which of the following run times for A, B, and C are possible? To answer: Fill in A for possible, B for not possible.
+
 41. A=10, B=10, C=10
 42. A=20, B=20, C=20
 43. A=5, B=10, C=15
@@ -315,27 +275,27 @@ run times for A, B, and C are possible? To answer: Fill in A for possible, B for
 
 ```json
 {
-  "problem_id": "10",
+  "problem_id": "9",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["scheduling"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["scheduling","fifo"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 11 [1 point(s)]
+## Question 10 [5 point(s)]
 
-Problem X: Assume the following schedule for a set of three jobs, A, B, and C:
-A runs first (for 10 time units) but is not yet done
-B runs next (for 10 time units) but is not yet done
-C runs next (for 10 time units) and runs to completion
-A runs to completion (for 10 time units)
-B runs to completion (for 5 time units)
+Problem X: Assume the following schedule for jobs A, B, and C:
+- A runs first (for 10 time units) but is not yet done
+- B runs next (for 10 time units) but is not yet done
+- C runs next (for 10 time units) and runs to completion
+- A runs to completion (for 10 time units)
+- B runs to completion (for 5 time units)
 Which scheduling disciplines could allow this schedule to occur? To answer: Fill in A for possible, B for not possible.
+
 46. FIFO
 47. Round Robin
 48. STCF (Shortest Time to Completion First)
@@ -344,23 +304,21 @@ Which scheduling disciplines could allow this schedule to occur? To answer: Fill
 
 ```json
 {
-  "problem_id": "11",
+  "problem_id": "10",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["scheduling"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["scheduling","mlfq","rr"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 12 [1 point(s)]
+## Question 11 [5 point(s)]
 
-Problem XI: The Multi-level Feedback Queue (MLFQ) is a scheduler that does many things. Which
-of the following statements could you possibly say (correctly!) about the MLFQ approach?
-To answer: Fill in A for things that are true about MLFQ, B for things that are not true about MLFQ.
+Problem XI: The Multi-level Feedback Queue (MLFQ) is a scheduler. Which of the following are true statements about MLFQ? To answer: Fill in A for true, B for not true.
+
 51. MLFQ learns things about running jobs
 52. MLFQ starves long running jobs
 53. MLFQ uses different length time slices for jobs
@@ -369,27 +327,25 @@ To answer: Fill in A for things that are true about MLFQ, B for things that are 
 
 ```json
 {
-  "problem_id": "12",
+  "problem_id": "11",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["scheduling"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["scheduling","mlfq"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 13 [1 point(s)]
+## Question 12 [5 point(s)]
 
-Problem XII: The simplest technique for virtualizing memory is known as dynamic relocation, or “base-
-and-bounds”. Assuming the following system characteristics:
-- a 1KB virtual address space
-- a base register set to 10000
-- a bounds register set to 100
-Which of the following physical memory locations can be legally accessed by the running program?
-To answer: Fill in A for legally accessible locations, B for locations not legally accessible by this program.
+Problem XII: The simplest technique for virtualizing memory is base-and-bounds. Assuming:
+- 1KB virtual address space
+- base register = 10000
+- bounds register = 100
+Which of the following physical memory locations can be legally accessed by the running program? To answer: Fill in A for legally accessible, B for not legally accessible.
+
 56. 0
 57. 1000
 58. 10000
@@ -398,23 +354,21 @@ To answer: Fill in A for legally accessible locations, B for locations not legal
 
 ```json
 {
-  "problem_id": "13",
+  "problem_id": "12",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["virtual-memory"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["virtual-memory","base-bounds"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 14 [1 point(s)]
+## Question 13 [5 point(s)]
 
-Problem XIII: Assuming the same set-up as above (1 KB virtual address space, base=10000, bounds=100),
-which of the following virtual addresses can be legally accessed by the running program? (i.e., which are
-valid?) To answer: Fill in A for valid virtual addresses, B for not valid ones.
+Problem XIII: Assuming the same set-up as above (1 KB virtual address space, base=10000, bounds=100), which of the following virtual addresses can be legally accessed by the running program? To answer: Fill in A for valid virtual addresses, B for not valid ones.
+
 61. 0
 62. 1000
 63. 10000
@@ -423,22 +377,21 @@ valid?) To answer: Fill in A for valid virtual addresses, B for not valid ones.
 
 ```json
 {
-  "problem_id": "14",
+  "problem_id": "13",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["virtual-memory"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["virtual-memory","segmentation"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 15 [1 point(s)]
+## Question 14 [5 point(s)]
 
-Problem XIV: Segmentation is a generalization of base-and-bounds. Which possible advantages does seg-
-mentation have as compared to base-and-bounds? To answer: Fill in A for cases where the statement is true about segmentation and segmentation has a clear advantage over base-and-bounds, B otherwise.
+Problem XIV: Segmentation is a generalization of base-and-bounds. Which possible advantages does segmentation have as compared to base-and-bounds? To answer: Fill in A for true, B for not true.
+
 66. Faster translation
 67. Less physical memory waste
 68. Better sharing of code in memory
@@ -447,30 +400,29 @@ mentation have as compared to base-and-bounds? To answer: Fill in A for cases wh
 
 ```json
 {
-  "problem_id": "15",
+  "problem_id": "14",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["segmentation"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["segmentation","memory-management"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 16 [1 point(s)]
+## Question 15 [5 point(s)]
 
-Problem XV: Assume the following in a simple segmentation system that supports two segments: one
-(positive growing) for code and a heap, and one (negative growing) for a stack:
-- Virtual address space size 128 bytes (small!)
-- Physical memory size 512 (small!)
-Segment register information:
-Segment 0 base  (grows positive) : 0
-Segment 0 limit                  : 20 (decimal)
-Segment 1 base  (grows negative) : 0x200 (decimal 512)
-Segment 1 limit                  : 20 (decimal)
-Which of the following are valid virtual memory accesses? To answer: Fill in A for valid virtual accesses, B for non-valid accesses.
+Problem XV: Assume a segmentation system with two segments (code/heap grows positive, stack grows negative):
+- Virtual address space size 128 bytes
+- Physical memory size 512 bytes
+Segment registers:
+Segment 0 base (grows positive): 0
+Segment 0 limit: 20 (decimal)
+Segment 1 base (grows negative): 0x200 (decimal 512)
+Segment 1 limit: 20 (decimal)
+Which of the following are valid virtual memory accesses? To answer: Fill in A for valid, B for not valid.
+
 71. 0x1d (decimal: 29)
 72. 0x7b (decimal: 123)
 73. 0x10 (decimal: 16)
@@ -479,28 +431,24 @@ Which of the following are valid virtual memory accesses? To answer: Fill in A f
 
 ```json
 {
-  "problem_id": "16",
+  "problem_id": "15",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["segmentation"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["segmentation","virtual-memory"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 17 [1 point(s)]
+## Question 16 [5 point(s)]
 
-Problem XVI: In a simple page-based virtual memory, with a linear page table, assume the following:
-- virtual address space size is 128 bytes (small!)
-- physical memory size of 1024 bytes (small!)
-- page size of 16 bytes
-The format of the page table: The high-order (leftmost) bit is the VALID bit.
-If the bit is 1, the rest of the entry is the PFN.
-If the bit is 0, the page is not valid.
-Here are the contents of the page table (from entry 0 down to the max size)
+Problem XVI: In a simple page-based virtual memory, with a linear page table, assume:
+- virtual address space: 128 bytes
+- physical memory: 1024 bytes
+- page size: 16 bytes
+Page table entries (high-order bit is VALID):
 [0]   0x80000034
 [1]   0x00000000
 [2]   0x00000000
@@ -509,7 +457,8 @@ Here are the contents of the page table (from entry 0 down to the max size)
 [5]   0x80000017
 [6]   0x80000011
 [7]   0x8000002e
-Which of the following virtual addresses are valid? To answer: Fill in A for valid virtual accesses, B for non-valid accesses.
+Which of the following virtual addresses are valid? To answer: Fill in A for valid, B for not valid.
+
 76. 0x34 (decimal: 52)
 77. 0x44 (decimal: 68)
 78. 0x57 (decimal: 87)
@@ -518,28 +467,26 @@ Which of the following virtual addresses are valid? To answer: Fill in A for val
 
 ```json
 {
-  "problem_id": "17",
+  "problem_id": "16",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["virtual-memory"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["virtual-memory","tlb"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 18 [1 point(s)]
+## Question 17 [5 point(s)]
 
-Problem XVII: TLBs are a critical part of modern paging systems. Assume the following system:
-- page size is 64 bytes
+Problem XVII: TLBs: Assume:
+- page size = 64 bytes
 - TLB contains 4 entries
-- TLB replacement policy is LRU (least recently used)
-Each of the following represents a virtual memory address trace, i.e., a set of virtual memory addresses
-referenced by a program. In which of the following traces will the TLB possibly help speed up execution?
-To answer: Fill in A for cases where the TLB will speed up the program, B for the cases where it won’t.
-81. 0, 100, 200, 1, 101, 201, ... (repeats in this pattern)
+- replacement policy = LRU
+Each of the following is a virtual address trace. In which traces will the TLB possibly help speed up execution? To answer: Fill in A for helps, B for does not help.
+
+81. 0, 100, 200, 1, 101, 201, ... (repeats)
 82. 0, 100, 200, 300, 0, 100, 200, 300, ... (repeats)
 83. 0, 1000, 2000, 3000, 4000, 0, 1000, 2000, 3000, 4000, ... (repeats)
 84. 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, ... (repeats)
@@ -547,48 +494,44 @@ To answer: Fill in A for cases where the TLB will speed up the program, B for th
 
 ```json
 {
-  "problem_id": "18",
+  "problem_id": "17",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["virtual-memory","tlb"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["paging","tlb"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 19 [1 point(s)]
+## Question 18 [5 point(s)]
 
-Problem XVIII: Which of the following statements are true statements about various page-replacement
-policies? To answer: Fill in A for true statements, B for false ones.
+Problem XVIII: Which of the following statements are true about page-replacement policies? To answer: Fill in A for true, B for false.
+
 86. The LRU policy always outperforms the FIFO policy.
 87. The OPT (optimal) policy always performs at least as well as LRU.
-88. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if they are using the same replacement policy.
+88. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if they use the same replacement policy.
 89. A bigger cache’s hit percentage is always greater than or equal to a smaller cache’s hit percentage, if they are using the LRU replacement policy.
 90. Random replacement is always worse than LRU replacement.
 
 ```json
 {
-  "problem_id": "19",
+  "problem_id": "18",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["page-replacement"],
-  "choices": ["True", "False"],
-  "answer": "False",
-  "llm_judge_instructions": "Award 1 point if the answer is 'False'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["paging","replacement-policies"],
+  "answer": "B",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'B'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 20 [1 point(s)]
+## Question 19 [5 point(s)]
 
-Problem XIX: Assume a memory that can hold 4 pages, and an LRU replacement policy. The first four
-references to memory are to pages 6, 7, 7, 9.
-Assuming the next five accesses are to pages 7, 9, 0, 4, 9, which of those will hit in memory? (and which
-will miss?) To answer: Fill in A for cache hits, B for misses.
+Problem XIX: Assume a memory that can hold 4 pages, LRU replacement. The first four references are pages 6, 7, 7, 9. The next five accesses are to pages 7, 9, 0, 4, 9. Which of those will hit in memory? To answer: Fill in A for hits, B for misses.
+
 91. 7
 92. 9
 93. 0
@@ -597,19 +540,18 @@ will miss?) To answer: Fill in A for cache hits, B for misses.
 
 ```json
 {
-  "problem_id": "20",
+  "problem_id": "19",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["page-replacement"],
-  "choices": ["Hit", "Miss"],
-  "answer": "Hit",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Hit'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["paging","cache"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 21 [1 point(s)]
+## Question 20 [5 point(s)]
 
 Problem XX: Assume this attempted implementation of a lock:
 void init(lock_t *mutex) {
@@ -623,8 +565,7 @@ void lock(lock_t *mutex) {
 void unlock(lock_t *mutex) {
   mutex->flag = 0;         // L4
 }
-Assume 5 threads are competing for this lock. How many threads can possibly acquire the lock?
-To answer: Fill in A for possible, B for not possible.
+Assume 5 threads are competing for this lock. How many threads can possibly acquire the lock? To answer: Fill in A for possible, B for not possible.
 
 96. 1
 97. 2
@@ -634,39 +575,29 @@ To answer: Fill in A for possible, B for not possible.
 
 ```json
 {
-  "problem_id": "21",
+  "problem_id": "20",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["synchronization"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["concurrency","locking"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 22 [1 point(s)]
+## Question 21 [5 point(s)]
 
-Problem XXI: Here is a ticket lock:
-typedef struct __lock_t {
-  int ticket, turn;
-} lock_t;
-void lock_init(lock_t *lock) {
-  lock->ticket = 0;
-  lock->turn   = 0;
-}
+Problem XXI: Ticket lock:
+typedef struct __lock_t { int ticket, turn; } lock_t;
+void lock_init(lock_t *lock) { lock->ticket = 0; lock->turn = 0; }
 void lock(lock_t *lock) {
   int myturn = FetchAndAdd(&lock->ticket);
-  while (lock->turn != myturn)
-    ; // spin
+  while (lock->turn != myturn) ; // spin
 }
-void unlock(lock_t *lock) {
-  lock->turn = lock->turn + 1;
-}
-Assuming a maximum of 5 threads in the system, and further assuming the ticket lock is used “properly”
-(i.e., threads acquire and release it as expected), what values of lock->ticket and lock->turn are
-possible? (at the same time) To answer: Fill in A for possible, B for not possible.
+void unlock(lock_t *lock) { lock->turn = lock->turn + 1; }
+Assuming a maximum of 5 threads and proper use of the lock, what values of lock->ticket and lock->turn are possible at the same time? To answer: Fill in A for possible, B for not possible.
+
 101. ticket=0 and turn=0
 102. ticket=0 and turn=1
 103. ticket=1 and turn=0
@@ -675,22 +606,20 @@ possible? (at the same time) To answer: Fill in A for possible, B for not possib
 
 ```json
 {
-  "problem_id": "22",
+  "problem_id": "21",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["synchronization","lock"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["synchronization","ticket-lock"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 23 [1 point(s)]
+## Question 22 [5 point(s)]
 
-Problem XXII: Assume the following list insertion code, which inserts into a list pointed to by shared global
-variable head:
+Problem XXII: List insertion code (no synchronization):
 int List_Insert(int key) {
   node_t *n = malloc(sizeof(node_t));
   if (n == NULL) { return -1; }
@@ -699,11 +628,8 @@ int List_Insert(int key) {
   head = n;
   return 0;
 }
-This code is executed by each of three threads exactly once, without adding any synchronization primitives
-(such as locks). Assuming malloc() is thread-safe (i.e., can be called without worries of data races)
-and that malloc() returns successfully, how long might the list be when these three threads are finished
-executing? (assume the list was empty to begin)
-To answer: Fill in A for possible, B for not possible.
+Executed by three threads exactly once each, malloc() is thread-safe and succeeds. How long might the list be when finished (list was empty to begin)? To answer: Fill in A for possible, B for not possible.
+
 106. 0
 107. 1
 108. 2
@@ -712,38 +638,21 @@ To answer: Fill in A for possible, B for not possible.
 
 ```json
 {
-  "problem_id": "23",
+  "problem_id": "22",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency","shared-data"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["concurrency","data-structure"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 24 [1 point(s)]
+## Question 23 [5 point(s)]
 
-Problem XXIII: Assume the following code, in which a “background malloc” allocates memory in a thread
-and initializes it:
-void *background_malloc(void *arg) {
-  int **int_ptr = (int **) arg;
-  *int_ptr = calloc(1, sizeof(int)); // allocates space for 1 int
-  **int_ptr = 10;                    // calloc: also zeroes memory
-  return NULL;
-}
-int main(int argc, char *argv[]) {
-  pthread_t p1;
-  int *result = NULL;
-  pthread_create(&p1, NULL, background_malloc, &result);
-  printf("%d\n", *result);
-  return 0;
-}
-The code unfortunately is buggy. What are the possible outcomes of this code? Assume the calls to
-pthread_create() and calloc() succeed, and that a NULL pointer dereference crashes reliably.
-To answer: Fill in A if possible, B for not possible.
+Problem XXIII: Background malloc code with races. Assume pthread_create() and calloc() succeed, and NULL pointer dereference crashes reliably. What are the possible outcomes? To answer: Fill in A if possible, B for not possible.
+
 111. The code prints out 0
 112. The code prints out 10
 113. The code prints out 100
@@ -752,39 +661,21 @@ To answer: Fill in A if possible, B for not possible.
 
 ```json
 {
-  "problem_id": "24",
+  "problem_id": "23",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency","threading"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["threads","memory-allocation","race"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 25 [1 point(s)]
+## Question 24 [5 point(s)]
 
-Problem XXIV: Here is some more multi-threaded code:
-void *printer(void *arg) {
-  char *p = (char *) arg;
-  printf("%c", *p);
-  return NULL;
-}
-int main(int argc, char *argv[]) {
-  pthread_t p[5];
-  for (int i = 0; i < 5; i++) {
-    char *c = malloc(sizeof(char));
-    *c = 'a' + i; // hint: 'a' + 1 = 'b', etc.
-    pthread_create(&p[i], NULL, printer, (void *) c);
-  }
-  for (int i = 0; i < 5; i++)
-    pthread_join(p[i], NULL);
-  return 0;
-}
-Assuming calls to all library routines succeed, which of the following outputs are possible?
-To answer: Fill in A if possible, B for not possible.
+Problem XXIV: Multi-threaded printer code where each thread is given a malloc'd char containing 'a' + i. Assuming library calls succeed, which outputs are possible? To answer: Fill in A if possible, B for not possible.
+
 116. abcde
 117. edcba
 118. cccde
@@ -793,38 +684,21 @@ To answer: Fill in A if possible, B for not possible.
 
 ```json
 {
-  "problem_id": "25",
+  "problem_id": "24",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency","printing"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["threads","printing"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 26 [1 point(s)]
+## Question 25 [5 point(s)]
 
-Problem XXV: Assume the same printer() function (from above), but this slightly changed main():
-void *printer(void *arg) {
-  char *p = (char *) arg;
-  printf("%c", *p);
-  return NULL;
-}
-int main(int argc, char *argv[]) {
-  pthread_t p[5];
-  for (int i = 0; i < 5; i++) {
-    char c = 'a' + i;
-    pthread_create(&p[i], NULL, printer, (void *) &c);
-  }
-  for (int i = 0; i < 5; i++)
-    pthread_join(p[i], NULL);
-  return 0;
-}
-Assuming calls to all library routines succeed, which of the following outputs are possible?
-To answer: Fill in A if possible, B for not possible.
+Problem XXV: Same printer() but threads are given the address of a stack variable 'c' that changes. Assuming library calls succeed, which outputs are possible? To answer: Fill in A if possible, B for not possible.
+
 121. abcde
 122. edcba
 123. cccde
@@ -833,21 +707,20 @@ To answer: Fill in A if possible, B for not possible.
 
 ```json
 {
-  "problem_id": "26",
+  "problem_id": "25",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["concurrency","printing"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Not Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Not Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["threads","race"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 27 [1 point(s)]
+## Question 26 [5 point(s)]
 
-Problem XXVI: Assume the following multi-threaded memory allocator, roughly sketched out as follows:
+Problem XXVI: Threaded allocator sketch:
 int bytes_left = MAX_HEAP_SIZE;
 pthread_cond_t c;
 pthread_mutex_t m;
@@ -855,7 +728,7 @@ void *allocate(int size) {
   pthread_mutex_lock(&m);
   while (bytes_left < size)
     pthread_cond_wait(&c, &m);
-  void *ptr = ...; // get mem from internal data structs
+  void *ptr = ...;
   bytes_left -= size;
   pthread_mutex_unlock(&m);
   return ptr;
@@ -866,12 +739,8 @@ void free(void *ptr, int size) {
   pthread_cond_signal(&c);
   pthread_mutex_unlock(&m);
 }
-Assume all of memory is used up (i.e., bytes_left is 0). Then:
-• One thread (T1) calls allocate(100)
-• Some time later, a second thread (T2) calls allocate(1000)
-• Finally, some time later, a third thread (T3) calls free(200)
-Assuming all calls to thread library functions work as expected, which of the following are possible just
-after this sequence of events has taken place? To answer: Fill in A if possible, B for not possible.
+Assume bytes_left is 0. Then T1 calls allocate(100), later T2 calls allocate(1000), later T3 calls free(200). Which of the following are possible just after this sequence? To answer: Fill in A if possible, B for not possible.
+
 126. T1 and T2 remain blocked inside allocate()
 127. T1 becomes unblocked, gets 100 bytes allocated, and returns from allocate()
 128. T2 becomes unblocked, gets 1000 bytes allocated, and returns from allocate()
@@ -880,22 +749,21 @@ after this sequence of events has taken place? To answer: Fill in A if possible,
 
 ```json
 {
-  "problem_id": "27",
+  "problem_id": "26",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["memory-allocation","concurrency"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["memory-allocation","threads"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 28 [1 point(s)]
+## Question 27 [5 point(s)]
 
-Problem XXVII: A Semaphore is a useful synchronization primitive. Which of the following statements
-are true of semaphores? To answer: Fill in A if true, B for not true.
+Problem XXVII: Which statements are true about semaphores? To answer: Fill in A if true, B if not true.
+
 131. Each semaphore has an integer value
 132. If a semaphore is initialized to 1, it can be used as a lock
 133. Semaphores can be initialized to values higher than 1
@@ -904,42 +772,39 @@ are true of semaphores? To answer: Fill in A if true, B for not true.
 
 ```json
 {
-  "problem_id": "28",
+  "problem_id": "27",
   "points": 1,
-  "type": "ExactMatch",
+  "type": "Freeform",
   "tags": ["semaphores"],
-  "choices": ["True", "False"],
-  "answer": "True",
-  "llm_judge_instructions": "Award 1 point if the answer is 'True'; 0 points otherwise."
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 29 [1 point(s)]
+## Question 28 [5 point(s)]
 
-Problem XXVIII: Here is the classic semaphore version of the producer/consumer problem:
-void *producer(void *arg) {  // core of producer
-  for (i = 0; i < num; i++) {
-    sem_wait(&empty);
-    sem_wait(&mutex);
-    put(i);
-    sem_post(&mutex);
-    sem_post(&full);
-  }
+Problem XXVIII: Semaphore producer/consumer:
+producer:
+for (i = 0; i < num; i++) {
+  sem_wait(&empty);
+  sem_wait(&mutex);
+  put(i);
+  sem_post(&mutex);
+  sem_post(&full);
 }
-void *consumer(void *arg) {  // core of consumer
-  while (!done) {
-    sem_wait(&full);
-    sem_wait(&mutex);
-    int tmp = get(i);
-    sem_post(&mutex);
-    sem_post(&empty);
-    // do something with tmp ...
-  }
+consumer:
+while (!done) {
+  sem_wait(&full);
+  sem_wait(&mutex);
+  int tmp = get(i);
+  sem_post(&mutex);
+  sem_post(&empty);
+  // use tmp ...
 }
-For the following statements about this working solution, which statements are true, and which are not?
-To answer: Fill in A if true, B for not true.
+Which statements about initializations are true? To answer: Fill in A if true, B if not true.
+
 136. The semaphore full must be initialized to 0
 137. The semaphore full must be initialized to 1
 138. The semaphore empty must be initialized to 1
@@ -948,25 +813,25 @@ To answer: Fill in A if true, B for not true.
 
 ```json
 {
-  "problem_id": "29",
+  "problem_id": "28",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["producer-consumer","semaphores"],
-  "choices": ["True", "False"],
-  "answer": "True",
-  "llm_judge_instructions": "Award 1 point if the answer is 'True'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["semaphores","producer-consumer"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 30 [1 point(s)]
+## Question 29 [5 point(s)]
 
-Problem XXIX: One way to avoid deadlock is to schedule threads carefully. Assume the following characteristics of threads T1, T2, and T3:
-• T1 (at some point) acquires and releases locks L1, L2
-• T2 (at some point) acquires and releases locks L1, L3
-• T3 (at some point) acquires and releases locks L3, L1, and L4
-For which schedules below is deadlock possible? To answer: Fill in A if deadlock is possible, B for not possible.
+Problem XXIX: Avoiding deadlock by scheduling. Threads:
+- T1 acquires/releases L1, L2
+- T2 acquires/releases L1, L3
+- T3 acquires/releases L3, L1, and L4
+For which schedules is deadlock possible? To answer: Fill in A if deadlock is possible, B if not.
+
 141. T1 runs to completion, then T2 to completion, then T3 runs
 142. T1 and T2 run concurrently to completion, then T3 runs
 143. T1, T2, and T3 run concurrently
@@ -975,21 +840,21 @@ For which schedules below is deadlock possible? To answer: Fill in A if deadlock
 
 ```json
 {
-  "problem_id": "30",
+  "problem_id": "29",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["deadlock","scheduling"],
-  "choices": ["Possible", "Not Possible"],
-  "answer": "Possible",
-  "llm_judge_instructions": "Award 1 point if the answer is 'Possible'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["concurrency","deadlock"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
 
 ---
 
-## Question 31 [1 point(s)]
+## Question 30 [5 point(s)]
 
-Problem XXX: The multi-level page table. Answer these true/false questions about the multi-level page table. To answer: Fill in A if true, B for not true.
+Problem XXX: Multi-level page table true/false. To answer: Fill in A if true, B if not true.
+
 146. A multi-level page table may use more pages than a linear page table
 147. It’s easier to allocate pages of the page table in a multi-level table (as compared to a linear page table)
 148. Multi-level page table lookups take longer than linear page table lookups
@@ -998,12 +863,11 @@ Problem XXX: The multi-level page table. Answer these true/false questions about
 
 ```json
 {
-  "problem_id": "31",
+  "problem_id": "30",
   "points": 1,
-  "type": "ExactMatch",
-  "tags": ["multilevel-page-table"],
-  "choices": ["True", "False"],
-  "answer": "True",
-  "llm_judge_instructions": "Award 1 point if the answer is 'True'; 0 points otherwise."
+  "type": "Freeform",
+  "tags": ["paging","page-tables"],
+  "answer": "A",
+  "llm_judge_instructions": "Award 1 point if the student's answer equals 'A'. Award 0 points otherwise."
 }
 ```
