@@ -1,3 +1,4 @@
+import base64
 import json
 from pathlib import Path
 from inspect_ai.dataset import MemoryDataset, Sample
@@ -39,7 +40,14 @@ def load_dataset(
             for file_path in starter_dir.rglob("*"):
                 if file_path.is_file():
                     relative_path = file_path.relative_to(starter_dir)
-                    files[str(relative_path)] = file_path.read_text()
+                    # Try to read as text, fallback to base64 data URI for binary files
+                    try:
+                        files[str(relative_path)] = file_path.read_text()
+                    except UnicodeDecodeError:
+                        # Handle binary files using base64 encoded data URI
+                        binary_data = file_path.read_bytes()
+                        b64_data = base64.b64encode(binary_data).decode('ascii')
+                        files[str(relative_path)] = f"data:application/octet-stream;base64,{b64_data}"
 
         compose_file = task_folder / "compose.yaml"
         if not compose_file.exists():
