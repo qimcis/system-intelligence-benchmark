@@ -1,0 +1,12 @@
+{
+  "instance_id": "cs537-ostep__filesystems_checker",
+  "course_id": "cs537-ostep",
+  "timeout_minutes": 20,
+  "tags": [
+    "c",
+    "operating-systems"
+  ],
+  "artifacts": [
+    "filesystems-checker.c"
+  ]
+}
