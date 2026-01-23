@@ -1,0 +1,12 @@
+{
+  "instance_id": "cs537-ostep__initial_reverse",
+  "course_id": "cs537-ostep",
+  "timeout_minutes": 20,
+  "tags": [
+    "operating-systems",
+    "c"
+  ],
+  "artifacts": [
+    "initial-reverse.c"
+  ]
+}
