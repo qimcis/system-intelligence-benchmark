@@ -1,0 +1,101 @@
+OSTEP Lab Benchmark - Up to 1000 Turns
+=======================================
+Date: Thu Jan 22 11:13:06 PM EST 2026
+Model: openai/gpt-5.2-2025-12-11
+Max Turns: 1000
+
+
+===========================================
+Lab: processes-shell
+Task ID: cs537-ostep__processes_shell
+===========================================
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│courselab (1 sample): openai/gpt-5.2-2025-12-11                               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+message_limit: 1000, task_ids: cs537-ostep__processes_shell, max_turns: 1000,   
+dataset: (samples)                                                              
+                                                                                
+total time:                0:02:41                                              
+openai/gpt-5.2-2025-12-11  366,890 tokens [I: 359,845, CW: 0, CR: 290,816, O:   
+                         7,045, R: 0]                                           
+                                                                                
+lab_scorer                                                                      
+accuracy    0.000                                                               
+                                                                                
+Log: logs/2026-01-23T04-13-18+00-00_courselab_8qv53vj8es4ii47FGpvQd8.eval       
+                                                                                
+RESULT: accuracy = 0.000
+
+===========================================
+Lab: concurrency-webserver
+Task ID: cs537-ostep__concurrency_webserver
+===========================================
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│courselab (1 sample): openai/gpt-5.2-2025-12-11                               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+message_limit: 1000, task_ids: cs537-ostep__concurrency_webserver, max_turns:   
+1000, dataset: (samples)                                                        
+                                                                                
+total time:                0:02:23                                              
+openai/gpt-5.2-2025-12-11  198,056 tokens [I: 190,828, CW: 0, CR: 147,200, O:   
+                         7,228, R: 0]                                           
+                                                                                
+lab_scorer                                                                      
+accuracy    0.000                                                               
+                                                                                
+Log: logs/2026-01-23T04-16-13+00-00_courselab_QRKzzWiQqCHMncPKSBvvw5.eval       
+                                                                                
+RESULT: accuracy = 0.000
+
+===========================================
+Lab: concurrency-pzip
+Task ID: cs537-ostep__concurrency_pzip
+===========================================
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│courselab (1 sample): openai/gpt-5.2-2025-12-11                               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+message_limit: 1000, task_ids: cs537-ostep__concurrency_pzip, max_turns: 1000,  
+dataset: (samples)                                                              
+                                                                                
+total time:                0:01:30                                              
+openai/gpt-5.2-2025-12-11  61,392 tokens [I: 57,742, CW: 0, CR: 36,352, O:      
+                         3,650, R: 0]                                           
+                                                                                
+lab_scorer                                                                      
+accuracy    0.000                                                               
+                                                                                
+Log: logs/2026-01-23T04-18-51+00-00_courselab_8c8fNYbGufG5BZwmwzC8Nx.eval       
+                                                                                
+RESULT: accuracy = 0.000
+
+===========================================
+Lab: concurrency-mapreduce
+Task ID: cs537-ostep__concurrency_mapreduce
+===========================================
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│courselab (1 sample): openai/gpt-5.2-2025-12-11                               │
+╰──────────────────────────────────────────────────────────────────────────────╯
+message_limit: 1000, task_ids: cs537-ostep__concurrency_mapreduce, max_turns:   
+1000, dataset: (samples)                                                        
+                                                                                
+total time:                0:01:44                                              
+openai/gpt-5.2-2025-12-11  69,213 tokens [I: 64,356, CW: 0, CR: 46,080, O:      
+                         4,857, R: 0]                                           
+                                                                                
+lab_scorer                                                                      
+accuracy    0.000                                                               
+                                                                                
+Log: logs/2026-01-23T04-20-34+00-00_courselab_jmumPWepDaxoTibnB7WD8J.eval       
+                                                                                
+RESULT: accuracy = 0.000
+
+===========================================
+Lab: filesystems-checker
+Task ID: cs537-ostep__filesystems_checker
+===========================================
+
+RESULT: accuracy = 
