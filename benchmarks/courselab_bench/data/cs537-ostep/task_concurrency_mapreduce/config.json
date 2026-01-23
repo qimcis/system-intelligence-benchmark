@@ -1,0 +1,13 @@
+{
+  "instance_id": "cs537-ostep__concurrency_mapreduce",
+  "course_id": "cs537-ostep",
+  "timeout_minutes": 20,
+  "tags": [
+    "operating-systems",
+    "mapreduce",
+    "c"
+  ],
+  "artifacts": [
+    "concurrency-mapreduce.c"
+  ]
+}
