@@ -8,6 +8,9 @@ readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Tarek Elsayed", email = "tareknaser360@gmail.com" }]
 
+[project.optional-dependencies]
+ui = ["flask>=2.0.0"]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
