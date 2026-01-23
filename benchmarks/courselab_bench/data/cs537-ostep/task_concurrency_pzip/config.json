@@ -1,0 +1,12 @@
+{
+  "instance_id": "cs537-ostep__concurrency_pzip",
+  "course_id": "cs537-ostep",
+  "timeout_minutes": 20,
+  "tags": [
+    "operating-systems",
+    "c"
+  ],
+  "artifacts": [
+    "concurrency-pzip.c"
+  ]
+}
