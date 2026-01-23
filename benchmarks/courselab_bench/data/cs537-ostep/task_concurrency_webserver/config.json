@@ -1,0 +1,13 @@
+{
+  "instance_id": "cs537-ostep__concurrency_webserver",
+  "course_id": "cs537-ostep",
+  "timeout_minutes": 20,
+  "tags": [
+    "c",
+    "networking",
+    "operating-systems"
+  ],
+  "artifacts": [
+    "concurrency-webserver.c"
+  ]
+}
