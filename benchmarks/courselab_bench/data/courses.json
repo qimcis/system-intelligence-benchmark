@@ -27,6 +27,13 @@
       "institution": "CMU",
       "year": 2024,
       "num_tasks": 1
+    },
+    {
+      "course_id": "cs537-ostep",
+      "name": "UW-Madison CS537: Operating Systems (OSTEP)",
+      "institution": "UW-Madison",
+      "year": 2019,
+      "num_tasks": 1
     }
   ]
 }
