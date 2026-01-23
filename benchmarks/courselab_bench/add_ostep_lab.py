@@ -311,6 +311,25 @@ exit 0
     return script
 
 
+def detect_binary_name(lab_path: Path, test_script: Optional[str]) -> str:
+    """Detect the expected binary name from test script or lab name."""
+    # Try to extract from test script name (test-wish.sh -> wish)
+    if test_script and test_script.startswith("test-") and test_script.endswith(".sh"):
+        return test_script[5:-3]  # Remove "test-" prefix and ".sh" suffix
+
+    # Fallback: derive from lab name
+    lab_name = lab_path.name
+
+    # Common patterns
+    if lab_name.startswith("initial-utilities/"):
+        return lab_name.split("/")[-1]  # wcat, wgrep, etc.
+    if lab_name.startswith("w"):
+        return lab_name  # wcat, wgrep, etc.
+
+    # Default: remove dashes
+    return lab_name.replace("-", "")
+
+
 def generate_evaluate_script(
     lab_path: Path,
     test_script: Optional[str],
@@ -318,12 +337,9 @@ def generate_evaluate_script(
 ) -> str:
     """Generate evaluate.sh content."""
     lab_relative = str(lab_path)
-    lab_name = lab_path.name
 
-    # Determine the binary name (usually same as lab folder name)
-    binary_name = lab_name.replace("-", "")
-    if binary_name.startswith("w"):
-        binary_name = binary_name  # wcat, wgrep, etc.
+    # Determine the binary name
+    binary_name = detect_binary_name(lab_path, test_script)
 
     script = f'''#!/bin/bash
 set -e
