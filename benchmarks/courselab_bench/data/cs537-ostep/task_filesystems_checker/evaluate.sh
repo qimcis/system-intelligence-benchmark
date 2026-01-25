@@ -5,11 +5,32 @@ echo "=== Evaluation ==="
 
 cd /workspace/ostep-projects/filesystems-checker
 
+# Copy starter files if they exist in /workspace
+echo "Checking for starter files..."
+if [ -d /workspace/include ]; then
+    cp -r /workspace/include . 2>/dev/null || true
+fi
+cp /workspace/Makefile . 2>/dev/null || true
+
+# Look for xfsck.c in multiple locations
+echo "Looking for xfsck.c..."
+if [ ! -f xfsck.c ]; then
+    # Check /workspace root
+    if [ -f /workspace/xfsck.c ]; then
+        echo "Found xfsck.c in /workspace, copying..."
+        cp /workspace/xfsck.c .
+    fi
+fi
+
+# List what we have
+echo "Files in project directory:"
+ls -la
+
 echo "Building xfsck (filesystem checker)"
 
 # Check that xfsck.c exists
 if [ ! -f xfsck.c ]; then
-    echo "FAIL: xfsck.c not found"
+    echo "FAIL: xfsck.c not found in any location"
     exit 1
 fi
 
@@ -75,11 +96,9 @@ if [ -f /workspace/ostep-projects/filesystems-checker/fs.img ]; then
     echo "Output: $OUTPUT"
     echo "Exit code: $VALID_EXIT"
 
-    # Valid image should exit 0 (no errors found)
     if [ $VALID_EXIT -eq 0 ]; then
         echo "Passed: xfsck reports valid filesystem as clean"
     else
-        # Some errors might be expected depending on image
         echo "Note: xfsck found issues in test image (may be expected)"
     fi
 fi
