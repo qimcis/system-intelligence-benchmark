@@ -7,6 +7,6 @@
     "c"
   ],
   "artifacts": [
-    "concurrency-pzip.c"
+    "ostep-projects/concurrency-pzip/pzip.c"
   ]
 }
