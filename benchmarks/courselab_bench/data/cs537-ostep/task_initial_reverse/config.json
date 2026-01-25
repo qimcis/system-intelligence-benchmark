@@ -7,6 +7,6 @@
     "c"
   ],
   "artifacts": [
-    "initial-reverse.c"
+    "ostep-projects/initial-reverse/reverse.c"
   ]
 }
