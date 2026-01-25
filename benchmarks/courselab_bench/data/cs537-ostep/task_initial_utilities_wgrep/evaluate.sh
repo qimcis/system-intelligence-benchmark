@@ -31,7 +31,7 @@ for attempt in $(seq 1 $MAX_ATTEMPTS); do
             BUILD_SUCCESS=0
         fi
     else
-        if timeout 300 gcc -D_GNU_SOURCE -std=gnu11 -Wall -Werror -O2 -o wgrep *.c; then
+        if timeout 300 gcc -std=gnu11 -Wall -Werror -O2 -o wgrep *.c; then
             BUILD_SUCCESS=1
         else
             BUILD_SUCCESS=0
