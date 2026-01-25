@@ -8,6 +8,6 @@
     "shell"
   ],
   "artifacts": [
-    "processes-shell.c"
+    "ostep-projects/processes-shell/wish.c"
   ]
 }
