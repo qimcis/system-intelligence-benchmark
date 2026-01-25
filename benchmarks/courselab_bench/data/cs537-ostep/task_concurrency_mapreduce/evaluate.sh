@@ -5,10 +5,35 @@ echo "=== Evaluation ==="
 
 cd /workspace/ostep-projects/concurrency-mapreduce
 
+# Copy starter files from /workspace if they exist
+echo "Checking for starter files..."
+cp /workspace/*.h . 2>/dev/null || true
+cp /workspace/*.c . 2>/dev/null || true
+cp /workspace/Makefile . 2>/dev/null || true
+
+# Look for mapreduce.c in multiple locations
+echo "Looking for mapreduce.c..."
+if [ ! -f mapreduce.c ]; then
+    if [ -f /workspace/mapreduce.c ]; then
+        echo "Found mapreduce.c in /workspace, copying..."
+        cp /workspace/mapreduce.c .
+    fi
+fi
+
+# List what we have
+echo "Files in project directory:"
+ls -la
+
 echo "Building mapreduce library"
 # Add pthread flag for threading support
-export CFLAGS="-Wall -pthread -O2 -fPIC"
+export CFLAGS="-Wall -pthread -O2"
 export LDFLAGS="-pthread"
+
+# Check that mapreduce.c exists
+if [ ! -f mapreduce.c ]; then
+    echo "FAIL: mapreduce.c not found"
+    exit 1
+fi
 
 # Clean and build
 make clean 2>/dev/null || true
@@ -54,7 +79,6 @@ if [ -f /workspace/ostep-projects/concurrency-mapreduce/wordcount ]; then
     fi
 
     # Verify output contains expected word counts
-    # Should have: hello(5), world(4), again(1), of(1), mapreduce(1)
     if [ -s output.txt ]; then
         echo "Output:"
         cat output.txt
