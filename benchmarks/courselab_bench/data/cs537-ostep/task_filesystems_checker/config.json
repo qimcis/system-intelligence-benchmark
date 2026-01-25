@@ -7,6 +7,6 @@
     "operating-systems"
   ],
   "artifacts": [
-    "filesystems-checker.c"
+    "ostep-projects/filesystems-checker/xfsck.c"
   ]
 }
