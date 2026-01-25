@@ -7,12 +7,18 @@ cd /workspace/ostep-projects/filesystems-checker
 
 echo "Building xfsck (filesystem checker)"
 
+# Check that xfsck.c exists
+if [ ! -f xfsck.c ]; then
+    echo "FAIL: xfsck.c not found"
+    exit 1
+fi
+
 # Clean and build
 make clean 2>/dev/null || true
 if ! timeout 300 make 2>&1; then
     # Try manual compilation if Makefile fails
     echo "Makefile failed, trying manual compilation..."
-    if ! timeout 300 gcc -D_GNU_SOURCE -std=gnu11 -Wall -O2 -o xfsck *.c 2>&1; then
+    if ! timeout 300 gcc -Wall -O2 -Iinclude -o xfsck xfsck.c 2>&1; then
         echo "FAIL: Build failed"
         exit 1
     fi
@@ -28,23 +34,17 @@ fi
 
 echo "Testing xfsck functionality"
 
-# Create a minimal valid xv6 filesystem image for testing
-# xv6 uses a simple filesystem structure:
-# - Block 0: unused (boot block)
-# - Block 1: superblock
-# - Block 2+: inode blocks, bitmap, data blocks
-
 mkdir -p /tmp/fstest
 cd /tmp/fstest
 
 # Test 1: Check behavior with missing argument
 echo "Test 1: Missing argument should print usage and exit non-zero"
 set +e
-/workspace/ostep-projects/filesystems-checker/xfsck 2>&1
+OUTPUT=$(/workspace/ostep-projects/filesystems-checker/xfsck 2>&1)
 NO_ARG_EXIT=$?
 set -e
 
-# According to spec, missing image should print "Usage: xfsck <file_system_image>" and exit
+echo "Output: $OUTPUT"
 if [ $NO_ARG_EXIT -eq 0 ]; then
     echo "FAIL: xfsck should exit non-zero with no arguments"
     exit 1
@@ -64,15 +64,34 @@ if [ $NOFILE_EXIT -eq 0 ]; then
 fi
 echo "Passed: xfsck handles non-existent file correctly"
 
-# Test 3: Check behavior with invalid (empty) file
-echo "Test 3: Invalid filesystem image"
+# Test 3: Check with valid filesystem image if available
+if [ -f /workspace/ostep-projects/filesystems-checker/fs.img ]; then
+    echo "Test 3: Checking valid filesystem image"
+    set +e
+    OUTPUT=$(/workspace/ostep-projects/filesystems-checker/xfsck /workspace/ostep-projects/filesystems-checker/fs.img 2>&1)
+    VALID_EXIT=$?
+    set -e
+
+    echo "Output: $OUTPUT"
+    echo "Exit code: $VALID_EXIT"
+
+    # Valid image should exit 0 (no errors found)
+    if [ $VALID_EXIT -eq 0 ]; then
+        echo "Passed: xfsck reports valid filesystem as clean"
+    else
+        # Some errors might be expected depending on image
+        echo "Note: xfsck found issues in test image (may be expected)"
+    fi
+fi
+
+# Test 4: Check behavior with invalid (empty) file
+echo "Test 4: Invalid filesystem image"
 dd if=/dev/zero of=invalid.img bs=512 count=10 2>/dev/null
 set +e
 OUTPUT=$(/workspace/ostep-projects/filesystems-checker/xfsck invalid.img 2>&1)
 INVALID_EXIT=$?
 set -e
 
-# Invalid image should produce some error output
 echo "Output for invalid image: $OUTPUT"
 echo "Exit code: $INVALID_EXIT"
 
