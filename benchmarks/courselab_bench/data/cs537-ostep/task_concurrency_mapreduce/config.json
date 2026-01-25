@@ -8,6 +8,6 @@
     "c"
   ],
   "artifacts": [
-    "concurrency-mapreduce.c"
+    "ostep-projects/concurrency-mapreduce/mapreduce.c"
   ]
 }
