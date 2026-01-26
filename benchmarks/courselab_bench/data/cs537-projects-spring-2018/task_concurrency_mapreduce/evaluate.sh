@@ -23,8 +23,8 @@ echo "Building mapreduce library"
 gcc -Wall -Werror -pthread -O2 -c mapreduce.c -o mapreduce.o
 
 echo "Building tests"
-gcc -Wall -Werror -pthread -O2 -o mr_wordcount mapreduce.o tests/mr_wordcount.c
-gcc -Wall -Werror -pthread -O2 -o mr_copytest mapreduce.o tests/mr_copytest.c
+gcc -Wall -Werror -pthread -O2 -I. -o mr_wordcount mapreduce.o tests/mr_wordcount.c
+gcc -Wall -Werror -pthread -O2 -I. -o mr_copytest mapreduce.o tests/mr_copytest.c
 
 run_test() {
   local name=$1
