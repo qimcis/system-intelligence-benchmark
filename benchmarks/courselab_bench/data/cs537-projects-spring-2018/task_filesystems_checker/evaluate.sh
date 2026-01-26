@@ -38,8 +38,8 @@ run_case() {
   set -e
 
   stderr=$(cat "/tmp/${name}.err")
-  stdout=${stdout%$'\n'}
-  stderr=${stderr%$'\n'}
+  stdout=$(printf "%s" "$stdout" | sed 's/[[:space:]]*$//')
+  stderr=$(printf "%s" "$stderr" | sed 's/[[:space:]]*$//')
 
   if [ "$rc" -ne "$expected_rc" ]; then
     echo "FAIL: $name expected rc $expected_rc, got $rc"
