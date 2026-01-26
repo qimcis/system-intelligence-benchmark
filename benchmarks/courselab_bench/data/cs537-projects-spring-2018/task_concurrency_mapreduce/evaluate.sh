@@ -61,8 +61,17 @@ run_test() {
 expected_wordcount=$'bar 2\nbaz 3\nfoo 3'
 run_test "wordcount" "./mr_wordcount tests/input1.txt tests/input2.txt" "$expected_wordcount"
 
+expected_wordcount_2=$'bar 1\nfoo 2\nqux 3'
+run_test "wordcount_tab" "./mr_wordcount tests/input3.txt" "$expected_wordcount_2"
+
+expected_wordcount_empty=""
+run_test "wordcount_empty" "./mr_wordcount tests/input_empty.txt" "$expected_wordcount_empty"
+
 expected_copy=$'line_0 3\nline_1 5\nline_2 2'
 run_test "copytest" "./mr_copytest tests/input_copy.txt" "$expected_copy"
+
+expected_copy2=$'line_0 0\nline_1 1\nline_2 2'
+run_test "copytest_short" "./mr_copytest tests/input_copy2.txt" "$expected_copy2"
 
 echo "PASS: All tests passed"
 exit 0

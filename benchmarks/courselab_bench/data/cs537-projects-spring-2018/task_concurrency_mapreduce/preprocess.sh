@@ -28,12 +28,27 @@ cat > tests/input2.txt <<'EOT'
 bar baz baz foo
 EOT
 
+cat > tests/input3.txt <<'EOT'
+foo	bar
+foo
+qux qux qux
+EOT
+
+cat > tests/input_empty.txt <<'EOT'
+EOT
+
 cat > tests/input_copy.txt <<'EOT'
 alpha
 bravo
 charlie
 delta
 echo
+EOT
+
+cat > tests/input_copy2.txt <<'EOT'
+foxtrot
+golf
+hotel
 EOT
 
 cat > tests/mr_wordcount.c <<'EOT'
@@ -153,7 +168,10 @@ CHECKSUM_FILE=/tmp/checksums/protected.sha256
 PROTECTED_FILES=(
   "tests/input1.txt"
   "tests/input2.txt"
+  "tests/input3.txt"
+  "tests/input_empty.txt"
   "tests/input_copy.txt"
+  "tests/input_copy2.txt"
   "tests/mr_wordcount.c"
   "tests/mr_copytest.c"
 )
