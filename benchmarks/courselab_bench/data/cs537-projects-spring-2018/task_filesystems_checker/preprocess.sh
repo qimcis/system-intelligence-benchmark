@@ -26,7 +26,7 @@ rm -rf .git
 cp fs.h param.h stat.h types.h /workspace/ostep-projects/filesystems-checker/
 
 echo "Building mkfs"
-gcc -Wall -Werror -O2 -o mkfs mkfs.c
+gcc -Wall -Werror -Wno-error=stringop-truncation -O2 -o mkfs mkfs.c
 
 echo "Generating file system images"
 echo "dummy" > dummy.txt
