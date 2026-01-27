@@ -17,12 +17,14 @@
 ## Question 1 [5 point(s)]
 
 Problem I: A program’s main function is as follows:
+```c
 int main(int argc, char *argv[]) {
   char *str = argv[1];
   while (1)
     printf("%s", str);
   return 0;
 }
+```
 Two processes, both running instances of this program, are currently running. The programs were invoked as follows (a "parallel command"):
 wish> main a && main b
 Below are possible (or impossible?) screen captures of some of the output from the beginning of the run of the programs. Which of the following are possible? To answer: Fill in A for possible, B for not possible.
@@ -49,6 +51,7 @@ Below are possible (or impossible?) screen captures of some of the output from t
 ## Question 2 [3 point(s)]
 
 Problem II: Here is source code for another program, called increment.c:
+```c
 int value = 0;
 int main(int argc, char *argv[]) {
   while (1) {
@@ -57,12 +60,15 @@ int main(int argc, char *argv[]) {
   }
   return 0;
 }
+```
 While increment.c is running, another program, reset.c, is run once as a separate process. Here is the source code of reset.c:
+```c
 int value;
 int main(int argc, char *argv[]) {
   value = 0;
   return 0;
 }
+```
 Which of the following are possible outputs of the increment process? To answer: Fill in A for possible, B for not possible.
 
 6. 012345678 ...
@@ -87,6 +93,7 @@ Which of the following are possible outputs of the increment process? To answer:
 ## Question 3 [5 point(s)]
 
 Problem III: A concurrent program (with multiple threads) looks like this:
+```c
 volatile int counter = 1000;
 void *worker(void *arg) {
   counter--;
@@ -101,6 +108,7 @@ int main(int argc, char *argv[]) {
   printf(\"%d\\n\", counter);
   return 0;
 }
+```
 Assuming pthread_create() and pthread_join() work as expected, which outputs are possible? To answer: Fill in A for possible, B for not possible.
 
 11. 0
@@ -148,12 +156,14 @@ Problem IV: Processes exist in a number of different states (Running, Ready, Blo
 ## Question 5 [5 point(s)]
 
 Problem V: The following code is shown to you:
+```c
 int main(int argc, char *argv[]) {
   printf(\"a\");
   fork();
   printf(\"b\");
   return 0;
 }
+```
 Assuming fork() succeeds and printf() prints its outputs immediately (no buffering occurs), what are possible outputs of this program? To answer: Fill in A for possible, B for not possible.
 
 21. ab
@@ -201,6 +211,7 @@ Problem VI: Assuming fork() might fail (by returning an error code and not creat
 ## Question 7 [5 point(s)]
 
 Problem VII: Here is code. Assume the program /bin/true, when it runs, never prints anything and just returns 0.
+```c
 int main(int argc, char *argv[]) {
   int rc = fork();
   if (rc == 0) {
@@ -215,6 +226,7 @@ int main(int argc, char *argv[]) {
   }
   return 0;
 }
+```
 Assuming all system calls succeed and printf() prints its outputs immediately (no buffering occurs), what outputs are possible? To answer: Fill in A for possible, B for not possible.
 
 31. 123
