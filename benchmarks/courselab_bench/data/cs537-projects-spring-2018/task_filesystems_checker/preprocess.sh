@@ -45,6 +45,7 @@ IPB = BSIZE // DINODE_SIZE
 SUPER_FMT = "<7I"
 DINODE_FMT = "<hhhhI13I"
 DIRENT_FMT = "<H14s"
+DIRSIZE = struct.calcsize(DIRENT_FMT)
 NDIRECT = 12
 BPB = BSIZE * 8
 
@@ -61,7 +62,11 @@ names = [
     "bad_bitmap",
     "bad_bitmap_marked",
     "bad_direct_twice",
+    "bad_indirect_twice",
     "bad_inode_referred",
+    "bad_inode_unreferenced",
+    "bad_refcount",
+    "bad_dir_dup",
 ]
 
 paths = {name: os.path.join(images_dir, f"{name}.img") for name in names}
@@ -148,6 +153,27 @@ def write_dir_inum(path, blockno, entry_offset, new_inum):
         f.seek(blockno * BSIZE + entry_offset)
         f.write(struct.pack("<H", new_inum))
 
+def write_block(path, blockno, data):
+    if len(data) != BSIZE:
+        raise ValueError("block data must be exactly one block")
+    with open(path, "r+b") as f:
+        f.seek(blockno * BSIZE)
+        f.write(data)
+
+def allocate_block(path):
+    blockno = find_free_block(path)
+    if blockno is None:
+        raise RuntimeError("no free blocks available")
+    set_bitmap_bit(path, blockno, True)
+    return blockno
+
+def write_dir_entry(path, blockno, entry_offset, inum, name):
+    name_bytes = name.encode("ascii")[:14]
+    name_bytes = name_bytes + b"\x00" * (14 - len(name_bytes))
+    with open(path, "r+b") as f:
+        f.seek(blockno * BSIZE + entry_offset)
+        f.write(struct.pack(DIRENT_FMT, inum, name_bytes))
+
 # Bad inode type (inum 2 should exist if dummy file is present)
 off, fields = read_inode(paths["bad_inode"], 2)
 fields[0] = 7
@@ -194,6 +220,26 @@ off, fields = read_inode(paths["bad_direct_twice"], 2)
 fields[5] = root_block
 write_inode(paths["bad_direct_twice"], off, fields)
 
+# Indirect address used more than once
+off, fields = read_inode(paths["bad_indirect_twice"], 2)
+for i in range(NDIRECT):
+    if fields[5 + i] == 0:
+        fields[5 + i] = allocate_block(paths["bad_indirect_twice"])
+ind_block = allocate_block(paths["bad_indirect_twice"])
+data_block = allocate_block(paths["bad_indirect_twice"])
+fields[5 + NDIRECT] = ind_block
+fields[4] = (NDIRECT + 2) * BSIZE
+write_inode(paths["bad_indirect_twice"], off, fields)
+
+indirect = [0] * (BSIZE // 4)
+indirect[0] = data_block
+indirect[1] = data_block
+write_block(
+    paths["bad_indirect_twice"],
+    ind_block,
+    struct.pack("<" + "I" * len(indirect), *indirect),
+)
+
 # Inode referred to in directory but marked free
 root_off, root_fields = read_inode(paths["bad_inode_referred"], 1)
 root_block = root_fields[5]
@@ -204,6 +250,51 @@ for off, inum, name in dir_entries(paths["bad_inode_referred"], root_block):
         break
 if target_offset is not None:
     write_dir_inum(paths["bad_inode_referred"], root_block, target_offset, 3)
+
+# Inode marked used but not found in a directory
+off, fields = read_inode(paths["bad_inode_unreferenced"], 3)
+data_block = allocate_block(paths["bad_inode_unreferenced"])
+fields[0] = 2
+fields[1] = 0
+fields[2] = 0
+fields[3] = 1
+fields[4] = BSIZE
+fields[5] = data_block
+for i in range(1, 13):
+    fields[5 + i] = 0
+write_inode(paths["bad_inode_unreferenced"], off, fields)
+
+# Bad reference count for file
+off, fields = read_inode(paths["bad_refcount"], 2)
+fields[3] = max(fields[3] + 1, 2)
+write_inode(paths["bad_refcount"], off, fields)
+
+# Directory appears more than once in file system
+dir_block = allocate_block(paths["bad_dir_dup"])
+write_block(paths["bad_dir_dup"], dir_block, b"\x00" * BSIZE)
+write_dir_entry(paths["bad_dir_dup"], dir_block, 0, 3, ".")
+write_dir_entry(paths["bad_dir_dup"], dir_block, DIRSIZE, 1, "..")
+
+off, fields = read_inode(paths["bad_dir_dup"], 3)
+fields[0] = 1
+fields[1] = 0
+fields[2] = 0
+fields[3] = 1
+fields[4] = 2 * DIRSIZE
+fields[5] = dir_block
+for i in range(1, 13):
+    fields[5 + i] = 0
+write_inode(paths["bad_dir_dup"], off, fields)
+
+root_off, root_fields = read_inode(paths["bad_dir_dup"], 1)
+root_block = root_fields[5]
+free_offsets = [off for off, inum, _ in dir_entries(paths["bad_dir_dup"], root_block) if inum == 0]
+if len(free_offsets) >= 2:
+    write_dir_entry(paths["bad_dir_dup"], root_block, free_offsets[0], 3, "subdir")
+    write_dir_entry(paths["bad_dir_dup"], root_block, free_offsets[1], 3, "subdir2")
+    max_index = max(free_offsets[0], free_offsets[1]) // DIRSIZE
+    root_fields[4] = max(root_fields[4], (max_index + 1) * DIRSIZE)
+    write_inode(paths["bad_dir_dup"], root_off, root_fields)
 PY
 
 echo "Creating checksums for protected files"

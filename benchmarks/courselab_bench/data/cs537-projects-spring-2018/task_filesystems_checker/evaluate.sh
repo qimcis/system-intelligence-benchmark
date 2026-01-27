@@ -78,7 +78,11 @@ run_case "bad_dirformat" "./xcheck tests/images/bad_dirformat.img" 1 "" "ERROR: 
 run_case "bad_bitmap" "./xcheck tests/images/bad_bitmap.img" 1 "" "ERROR: address used by inode but marked free in bitmap."
 run_case "bad_bitmap_marked" "./xcheck tests/images/bad_bitmap_marked.img" 1 "" "ERROR: bitmap marks block in use but it is not in use."
 run_case "bad_direct_twice" "./xcheck tests/images/bad_direct_twice.img" 1 "" "ERROR: direct address used more than once."
+run_case "bad_indirect_twice" "./xcheck tests/images/bad_indirect_twice.img" 1 "" "ERROR: indirect address used more than once."
 run_case "bad_inode_referred" "./xcheck tests/images/bad_inode_referred.img" 1 "" "ERROR: inode referred to in directory but marked free."
+run_case "bad_inode_unreferenced" "./xcheck tests/images/bad_inode_unreferenced.img" 1 "" "ERROR: inode marked use but not found in a directory."
+run_case "bad_refcount" "./xcheck tests/images/bad_refcount.img" 1 "" "ERROR: bad reference count for file."
+run_case "bad_dir_dup" "./xcheck tests/images/bad_dir_dup.img" 1 "" "ERROR: directory appears more than once in file system."
 
 echo "PASS: All tests passed"
 exit 0
