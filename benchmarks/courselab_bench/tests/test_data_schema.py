@@ -24,7 +24,7 @@ class TestTaskStructure:
 
     def test_required_files_exist(self):
         task_folders = get_task_folders(DATA_DIR)
-        required_files = ["config.json", "task.md", "compose.yaml", "evaluate.sh"]
+        required_files = ['config.json', 'task.md', 'compose.yaml', 'evaluate.sh', 'sol.sh']
 
         for task_folder in task_folders:
             for filename in required_files:
