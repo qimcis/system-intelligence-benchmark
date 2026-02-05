@@ -1,0 +1,11 @@
+{
+  "courses": [
+    {
+      "course_id": "distributed_systems",
+      "name": "Distributed Systems Lab",
+      "institution": "Demo University",
+      "year": 2024,
+      "num_tasks": 1
+    }
+  ]
+}
