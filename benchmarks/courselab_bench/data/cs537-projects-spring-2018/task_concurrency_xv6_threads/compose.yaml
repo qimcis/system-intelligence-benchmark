@@ -1,0 +1,5 @@
+services:
+  default:
+    image: ghcr.io/qimcis/courselab-cs537-xv6-threads:latest
+    command: sleep infinity
+    working_dir: /workspace

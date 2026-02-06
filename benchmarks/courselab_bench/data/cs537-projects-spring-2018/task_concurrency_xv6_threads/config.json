@@ -1,0 +1,15 @@
+{
+  "instance_id": "cs537-projects-spring-2018__concurrency_xv6_threads",
+  "course_id": "cs537-projects-spring-2018",
+  "timeout_minutes": 45,
+  "tags": ["operating-systems", "xv6", "threads", "concurrency", "kernel"],
+  "artifacts": [
+    "ostep-projects/concurrency-xv6-threads/src/proc.c",
+    "ostep-projects/concurrency-xv6-threads/src/sysproc.c",
+    "ostep-projects/concurrency-xv6-threads/src/syscall.c",
+    "ostep-projects/concurrency-xv6-threads/src/syscall.h",
+    "ostep-projects/concurrency-xv6-threads/src/usys.S",
+    "ostep-projects/concurrency-xv6-threads/src/user.h",
+    "ostep-projects/concurrency-xv6-threads/src/ulib.c"
+  ]
+}
